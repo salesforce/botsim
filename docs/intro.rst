@@ -1,9 +1,11 @@
 What is BotSIM?
 ####################################
 
-BotSIM is a modular, open-source *Bot SIM*\ ulation toolkit to serve as a one-stop solution for large-scale data-efficient end-to-end evaluation, diagnosis and remediation of commercial task-oriented dialog (TOD) systems.
+BotSIM is a modular, open-source *Bot SIM*\ ulation toolkit to serve as a one-stop solution for  
+large-scale data-efficient end-to-end evaluation, diagnosis and remediation of commercial task-oriented dialog systems (chatbots). 
 
-As a simulation framework, bot developers can extend BotSIM to support their own bot platforms. As a toolkit, BotSIM can be readily applied  by bot admins or practitioners  with little or even no technical backgrounds to perform testing and remediation of their bots.
+As a simulation framework, bot developers can extend BotSIM to support new bot platforms. As a toolkit, BotSIM can be readily used  
+by bot admins or practitioners to perform testing and remediation of their bots.
 
 Key features of BotSIM include:
 
@@ -27,7 +29,7 @@ BotSIM's "generation-simulation-remediation" pipeline is shown above.
 
 - **Generator** takes bot designs and intent utterances as input and produces the required  configuration files and dialog goals for dialog simulation.
 - **Simulator** performs agenda-based dialog simulation through bot APIs.
-- **Remediator** enerates health reports, performs analyses, and provides actionable insights to troubleshoot and improve dialog systems.
+- **Remediator** generates health reports, performs analyses, and provides actionable insights to troubleshoot and improve dialog systems.
 
 
 BotSIM System Design
@@ -36,14 +38,17 @@ BotSIM System Design
 .. image:: _static/BotSIM_design.png
   :width: 550
 
-The key design principles of BotSIM include modularity, extensibility and usability so that the framework can be easily adopted by both bot end users and developers. The framework comprises of three layers, namely the infrastructure layer, the adaptor layer and the toolkit layer.
+The key design principles of BotSIM include modularity, extensibility and usability so that the framework can be easily adopted by both bot end users and developers. 
+The framework comprises three layers, namely the infrastructure layer, the adaptor layer and the toolkit layer.
 
 Infrastructure layer
 **************************************************
 The infrastructure layer is designed to offer fundamental model support for the framework. 
-It comprises two major categories: the natural language understanding (NLU), natural language generation (NLG) models and the key modules including the generator, the simulator and the remediator
-LAVIS has six key modules.
-- ``botsim.models`` contains BotSIM's  NLU and NLG models. From a dialogue system perspective, BotSIM can be viewed as counterpart to a chatbot: it needs to "understand" chatbot messages (NLU) and "respond" in natural languages (NLG). Currently, fuzzy matching-based NLU and template-based NLG models are provided for efficiency reasons. More advanced  NLU and NLG models can also be incorporated by the developers. 
+It comprises two major categories: the natural language understanding (NLU), natural language generation (NLG) models 
+and the key modules including the generator, the simulator and the remediator.
+
+- ``botsim.models`` contains BotSIM's  NLU and NLG models. From a dialogue system perspective, BotSIM can be viewed as a counterpart to a chatbot: it needs to "understand" chatbot messages (NLU) and "respond" in natural languages (NLG). 
+  Currently, fuzzy matching-based NLU and template-based NLG models are provided for efficiency reasons. Developers can also incorporate more advanced NLU and NLG models.. 
 - ``botsim.modules`` consists of the three key  modules to power BotSIM's "generation-simulation-remediation" pipeline. 
 
     - ``botsim.modules.generator`` supports two major functionalities: 1) ``parser`` to parse bot metadata to infer dialog acts and dialog-act maps (BotSIM's NLU); 2) ``paraphraser`` to generate paraphrases of the input intent utterances to be used as intent queries in the simulation goals to probe bots' intent model.
@@ -66,25 +71,31 @@ The application layer is designed to significantly flatten the learning curves o
 - ``botsim.streamlit_app`` is a multi-page easy-to-use Web app. The motivation is to offer  BotSIM not just as a framework for developers but also as an easy-to-use  app to end users such as bot admins without diving into  technical details. The app can be deployed as a docker container or to the Heroku platform. We use Streamlit for supporting the front-end pages. Flask is used to support the backend APIs for Streamlit to invoke BotSIM functionalities. The app is also equipped with a SQL database to store  simulation status and historical performance across multiple platforms. 
 
 
-Installation
+
+Getting Started
 #################################
+Installation
+********************
 1. (Optional) Creating conda environment
 
-.. code-block:: bash
+  .. code-block:: bash
 
-   conda create -n botsim python=3.9
-   conda activate botsim
+    conda create -n botsim python=3.9
+    conda activate botsim
 
 2. Cloning and building dependencies
 
-.. code-block:: bash
+  .. code-block:: bash
 
-   git clone https://github.com/salesforce/botsim.git
-   cd BotSIM
-   pip install .
+    git clone https://github.com/salesforce/botsim.git
+    cd botsim
+    pip install .
 
 Running Streamlit App
-#################################
+***********************
+.. image:: _static/BotSIM_App.png
+  :width: 550
+
 1. Running Streamlit App locally
 
 .. code-block:: bash
@@ -102,4 +113,5 @@ Running Streamlit App
   docker build -t botsim-streamlit .
   docker run -p 8501:8501 botsim-streamlit
 
-Alternatively, users can also use the command line tools to gain more flexibility. More details of how to run the command line tools are given in the tutorial section below.
+Alternatively, users can also use the command line tools to gain more flexibility. 
+More details of how to run the command line tools are given later in the tutorial section.

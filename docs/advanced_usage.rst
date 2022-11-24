@@ -1,17 +1,17 @@
 Extending BotSIM to new bot platforms
 #######################################
 Bot developers can extend BotSIM to new platforms by implementing their platform-dependent parsers and API clients. 
-They serve as the “adaptors” in order to apply BotSIM’s the “generation-simulation-remediation” pipeline.
+They serve as the “adaptors” in order to apply BotSIM’s “generation-simulation-remediation” pipeline.
 
 Parser
 **************************************************************
 The parser interface is defined in generator.parser and has the following important functions to implement. 
-As these functions are highly platform dependent, the implementation might be non-trivial and require access to bot design documentations from the bot platform provider.  
+As these functions are highly platform dependent, the implementation might be non-trivial and require access to bot design documentation from the bot platform provider.  
 We provide our initial parser implementations for the Einstein BotBuilder (``platform.botbuilder``) and Google DialogFlow CX (``platform.dialogflow_cx``) platforms.  
 The utility functions supporting the parsers are under  ``modules.generator.utils.<platform-name>/parser_utilities.py``
 
-1. ``extract_local_dialog_act_map`` function generates a “local” dialog act map by ignoring incoming and outputting  transitions. In other words, the local map only considers the messages/actions explicitly defined within the dialog. These local dialog act maps are modelled as graph nodes during the subsequent conversation graph modelling. In particular, the messages for the two special dialog acts, namely "intent_success_message"and "dialog_success_message" are also generated here according to the following heuristics:   "intent_success_message" contains the first request message and all its previous normal messages    "dialog_success_message" contains the last messages.
-2. ``conversation_graph_modelling`` models the entire bot design as a graph. Each individual dialog is represented by its local dialog act maps and modelled as the graph nodes. Transitions among the individual dialogs are modelled as the graph edges. The graph modelling is based on the networkx package. There are two outputs from the function: the final dialog act maps and the graph data for conversation path visualisation.
+1. ``extract_local_dialog_act_map`` function generates a “local” dialog act map by ignoring incoming and output  transitions. In other words, the local map only considers the messages/actions explicitly defined within the dialog. These local dialog act maps are modelled as graph nodes during the subsequent conversation graph modelling. In particular, the messages for the two special dialog acts, namely "intent_success_message"and "dialog_success_message" are also generated here according to the following heuristics:   "intent_success_message" contains the first request message and all its previous normal messages    "dialog_success_message" contains the last messages.
+2. ``conversation_graph_modelling`` models the entire bot design as a graph. Each individual dialog is represented by its local dialog act maps and modelled as the graph nodes. Transitions among the individual dialogs are modelled as the graph edges. The graph modelling is based on the ``networkx`` package. There are two outputs from the function: the final dialog act maps and the graph data for conversation path visualisation.
 3. ``parse`` function defines a general parser pipeline for all platforms starting from parsed local dialog act maps.
 
    .. code-block:: python

@@ -18,7 +18,7 @@
 <a href="https://arxiv.org/abs/2211.11982">Technical Report</a>,
 <a href="https://salesforce-botsim.herokuapp.com/">Demo</a>,
 <a href="https://opensource.salesforce.com/botsim//latest/index.html">Documentation</a>,
-<a href="">Blog</a>
+<a href="https://">Blog</a>
 </div>
 
 
@@ -35,8 +35,8 @@
 
 
 ## Introduction
-BotSIM is a Bot SIMulation toolkit for performing large-scale data-efficient end-to-end evaluation, diagnosis and remediation of commercial task-oriented dialog (TOD) systems to accelerate bot development and evaluation, reduce cost and time-to-market.
-As a modular framework, BotSIM can be extended by bot developers to support new bot platforms. As a toolkit, it offers an easy-to-use App and a suite of command line tools for bot admins or practitioners to readily perform evaluation and remediation of their bots.
+BotSIM is a Bot SIMulation toolkit for performing large-scale data-efficient end-to-end evaluation, diagnosis and remediation of commercial task-oriented dialog (TOD) systems, a.k.a. "Chatbots".
+As a modular framework, BotSIM can be extended by bot developers to support new bot platforms. As a toolkit, it offers an easy-to-use App and a suite of command line tools for bot admins or practitioners to readily perform evaluation and remediation of their bots at scale. Consequently, BotSIM can accelerate bot development and evaluation, reduce cost and time-to-market.
 
 Key features of BotSIM include:
 
@@ -57,15 +57,15 @@ Key features of BotSIM include:
 2. Cloning and building dependencies
 ``` bash
    git clone https://github.com/salesforce/botsim.git
-   cd BotSIM
+   cd botsim
    pip install .
 ```
 
 ## Getting Started
 ### Streamlit Web App
-The most straightforward way of getting started with BotSIM is the Streamlit Web App. The app is developed as a multi-page app to guide users to leverage BotSIM's "generation-simulation-remediation" pipeline for evaluation, diagnosis and remediation of their bots.     
+The most straightforward way of getting started with BotSIM is the Streamlit Web App. The multi-page App is developed to guide users to leverage BotSIM's "generation-simulation-remediation" pipeline for evaluation, diagnosis and remediation of their bots.     
 <p align="center" width="100%">
-    <img width="100%" src="docs/BotSIM_App.png">
+    <img width="100%" src="docs/_static/BotSIM_App.png">
 </p>
 
 The following commands can be used to start the Streamlit Web App locally:
@@ -82,22 +82,22 @@ The App can also be deployed as a docker image:
   docker run -p 8501:8501 botsim-streamlit
 ```
 ### Command Line Tools
-Alternatively, users can also use the command line tools to deep-dive into BotSIM's generation-simulation-remediation pipeline.
+Alternatively, users can also deep-dive to learn more about BotSIM's system components through the command line tools. Details are given in the [tutorial section](https://opensource.salesforce.com/botsim//latest/tutorials.html#botsim-command-line-tools) of the code documentation(https://opensource.salesforce.com/botsim//latest/tutorials.html).
 
 ## Tutorial
-We provide the following tutorials in the [tutorial section](https:///latest/tutorials.html) of the [code documentation](). 
-- [Streamlit Web App](https://latest/tutorials.html#streamlit-web-app)
-- [BotSIM command line tools](https://latest/tutorials.html#botsim-command-line-tools)
-- [Bot health dashboard navigation](https://atest/dashboard.html)
-- [Applying remedidation suggestions](https://latest/dashboard.html#apply-intent-model-remediation-suggestions)
+We provide the following tutorials in the [code documentation](https://opensource.salesforce.com/botsim//latest/tutorials.html). 
+- [Streamlit Web App](https://opensource.salesforce.com/botsim//latest/tutorials.html#streamlit-web-app)
+- [Command Line Tools](https://opensource.salesforce.com/botsim//latest/tutorials.html#botsim-command-line-tools)
+- [Bot Health Dashboard Navigation](https://opensource.salesforce.com/botsim//latest/dashboard.html)
+- [Applying Remedidation Suggestions](https://opensource.salesforce.com/botsim//latest/dashboard.html#apply-intent-model-remediation-suggestions)
 
 ## Documentation 
-For more details of the system components and advanced usages, please refer to [code documentation]((https://opensource.salesforce.com/botsim//latest/index.html#)]).
+For more details of the system components and advanced usages, please refer to the [code documentation](https://opensource.salesforce.com/botsim//latest/index.html#).
 We welcome the contribution from the open-source community to improve the toolkit! To support new bot platforms, please also follow the guidelines detailed in the code documentation.
 
 ## System Demo Paper and Technical Report
-You can find more details in our technical report and  system demo paper.
-If you're using BotSIM in your research or applications, please cite using this BibTeX for technical report:
+You can find more details of system designs in our technical report. Detailed system descriptions are given in our EMNLP 2022 system demo paper.
+If you're using BotSIM in your research or applications, please cite using this BibTeX for the technical report:
 ```
 @article{guangsen2022-botsim-tr,
   author    = {Guangsen Wang and Junnan Li and Shafiq Joty and Steven Hoi},
@@ -108,7 +108,7 @@ If you're using BotSIM in your research or applications, please cite using this 
   archivePrefix = {arXiv},
 }
 ```
-or the following BibTex for our system demo paper:
+or the following BibTex for the system demo paper:
 ```
 @article{guangsen2022-botsim-demo,
   author    = {Guangsen Wang and Samson Tan and Shafqi Joty and Guang Wu and Jimmy Au and Steven Hoi},

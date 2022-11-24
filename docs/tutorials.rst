@@ -2,7 +2,7 @@ Retrieve Einstein BotBuilder Bot Metadata
 ##############################################################################
 There are two inputs required by BotSIM for dialog simulation with the Einstein BotBuilder platform: 
 
-1. ``botVersions`` metadata contains dialog flows, bot messages,  entities, etc. It also includes  intents and their training utterances (if intent sets not used). If intent sets are used, it defines the references to the respective intent sets for all intents. The utterances in the intent sets are to be extracted from MlDomains metadata)
+1. ``botVersions`` metadata contains dialog flows, bot messages,  entities, etc. It also includes  intents and their training utterances (if intent sets are not used). If intent sets are used, it defines the references to the respective intent sets for all intents. The utterances in the intent sets are to be extracted from MlDomains metadata)
     
     .. code-block:: xml
 
@@ -37,8 +37,14 @@ Like the previous metadata, a “package.xml” can be used to retrieve the inte
 
 By default, after unzipping, the ``MLDomain`` metadata is also extracted under  unpackaged/mlDomains. The mlDomains xml files are laster parsed to get the training utterances for all intents. 
 
-3. **[Optional] Preparing evaluation intent utterances.** To test and monitor the intent model performance, it is advised to hold-out a set of intent queries as the evaluation set, although the set can be created automatically by taking a subset of the paraphrases from the intent training utterances in mlDomain. Alternatively, an evaluation set can also be created from production chat logs.  The purpose of the evaluation set is to evaluate and monitor the intent model performance after each model update. For example, if customers want to update the intent model with new user utterances, they might want to see how this affect the intent model performance compared to  previous versions by running the dialog simulation on the same evaluation set.
-If the evaluation utterances are not explicitly provided, the paraphrases of the training utterances will be randomly divided into two sets for development and evaluation purposes.
+3. **[Optional] Preparing evaluation intent utterances.** To test and monitor the intent model performance, 
+it is advised to hold-out a set of intent queries as the evaluation set, although the set can be created automatically by 
+taking a subset of the paraphrases from the intent training utterances in mlDomain. Alternatively, an evaluation set can also 
+be created from production chat logs.  The purpose of the evaluation set is to evaluate and monitor the intent model performance 
+after each model update. For example, if customers want to update the intent model with new user utterances, they might want to see how 
+this affects the intent model performance compared to  previous versions by running the dialog simulation on the same evaluation set.
+If the evaluation utterances are not explicitly provided, the paraphrases of the training utterances will be randomly divided into 
+two sets for development and evaluation purposes.
 
 Streamlit Web App
 ##############################################################################
@@ -68,9 +74,9 @@ The ``Dialog Generation & Simulation Configuration`` inputs on the page include:
   "-1" means to use all intent utterances.
 - ``No. of paraphrases`` is the number of paraphrases to be generated for each intent utterance.
 - ``No. of dialog simulations`` is the number of dialog simulation episodes allowed for each intent. Default value "-1" means using all the paraphrases.
-- ``Maximum No. of dialog turns`` is to control the simulation runtime. When exceeding the maximum number of dialog turns, the episide is considered a failed conversation.
+- ``Maximum No. of dialog turns`` is to control the simulation runtime. When exceeding the maximum number of dialog turns, the episode is considered a failed conversation.
 
-Lastly, users need to upload their API crendentials for BotSIM to perform dialog user simulation.
+Lastly, users need to upload their API credentials for BotSIM to perform dialog user simulation.
 
 2. Upload Inputs
 ***********************
@@ -92,17 +98,17 @@ the dialog simulation by checking the two options: ``Simulation on held-out eval
 
 The two datasets are created automatically from the original intent training utterances and used as follows:
 
-1. The orignal intent utterance set is split into two non-overlapping set (70-30 dev-eval split by default). The evaluation utterances are kept to benchmark difference changes to the intent models.
+1. The original intent utterance set is split into two non-overlapping set (70-30 dev-eval split by default). The evaluation utterances are kept to benchmark difference changes to the intent models.
 2. Apply paraphrasing models to the two datasets to generate the paraphrase intent queries for the simulation goals.
 3. The simulation goals created from the ``dev`` paraphrase intent queries are used to evaluate the current bot models via dialog simulation.
 4. After applying remediation suggestions based on the simulated conversations on the ``dev`` goal set, the ``eval`` goals can be used to compare the bot performance and verify the efficacy of the remediation. 
  
-The simulation will start in the background after ``Start Dialog Simulation`` button is clicked. 
+The simulation will start in the background after the ``Start Dialog Simulation`` button is clicked. 
 
 4. Health Reports and Analytics
 ************************************
 The simulation performance will be presented in the dashboard upon completion of the dialog simulation.
-The App uses a database to store all previous simulations so that users can have a historcal comparison of their bot performance across 
+The App uses a database to store all previous simulations so that users can have a historical comparison of their bot performance across 
 different changes applied. 
 
 The left panel allows users to select a particular test session (``Choose Test ID``) and perform the following actions:
@@ -114,7 +120,7 @@ The left panel allows users to select a particular test session (``Choose Test I
 
 The dashboard reports are detailed in the `Remediator Dashboard Navigation <https://>`_ section.
 
-BotSIM command line tools
+Command Line Tools
 ##############################################################################
 
 This is a tutorial for applying BotSIM's generation-simulation-remediation pipeline with command line tools.
@@ -156,7 +162,7 @@ The command line options include:
 - ``num_t5_paraphrases`` is the number of paraphrases generated by the T5 paraphraser per utterance.
 - ``num_pegasus_paraphrases`` is the number of paraphrases generated by the Pegasus paraphraser per utterance.
 - ``max_num_simulations`` is the maximum number of dialog simulation episodes allowed for each intent. 
-- ``max_num_dialog_turns`` is the maxmum number of dialog turns allowed for one episode
+- ``max_num_dialog_turns`` is the maximum number of dialog turns allowed for one episode
 - ``metadata_botversions`` and ``metadata_intent_utterances`` are only applicable to ``Einstein_Bot`` platform. They are the paths of the previously
   retrieved metadata in the previous session.
 
@@ -178,7 +184,7 @@ The parser of the generator module is used to generate a set of essential files 
     - **[NLU] Dialog act maps for natural language understanding of bot messages**: The template is used to map bot messages to semantic-level dialog acts via fuzzy matching. 
 
       The approach is adopted for the following reasons:  1) BotSIM is designed for commercial task-oriented dialog systems 2) most of the commercial chatbots adopt a "rule-action-message” scheme, 
-      where there are clear defined or easily inferred mappings from bot messages to rules/actions. 3) not every bot platform supports intent detection APIs to use  4) template-matching is resource 
+      where there are clearly defined or easily inferred mappings from bot messages to rules/actions. 3) not every bot platform supports intent detection APIs to use  4) template-matching is resource 
       and cost effective than calling intent APIs powered by the neural-based intent models. 
       A snippet of the automatically generated dialog act map for the dialog intent ``check the status of an existing issue`` is given below. The dialog acts inside each box come from the same sub-dialog.
 
@@ -206,12 +212,12 @@ The parser of the generator module is used to generate a set of essential files 
                     1. Some representative messages from the intermediate steps that the conversation must go through. For example, the message corresponding to “request_Email” for “Check the status of an existing issue” can be used as a candidate for “intent_success_message” since it is a mandatory step for the dialog.
                     2. Messages under the “small_talk” section, which are specific to this particular intent
 
-                4. Sometimes candidates of other dialog acts are also need to be revised.
+                4. Sometimes candidates of other dialog acts also need to be revised.
                 5. The revision may sometimes need help from bot designers. 
 
         - **dialog_success_messages**: 
             The candidate messages of dialog_success_message include bot messages that can be viewed as the successful completion of a dialog. Good candidates are the messages 
-            at the end of a dialog. Such messages are usually used to inform users the final outcomes of the conversation. Note for some dialogs, there are multiple outcomes with contrasting messages, we treat 
+            at the end of a dialog. Such messages are usually used to inform users of the final outcomes of the conversation. Note for some dialogs, there are multiple outcomes with contrasting messages, we treat 
             all these outcomes as “successful” messages. For example, for “Check the status of an existing issue” intent, if users have their case numbers and successfully authenticate themselves, 
             the dialog produces the first success message, otherwise the second message is displayed indicating a human agent will take over the case. 
 
@@ -223,12 +229,12 @@ The parser of the generator module is used to generate a set of essential files 
                         "Oh, alright. Let\u2019s connect you to a service agent who can help look up your case"
                     ]
                }
-        - **small_talks**: For messages that do not have any associated actions (request/inform etc.), we put them under the small_talks act. They will be ignored by BotSIM during dialog simulation. Examples include “I can help you with that”, “Got it”.  
+        - **small_talks**: For messages that do not have any associated actions (request/inform etc.), we put them under the small_talks act. BotSIM will ignore them during dialog simulation. Examples include “I can help you with that”, “Got it”.  
         - **request_intent**: The bot messages of request_intent usually are the welcome messages if available (e.g., Einstein BotBuilder).
     - **[NLG] BotSIM natural language response templates** 
       
       BotSIM adopts a dialog-act-level agenda-based user simulator for dialog simulation.  As shown in the previous dialog act map figure, BotSIM needs to convert the dialog acts to natural language 
-      messages and send them back to bot via API. For efficiency reasons, 
+      messages and send them back to the bot via API. For efficiency reasons, 
       template-based NLG templates are used to map BotSIM dialog acts to natural language templates with entity slots. An example is given below for the “informing” the “email” slot to the bot.
       
       .. code-block:: json
@@ -254,9 +260,9 @@ The parser of the generator module is used to generate a set of essential files 
             } 
       
       Given a dialog act, e.g., “request_email”, a response is randomly chosen from a set of pre-defined templates (“response”) with a “email” slot, which is replaced by the value in the goal during 
-      dialog simulation. To increase the diversity and improve the naturalness of the responses, users are advised to adding more templates gradually for more robust evaluation of the NER model. 
+      dialog simulation. To increase the diversity and improve the naturalness of the responses, users are advised to add more templates gradually for more robust evaluation of the NER model. 
     - **[Entity] ontology**
-      The ontology file is another parser output to include the set of entities used by each dialog/intent. An snippet of the file is given below for the entities of dialog “Check the status of an existing issue”.
+      The ontology file is another parser output to include the set of entities used by each dialog/intent. A snippet of the file is given below for the entities of dialog “Check the status of an existing issue”.
 
       .. code-block:: json
 
@@ -282,7 +288,7 @@ The parser of the generator module is used to generate a set of essential files 
       The entity extraction can be model-based or regular extraction based. For example, users can replace the fake values with real ones to improve the reliability of the entity recognition performance.
 
 2. Applying paraphrasing and generating simulation goals
-   In addition to parsing raw metadata input, another major function of the generator to prepare the simulation goals. These are analogous to “bot testing data”. 
+   In addition to parsing raw metadata input, another major function of the generator is to prepare the simulation goals. These are analogous to “bot testing data”. 
    The goal defines a set of dialog act and slot-value pairs needed to complete a certain task.  An example goal of the “check the status of an existing issue” intent is given below:
 
    .. code-block:: json
