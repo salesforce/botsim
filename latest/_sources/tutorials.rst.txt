@@ -1,4 +1,4 @@
-Retrieve Einstein BotBuilder bot metadata
+Retrieve Einstein BotBuilder Bot Metadata
 ##############################################################################
 There are two inputs required by BotSIM for dialog simulation with the Einstein BotBuilder platform: 
 

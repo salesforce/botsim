@@ -56,7 +56,7 @@
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Tutorial</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="tutorials.html">Retrieve Einstein BotBuilder bot metadata</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorials.html">Retrieve Einstein BotBuilder Bot Metadata</a></li>
 <li class="toctree-l1"><a class="reference internal" href="tutorials.html#streamlit-web-app">Streamlit Web App</a></li>
 <li class="toctree-l1"><a class="reference internal" href="tutorials.html#botsim-command-line-tools">BotSIM command line tools</a></li>
 <li class="toctree-l1"><a class="reference internal" href="dashboard.html">Remediator Dashboard Navigation</a></li>
@@ -71,7 +71,7 @@
 </li>
 <li class="toctree-l1"><a class="reference internal" href="#incorporating-advanced-models">Incorporating advanced models</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#natural-language-inference-nli-model-as-botsim-nlu">Natural Language Inference (NLI) model as BotSIM NLU</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#reinforcement-learning-based-policy">Reinforcement Learning based policy</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#neural-based-nlg-model">Neural-based NLG model</a></li>
 </ul>
 </li>
 </ul>
@@ -239,10 +239,25 @@ A code snippet of the dialog loop is given below. Note the functions <code class
 To accommodate dialog act-level agenda-based dialog simulation, rule-based policy is adopted. Nevertheless, more advanced models can also be incorporated.</p>
 <section id="natural-language-inference-nli-model-as-botsim-nlu">
 <h2>Natural Language Inference (NLI) model as BotSIM NLU<a class="headerlink" href="#natural-language-inference-nli-model-as-botsim-nlu" title="Permalink to this heading"></a></h2>
-<p>The fuzzy matching based natural language understanding method may be replaced with a NLI model.</p>
+<p>The natural language understanding component of BotSIM relies on fuzzy matching to convert bot messages to dialog acts.
+To cope with bots that may be powered by a natural language generation model, the lexical-based fuzzy matching is not enough. The limitation can be circumvented by incorporating a semantic-based
+NLU. A good candidate is to use a Natural Language Inference (NLI) model to compute the matching scores of the bot messages with the ones in the dialog act maps.
+The NLI model can be added by  the following steps:</p>
+<ul class="simple">
+<li><p>Create a new subclass of <code class="docutils literal notranslate"><span class="pre">botsim.models.nlu.nlu_model</span></code></p></li>
+<li><p>Implement <code class="docutils literal notranslate"><span class="pre">predict(bot_message,</span> <span class="pre">intent_name)</span></code> function to map the <code class="docutils literal notranslate"><span class="pre">bot_message</span></code> to the best dialog act defined in the dialog named <code class="docutils literal notranslate"><span class="pre">intent_name</span></code></p></li>
+<li><p>Change the <code class="docutils literal notranslate"><span class="pre">nlu_model</span></code> in the user simulator <code class="docutils literal notranslate"><span class="pre">botsim.modules.simulator.abus</span></code> with the new NLU model</p></li>
+</ul>
 </section>
-<section id="reinforcement-learning-based-policy">
-<h2>Reinforcement Learning based policy<a class="headerlink" href="#reinforcement-learning-based-policy" title="Permalink to this heading"></a></h2>
+<section id="neural-based-nlg-model">
+<h2>Neural-based NLG model<a class="headerlink" href="#neural-based-nlg-model" title="Permalink to this heading"></a></h2>
+<p>To increase the naturalness of the template-based responses, a neural-based NLG model may be used to convert the template messages to be more natural.
+The model can be incorporated by following the steps below:</p>
+<ul class="simple">
+<li><p>Create a new NLG module under <code class="docutils literal notranslate"><span class="pre">botsim.models.nlg</span></code></p></li>
+<li><p>Implement <code class="docutils literal notranslate"><span class="pre">generate(dialog_state)</span></code> interface to take the semantic representation of dialog state and return a natural language response</p></li>
+<li><p>Change the <code class="docutils literal notranslate"><span class="pre">nlg_model</span></code> in the user simulator <code class="docutils literal notranslate"><span class="pre">botsim.modules.simulator.abus</span></code> with the new NLU model</p></li>
+</ul>
 </section>
 </section>
 
