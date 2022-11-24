@@ -478,9 +478,9 @@ def simulate_conversations(test_instance):
                     "num_utterances": meta_config["generator"]["paraphraser_config"]["num_utterances"]
                 }
             goal = meta_config["simulation"][intent_name]["goal_dir"] + \
-                   "/" + intent_name + "_" + para_setting + "_utt_" + \
+                   "/" + intent_name + "_" + para_setting + "_" + \
                    str(meta_config["generator"]["paraphraser_config"][
-                           "num_utterances"]) + "." + mode+".paraphrases.goal.json"
+                           "num_utterances"]) + "_utts." + mode+".paraphrases.goal.json"
             if not file_exists(S3_BUCKET_NAME, goal):
                 continue
             if test_instance["type"] == "DialogFlow_CX":

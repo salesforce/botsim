@@ -369,8 +369,8 @@ class BotTestInstanceBase:
         config["remediator"] = {"file_paths": {}, "dev_intents": self.dev.split(","),
                                 "eval_intents": self.eval.split(",")}
         config["remediator"]["file_paths"] = {
-            "paraphrases": "data/bots/{}/{}/goals_dir/<intent>_<para_setting>_utt_"
-                           "<num_utterances>.paraphrases.json".format(self.type, self.id),
+            "paraphrases": "data/bots/{}/{}/goals_dir/<intent>_<para_setting>_"
+                           "<num_utterances>_utts.paraphrases.json".format(self.type, self.id),
             "simulated_dialogs": "data/bots/{}/{}/remediation/<intent>/simulated_dialogs_<mode>_"
                                  "<para_setting>_<num_utterances>_utts_<num_simulations>_sessions.json".format(
                 self.type, self.id),
