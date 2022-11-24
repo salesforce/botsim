@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Extending BotSIM to new bot platforms &mdash; BotSIM  documentation</title>
+  <title>Extending BotSIM to New Bot Platforms &mdash; BotSIM  documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
@@ -63,16 +63,17 @@
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Advanced Usage</span></p>
 <ul class="current">
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Extending BotSIM to new bot platforms</a><ul>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Extending BotSIM to New Bot Platforms</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#parser">Parser</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#bot-api-client">Bot API client</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#bot-api-client">Bot API Client</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="#incorporating-advanced-models">Incorporating advanced models</a><ul>
+<li class="toctree-l1"><a class="reference internal" href="#incorporating-advanced-models">Incorporating Advanced Models</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#natural-language-inference-nli-model-as-botsim-nlu">Natural Language Inference (NLI) model as BotSIM NLU</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#neural-based-nlg-model">Neural-based NLG model</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#neural-based-nlg-model">Neural-based NLG Model</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="#gcp-deployment">GCP Deployment</a></li>
 </ul>
 
         </div>
@@ -89,7 +90,7 @@
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
       <li><a href="index.html" class="icon icon-home"></a></li>
-      <li class="breadcrumb-item active">Extending BotSIM to new bot platforms</li>
+      <li class="breadcrumb-item active">Extending BotSIM to New Bot Platforms</li>
       <li class="wy-breadcrumbs-aside">
             <a href="_sources/advanced_usage.rst.txt" rel="nofollow"> View page source</a>
       </li>
@@ -124,7 +125,7 @@
 }
 </style>
 <section id="extending-botsim-to-new-bot-platforms">
-<h1>Extending BotSIM to new bot platforms<a class="headerlink" href="#extending-botsim-to-new-bot-platforms" title="Permalink to this heading"></a></h1>
+<h1>Extending BotSIM to New Bot Platforms<a class="headerlink" href="#extending-botsim-to-new-bot-platforms" title="Permalink to this heading"></a></h1>
 <p>Bot developers can extend BotSIM to new platforms by implementing their platform-dependent parsers and API clients.
 They serve as the “adaptors” in order to apply BotSIM’s “generation-simulation-remediation” pipeline.</p>
 <section id="parser">
@@ -175,7 +176,7 @@ The utility functions supporting the parsers are under  <code class="docutils li
 </ol>
 </section>
 <section id="bot-api-client">
-<h2>Bot API client<a class="headerlink" href="#bot-api-client" title="Permalink to this heading"></a></h2>
+<h2>Bot API Client<a class="headerlink" href="#bot-api-client" title="Permalink to this heading"></a></h2>
 <p>The BotSIM Simulator performs dialog simulation by calling bot APIs. Similar to the parsers, developers need to implement the API clients for their bot platforms.
 The interface is defined in <code class="docutils literal notranslate"><span class="pre">modules.simulator.simulation_client_base</span></code>   with the most important function <code class="docutils literal notranslate"><span class="pre">perform_batch_simulation</span></code> which performs a batch of simulation episodes starting from <code class="docutils literal notranslate"><span class="pre">simulation_goals[start_episode]</span></code>.
 A code snippet of the dialog loop is given below. Note the functions <code class="docutils literal notranslate"><span class="pre">enqueue_bot_actions_from_bot_messages</span></code>, <code class="docutils literal notranslate"><span class="pre">policy</span></code>, <code class="docutils literal notranslate"><span class="pre">locate_simulation_errors</span></code>, <code class="docutils literal notranslate"><span class="pre">log_episode_simulation_results</span></code> of
@@ -233,7 +234,7 @@ A code snippet of the dialog loop is given below. Note the functions <code class
 </section>
 </section>
 <section id="incorporating-advanced-models">
-<h1>Incorporating advanced models<a class="headerlink" href="#incorporating-advanced-models" title="Permalink to this heading"></a></h1>
+<h1>Incorporating Advanced Models<a class="headerlink" href="#incorporating-advanced-models" title="Permalink to this heading"></a></h1>
 <p>For efficiency reasons, the dialog components of BotSIM are all based on templates (dialog act maps for NLU, response templates for NLG).
 To accommodate dialog act-level agenda-based dialog simulation, rule-based policy is adopted. Nevertheless, more advanced models can also be incorporated.</p>
 <section id="natural-language-inference-nli-model-as-botsim-nlu">
@@ -249,7 +250,7 @@ The NLI model can be added by  the following steps:</p>
 </ul>
 </section>
 <section id="neural-based-nlg-model">
-<h2>Neural-based NLG model<a class="headerlink" href="#neural-based-nlg-model" title="Permalink to this heading"></a></h2>
+<h2>Neural-based NLG Model<a class="headerlink" href="#neural-based-nlg-model" title="Permalink to this heading"></a></h2>
 <p>To increase the naturalness of the template-based responses, a neural-based NLG model may be used to convert the template messages to be more natural.
 The model can be incorporated by following the steps below:</p>
 <ul class="simple">
@@ -258,6 +259,29 @@ The model can be incorporated by following the steps below:</p>
 <li><p>Change the <code class="docutils literal notranslate"><span class="pre">nlg_model</span></code> in the user simulator <code class="docutils literal notranslate"><span class="pre">botsim.modules.simulator.abus</span></code> with the new NLU model</p></li>
 </ul>
 </section>
+</section>
+<section id="gcp-deployment">
+<h1>GCP Deployment<a class="headerlink" href="#gcp-deployment" title="Permalink to this heading"></a></h1>
+<p>BotSIM Streamlit App can also be deployed to GCP for GPU access,  which will greatly accelerate the paraphrasing model inference process.
+The script for GCP deployment can be accessed at <code class="docutils literal notranslate"><span class="pre">botsim/deploy/gcp/deploy_gcp_botsim_streamlit.sh</span></code>. The parameters needed for the script are
+listed below:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">cluster_name</span></code>: the name of users’ gcp clusters for deployment</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">project_name</span></code>: the project name</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">user_name_space</span></code>: the user name space assigned by the gcp admin</p></li>
+</ul>
+<p>The yaml configuration file for the deployment is <code class="docutils literal notranslate"><span class="pre">botsim/deploy/gcp/deploy_gpu_streamlit_botsim.yaml</span></code>.  Users need to complete the following placeholders
+before use:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">&lt;project-name&gt;</span></code>: same as before</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">&lt;deploy-name&gt;</span></code> and <code class="docutils literal notranslate"><span class="pre">&lt;service-name&gt;</span></code> denote the deployment and service names respectively</p></li>
+</ul>
+<p>The number of GPUs and CPUs of the container can be set in the <code class="docutils literal notranslate"><span class="pre">resources</span></code> and <code class="docutils literal notranslate"><span class="pre">tolerations</span></code> sections. After successful deployment, the
+IP address of the service is the <code class="docutils literal notranslate"><span class="pre">external</span> <span class="pre">IP</span></code> field of the result after issuing the following command:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>kubectl -n <span class="nv">$user_name_space</span> get services
+</pre></div>
+</div>
+<p>The Streamlit App can now be accessed at <code class="docutils literal notranslate"><span class="pre">&lt;external-ip&gt;:8501</span></code></p>
 </section>
 
 
