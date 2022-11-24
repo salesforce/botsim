@@ -8,7 +8,7 @@ class ModelNLG(NLG):
     def __init__(self, model, *args):
         self.model = model
 
-    def generate(self, *args):
-        """ generate a natural language message
+    def generate(self, dialog_state, *args):
+        """ generate a natural language message given a semantic-level dialog state
         """
-        pass
+        raise NotImplementedError

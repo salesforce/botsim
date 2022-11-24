@@ -7,9 +7,9 @@ from botsim.models.nlu.nlu_base import IntentDetector
 
 
 class APIIntentPredictor(IntentDetector):
-    def __init__(self, api_end_point, *args):
+    def __init__(self, dialog_act_map, api_end_point, *args):
+        super().__init__(dialog_act_map)
         self.api_end_point = api_end_point
-        self.intents = None
 
-    def predict(self, user_message, *args):
-        pass
+    def predict(self, bot_message, dialog_name, *args):
+        raise NotImplementedError

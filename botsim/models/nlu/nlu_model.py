@@ -7,11 +7,8 @@ from botsim.models.nlu.nlu_base import IntentDetector
 
 
 class ModelIntentPredictor(IntentDetector):
-    def __init__(self, model_path, *args):
-        self.model_path = model_path
-        self.intents = None
-        self.model = None
+    def __init__(self, dialog_act_map_path, model_path, *args):
+        super().__init__(dialog_act_map_path)
 
-    def predict(self, user_message, *args):
-        if self.model:
-            return self.model(user_message)
+    def predict(self, bot_message, dialog_name):
+        raise NotImplementedError

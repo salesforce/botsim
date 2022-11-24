@@ -31,12 +31,10 @@ class UserSimulatorInterface:
         self.max_round = simulation_configs["simulator"]["run_time"]["max_round_num"]
         self.default_key = botsim_default_key
 
-        # self.intent = \
-        self.intent_model = \
+        self.nlu_model = \
             FuzzyMatchIntentPredictor( simulation_configs["generator"]["file_paths"]["revised_dialog_act_map"])
 
-        #FuzzyMatchIntentPredictor(simulation_configs["generator"]["file_paths"]["revised_dialog_act_map"])
-        self.template_nlg = TemplateNLG(simulation_configs["generator"]["file_paths"]["response_template"])
+        self.nlg_model = TemplateNLG(simulation_configs["generator"]["file_paths"]["response_template"])
 
         # a stack for keeping track of BotSIM dialog turns. Each element includes
         # 1. user dialog acts

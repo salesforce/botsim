@@ -47,7 +47,7 @@ class UserSimulator(UserSimulatorInterface):
         """
         nl_message, semantic_message = "", ""
         if botsim_action["action"] != "fail":
-            template_responses, slots_responses = self.template_nlg.generate(botsim_action, "user")
+            template_responses, slots_responses = self.nlg_model.generate(botsim_action, "user")
             if isinstance(template_responses[0], list):
                 for i, responses in enumerate(template_responses):
                     j = random.choice(range(0, len(responses)))
@@ -341,7 +341,7 @@ class UserSimulator(UserSimulatorInterface):
                 and not self.state["intent_succeed"]:
             self.state["request_slots"]["fall_back"] = "UNK"
             bot_message = " ".join(bot_response)
-            best_matching_dialog_act, _, _, _ = self.intent_model.predict(bot_message, self.goal["name"])
+            best_matching_dialog_act, _, _, _ = self.nlu_model.predict(bot_message, self.goal["name"])
             if best_matching_dialog_act == "":
                 return {"to_discard": True}
             self.state["intent_error"] = (best_matching_dialog_act, self.state["user_response"], bot_message)
@@ -504,12 +504,12 @@ class UserSimulator(UserSimulatorInterface):
         for bot_message in bot_api_response:
             # process one message in the bot api response list
             best_matching_dialog_act, best_matching_message, best_matching_score, matched_dialog_acts = \
-                self.intent_model.predict(bot_message, self.goal["name"])
+                self.nlu_model.predict(bot_message, self.goal["name"])
             if bot_action["round"] == self.intent_check_turn_index:
                 # check for intent errors on the intent_check_turn
-                for intent_index, task in enumerate(self.intent_model.intents):
+                for intent_index, task in enumerate(self.nlu_model.intent_templates):
                     if task["intent"] == self.goal["name"]: continue
-                    _, _, match_score, _ = self.intent_model.predict(bot_message, task["intent"])
+                    _, _, match_score, _ = self.nlu_model.predict(bot_message, task["intent"])
                     if match_score > best_matching_score:
                         self.state["request_slots"]["fall_back"] = "UNK"
                         self.state["intent_error"] = \

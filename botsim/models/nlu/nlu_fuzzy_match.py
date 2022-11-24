@@ -6,21 +6,15 @@
 import re
 from rapidfuzz import process, fuzz
 
-from botsim.botsim_utils.utils import load_intent_examples
 from botsim.models.nlu.nlu_base import IntentDetector
 
 
 class FuzzyMatchIntentPredictor(IntentDetector):
-    def __init__(self, dialog_act_map_path=None, *args):
-        self.intents = None
-        if dialog_act_map_path:
-            dialog_act_maps = load_intent_examples(dialog_act_map_path)
-            self.intents = []
-            for intent in dialog_act_maps:
-                self.intents.append({"intent": intent, "dialog_act_and_slot": dialog_act_maps[intent]})
+    def __init__(self, dialog_act_map_path=None):
+        super().__init__(dialog_act_map_path)
 
-    def predict(self, bot_message, intent_name):
-        intents = self.intents
+    def predict(self, bot_message, dialog_name):
+        intents = self.intent_templates
         # remove variable names between $$
         regex = r"\$.*? "
         bot_message = re.sub(regex, "$", bot_message)
@@ -33,7 +27,7 @@ class FuzzyMatchIntentPredictor(IntentDetector):
         score_to_candidates = {}
 
         for intent_index, intent_info in enumerate(intents):
-            if intent_name.find(intent_info["intent"]) == -1:
+            if dialog_name.find(intent_info["intent"]) == -1:
                 continue
             dialog_act_and_slots = intent_info["dialog_act_and_slot"]
             res = []
