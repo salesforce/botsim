@@ -1,4 +1,4 @@
-Extending BotSIM to new bot platforms
+Extending BotSIM to New Bot Platforms
 #######################################
 Bot developers can extend BotSIM to new platforms by implementing their platform-dependent parsers and API clients. 
 They serve as the “adaptors” in order to apply BotSIM’s “generation-simulation-remediation” pipeline.
@@ -42,7 +42,7 @@ The goal is to
 4. Implement parser functions: start implementation for extracting the local dialog act maps, final dialog act maps and the ontologies.
 5. Depending on the availability or accessibility of bot design documents, there might be multiple rounds of development of step 3 and 4.
 
-Bot API client 
+Bot API Client 
 **************************************************************
 The BotSIM Simulator performs dialog simulation by calling bot APIs. Similar to the parsers, developers need to implement the API clients for their bot platforms.  
 The interface is defined in ``modules.simulator.simulation_client_base``   with the most important function ``perform_batch_simulation`` which performs a batch of simulation episodes starting from ``simulation_goals[start_episode]``.  
@@ -100,7 +100,7 @@ A code snippet of the dialog loop is given below. Note the functions ``enqueue_b
                 bot_messages = new_bot_message
             episode_index += 1
 
-Incorporating advanced models
+Incorporating Advanced Models
 #######################################
 For efficiency reasons, the dialog components of BotSIM are all based on templates (dialog act maps for NLU, response templates for NLG).
 To accommodate dialog act-level agenda-based dialog simulation, rule-based policy is adopted. Nevertheless, more advanced models can also be incorporated.
@@ -116,7 +116,7 @@ The NLI model can be added by  the following steps:
 - Implement ``predict(bot_message, intent_name)`` function to map the ``bot_message`` to the best dialog act defined in the dialog named ``intent_name``
 - Change the ``nlu_model`` in the user simulator ``botsim.modules.simulator.abus`` with the new NLU model
 
-Neural-based NLG model
+Neural-based NLG Model
 ************************************
 To increase the naturalness of the template-based responses, a neural-based NLG model may be used to convert the template messages to be more natural. 
 The model can be incorporated by following the steps below:
@@ -126,4 +126,27 @@ The model can be incorporated by following the steps below:
 - Change the ``nlg_model`` in the user simulator ``botsim.modules.simulator.abus`` with the new NLU model
 
 
+GCP Deployment
+###################
+BotSIM Streamlit App can also be deployed to GCP for GPU access,  which will greatly accelerate the paraphrasing model inference process. 
+The script for GCP deployment can be accessed at ``botsim/deploy/gcp/deploy_gcp_botsim_streamlit.sh``. The parameters needed for the script are
+listed below:
 
+- ``cluster_name``: the name of users' gcp clusters for deployment
+- ``project_name``: the project name
+- ``user_name_space``: the user name space assigned by the gcp admin
+
+The yaml configuration file for the deployment is ``botsim/deploy/gcp/deploy_gpu_streamlit_botsim.yaml``.  Users need to complete the following placeholders 
+before use:
+
+- ``<project-name>``: same as before
+-  ``<deploy-name>`` and ``<service-name>`` denote the deployment and service names respectively
+
+The number of GPUs and CPUs of the container can be set in the ``resources`` and ``tolerations`` sections. After successful deployment, the 
+IP address of the service is the ``external IP`` field of the result after issuing the following command:
+
+.. code-block:: bash
+
+    kubectl -n $user_name_space get services
+
+The Streamlit App can now be accessed at ``<external-ip>:8501``

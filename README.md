@@ -74,13 +74,8 @@ The following commands can be used to start the Streamlit Web App locally:
   export DATABASE_URL="db/botsim_sqlite_demo.db"
   streamlit run botsim/streamlit_app/app.py
 ```
-The App can also be deployed as a docker image:
-```
-  # build the docker image
-  docker build -t botsim-streamlit .
-  # run the docker container
-  docker run -p 8501:8501 botsim-streamlit
-```
+The App can also be deployed to GCP for access to GPU resources. Detailed deployment instructions are given in the [GCP Deployment](https://opensource.salesforce.com/botsim//latest/tutorials.html) section of the documentation.
+
 ### Command Line Tools
 Alternatively, users can also deep-dive to learn more about BotSIM's system components through the command line tools. Details are given in the [tutorial section](https://opensource.salesforce.com/botsim//latest/tutorials.html#botsim-command-line-tools) of the code documentation(https://opensource.salesforce.com/botsim//latest/tutorials.html).
 
