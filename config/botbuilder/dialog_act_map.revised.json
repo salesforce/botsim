@@ -1,0 +1,308 @@
+{
+  "DIALOGS": {
+    "Check_the_status_of_an_existing_issue": {
+      "NER_error_Case_Number": [
+        "Sorry, I\u2019m having some trouble understanding. Please use only letters, numbers, underscores, dashes, and periods, without spaces.",
+        "I still didn\u2019t get that. Can you please try again?"
+      ],
+      "NER_error_Email_for_Look_Up": [
+        "Sorry, I didn\u2019t quite understand, could you please enter that again? Use an email format with an \"@\" sign and domain name. (Example: name@company.com)",
+        "I still didn\u2019t get that. Can you please try again?"
+      ],
+      "NER_error_Needs_something_else": [
+        "Sorry, I didn\u2019t quite catch that. Please choose from the options below:",
+        "I\u2019m still having trouble understanding...please choose from the options below:"
+      ],
+      "NER_error_Needs_to_add_case_comment": [
+        "Sorry, I didn\u2019t quite catch that. Please choose from the options below:",
+        "I\u2019m still having trouble understanding...please choose from the options below:"
+      ],
+      "NER_error_Needs_transfer_to_agent": [
+        "Sorry, I didn\u2019t quite catch that. Please choose from the options below:",
+        "I\u2019m still having trouble understanding...please choose from the options below:"
+      ],
+      "NER_error_small_talk": [
+        "Sorry, I didn\u2019t quite catch that. Please choose from the options below:",
+        "I\u2019m still having trouble understanding...please choose from the options below:"
+      ],
+      "dialog_success_message": [
+        "Thanks for taking the time to chat!",
+        "Unfortunately, no agents are available right now. Please try again later."
+      ],
+      "intent_failure_message": [
+        "Sorry, I\u2019m still learning. I\u2019m afraid I didn\u2019t understand that, can you please try again?"
+      ],
+      "intent_success_message": [
+        "I can help you with that! Do you have your case number?",
+        "Do you have your case number?"
+      ],
+      "request_Case_Comments@_Text": [
+        "Okay. What would you like to add?"
+      ],
+      "request_Case_Number@Case_Number_Entity": [
+        "Please enter the case number here."
+      ],
+      "request_Email_for_Look_Up@Email_Address_Entity": [
+        "Now, I just need your email for verification purposes."
+      ],
+      "request_Goodbye@Goodbye_Entity": [
+        "Thanks for taking the time to chat!"
+      ],
+      "request_Has_case_number@_Boolean": [
+        "I can help you with that! Do you have your case number?",
+        "Do you have your case number?"
+      ],
+      "request_Needs_something_else@_Boolean": [
+        "Can I assist you with anything else?"
+      ],
+      "request_Needs_to_add_case_comment@_Boolean": [
+        "I found your case: {!Looked_up_Case.Subject} The status is currently {!Looked_up_Case.Status}. Would you like to add a comment to your case?"
+      ],
+      "request_Needs_transfer_to_agent@_Boolean": [
+        "Would you like me to connect you to an agent who can assist further?"
+      ],
+      "request_intent": [
+        "How can I help? Here are some options:",
+        "Hi, I\u2019m TemplateBotSIM, a digital assistant. I\u2019m looking forward to helping you today."
+      ],
+      "small_talk": [
+        "I can help you with that!",
+        "Thank you. One moment while I look up your case...",
+        "I see that we already have your information, ! Someone from our team will reach out to you shortly",
+        "Oh, alright. Let\u2019s connect you to a service agent who can help look up your case",
+        "Unfortunately, a system error occurred. I'll connect you to an agent who can help"
+      ]
+    },
+    "Check_the_status_of_an_order": {
+      "NER_error_Needs_something_else": [
+        "Sorry, I didn\u2019t quite catch that. Please choose from the options below:",
+        "I\u2019m still having trouble understanding...please choose from the options below:"
+      ],
+      "NER_error_Needs_transfer_to_agent": [
+        "Sorry, I didn\u2019t quite catch that. Please choose from the options below:",
+        "I\u2019m still having trouble understanding...please choose from the options below:"
+      ],
+      "NER_error_Order_Number": [
+        "Sorry, I\u2019m having some trouble understanding. Please use only letters, numbers, underscores, dashes, and periods, without spaces.",
+        "I still didn\u2019t get that. Can you please try again?"
+      ],
+      "NER_error_small_talk": [
+        "Sorry, I didn\u2019t quite catch that. Please choose from the options below:",
+        "I\u2019m still having trouble understanding...please choose from the options below:"
+      ],
+      "dialog_success_message": [
+        "Thanks for taking the time to chat!",
+        "Unfortunately, no agents are available right now. Please try again later."
+      ],
+      "intent_failure_message": [
+        "Sorry, I\u2019m still learning. I\u2019m afraid I didn\u2019t understand that, can you please try again?"
+      ],
+      "intent_success_message": [
+        "I can help you with that! Do you have your order number?",
+        "Do you have your order number?"
+      ],
+      "request_Goodbye@Goodbye_Entity": [
+        "Thanks for taking the time to chat!"
+      ],
+      "request_Has_order_number@_Boolean": [
+        "I can help you with that! Do you have your order number?",
+        "Do you have your order number?"
+      ],
+      "request_Need_to_change_order@_Boolean": [
+        "Here\u2019s what I found: Your order with Order Number {!Order_Number} for ${!Order_Amount_Text} is currently in {!Order_Status} status. Would you like to change something about this order?"
+      ],
+      "request_Needs_something_else@_Boolean": [
+        "Can I assist you with anything else?"
+      ],
+      "request_Needs_transfer_to_agent@_Boolean": [
+        "Would you like me to connect you to an agent who can assist further?"
+      ],
+      "request_Order_Number@Order_Number_Entity": [
+        "Please enter the order number here."
+      ],
+      "request_intent": [
+        "How can I help? Here are some options:",
+        "Hi, I\u2019m TemplateBotSIM, a digital assistant. I\u2019m looking forward to helping you today."
+      ],
+      "small_talk": [
+        "I can help you with that!",
+        "Thank you. One moment while I look up your order...",
+        "I see that we already have your information, ! Someone from our team will reach out to you shortly",
+        "Unfortunately, a system error occurred. I'll connect you to an agent who can help"
+      ]
+    },
+    "Connect_with_sales": {
+      "NER_error_Email_Address": [
+        "Sorry, I didn\u2019t quite understand, could you please enter that again? Use an email format with an \"@\" sign and domain name. (Example: name@company.com)",
+        "I still didn\u2019t get that. Can you please try again?"
+      ],
+      "NER_error_Needs_something_else": [
+        "Sorry, I didn\u2019t quite catch that. Please choose from the options below:",
+        "I\u2019m still having trouble understanding...please choose from the options below:"
+      ],
+      "NER_error_Phone_Number": [
+        "Sorry, I didn\u2019t quite understand, could you please enter that again? Use only numeric characters and the following special characters: \"+\", \"-\", \"(\", and \")\".",
+        "I still didn\u2019t get that. Can you please try again?"
+      ],
+      "dialog_success_message": [
+        "Thanks for taking the time to chat!",
+        "Unfortunately, no agents are available right now. Please try again later."
+      ],
+      "intent_failure_message": [
+        "Sorry, I\u2019m still learning. I\u2019m afraid I didn\u2019t understand that, can you please try again?"
+      ],
+      "intent_success_message": [
+        "Great! Let\u2019s get you in touch with sales.",
+        "First, I\u2019ll need to collect some of your info so that they can contact you."
+      ],
+      "request_Company@_Text": [
+        "One last thing, what company are you a part of?"
+      ],
+      "request_Email_Address@Email_Address_Entity": [
+        "What\u2019s your email address?"
+      ],
+      "request_First_Name@_Text": [
+        "Can I get your first name?"
+      ],
+      "request_Goodbye@Goodbye_Entity": [
+        "Thanks for taking the time to chat!"
+      ],
+      "request_Last_Name@_Text": [
+        "And your last name?"
+      ],
+      "request_Needs_something_else@_Boolean": [
+        "Can I assist you with anything else?"
+      ],
+      "request_Phone_Number@Phone_Number_Entity": [
+        "Your preferred phone number?"
+      ],
+      "request_intent": [
+        "How can I help? Here are some options:",
+        "Hi, I\u2019m TemplateBotSIM, a digital assistant. I\u2019m looking forward to helping you today."
+      ],
+      "small_talk": [
+        "Thanks, {!First_Name}. One of our sales representatives will be in touch with you soon.",
+        "I see that we already have your information, ! Someone from our team will reach out to you shortly",
+        "I see that we already have your information, ! Someone from our team will reach out to you shortly",
+        "Unfortunately, a system error occurred. I'll connect you to an agent who can help"
+      ]
+    },
+    "End_Chat": {
+      "dialog_success_message": [
+        "Thanks for taking the time to chat!",
+        "Unfortunately, no agents are available right now. Please try again later."
+      ],
+      "intent_failure_message": [
+        "Sorry, I\u2019m still learning. I\u2019m afraid I didn\u2019t understand that, can you please try again?"
+      ],
+      "intent_success_message": [
+        "Thanks for taking the time to chat!"
+      ],
+      "request_Goodbye@Goodbye_Entity": [
+        "Thanks for taking the time to chat!"
+      ],
+      "request_intent": [
+        "How can I help? Here are some options:",
+        "Hi, I\u2019m TemplateBotSIM, a digital assistant. I\u2019m looking forward to helping you today.",
+        "Unfortunately, a system error occurred. I'll connect you to an agent who can help"
+      ]
+    },
+    "Report_an_issue": {
+      "NER_error_Email_Address": [
+        "Sorry, I didn\u2019t quite understand, could you please enter that again? Use an email format with an \"@\" sign and domain name. (Example: name@company.com)",
+        "I still didn\u2019t get that. Can you please try again?"
+      ],
+      "NER_error_Needs_something_else": [
+        "Sorry, I didn\u2019t quite catch that. Please choose from the options below:",
+        "I\u2019m still having trouble understanding...please choose from the options below:"
+      ],
+      "NER_error_Phone_Number": [
+        "Sorry, I didn\u2019t quite understand, could you please enter that again? Use only numeric characters and the following special characters: \"+\", \"-\", \"(\", and \")\".",
+        "I still didn\u2019t get that. Can you please try again?"
+      ],
+      "dialog_success_message": [
+        "Thanks for taking the time to chat!"
+      ],
+      "intent_failure_message": [
+        "Sorry, I\u2019m still learning. I\u2019m afraid I didn\u2019t understand that, can you please try again?"
+      ],
+      "intent_success_message": [
+        "I\u2019m sorry you\u2019re having an issue. Please describe the issue to me in a few words.",
+        "I\u2019m sorry you\u2019re having an issue. Looks like you\u2019ve already reported this issue: One of our team members is looking into it. For your reference, the case number"
+       
+      ],
+      "request_Company@_Text": [
+        "One last thing, what company are you a part of?"
+      ],
+      "request_Email_Address@Email_Address_Entity": [
+        "What\u2019s your email address?"
+      ],
+      "request_First_Name@_Text": [
+        "Can I get your first name?",
+        "Thanks for that. I\u2019d like to collect your contact information so one of our agents can follow up with you. Can I get your first name?"
+      ],
+      "request_Goodbye@Goodbye_Entity": [
+        "Thanks for taking the time to chat!"
+      ],
+      "request_Issue_description@_Text": [
+        "Let\u2019s open a case for you. Please describe the issue to me in a few words."
+      ],
+      "request_Last_Name@_Text": [
+        "And your last name?"
+      ],
+      "request_Needs_something_else@_Boolean": [
+        "Can I assist you with anything else?"
+      ],
+      "request_Phone_Number@Phone_Number_Entity": [
+        "Your preferred phone number?"
+      ],
+      "request_intent": [
+        " How can I help? Here are some options:",
+        "Hi, I\u2019m TemplateBotSIM, a digital assistant. I\u2019m looking forward to helping you today."
+      ],
+      "small_talk": [
+        "Let\u2019s open a case for you.",
+        "I can help you with that!",
+        "Thanks for that.",
+        "I see that we already have your information, ! Someone from our team will reach out to you shortly",
+        "I\u2019d like to collect your contact information so one of our agents can follow up with you.",
+        "Okay, {!First_Name}, we\u2019ve logged your issue and will start working on it. For your reference, the case number is {!Case_Number}.",
+        "Okay, we\u2019ve logged your issue and will start working on it.",
+        "Unfortunately, a system error occurred. I'll connect you to an agent who can help"
+      ]
+    },
+    "Transfer_To_Agent": {
+      "NER_error_Needs_something_else": [
+        "Sorry, I didn\u2019t quite catch that. Please choose from the options below:",
+        "I\u2019m still having trouble understanding...please choose from the options below:"
+      ],
+      "NER_error_intent_success_message": [
+        "Sorry, I didn\u2019t quite catch that. Please choose from the options below:",
+        "I\u2019m still having trouble understanding...please choose from the options below:"
+      ],
+      "dialog_success_message": [
+        "Would you like me to connect you to an agent who can assist further?",
+        "Unfortunately, no agents are available right now. Please try again later."
+      ],
+      "intent_failure_message": [
+        "Sorry, I\u2019m still learning. I\u2019m afraid I didn\u2019t understand that, can you please try again?"
+      ],
+      "intent_success_message": [
+        "Would you like me to connect you to an agent who can assist further?"
+      ],
+      "request_Goodbye@Goodbye_Entity": [
+        "Thanks for taking the time to chat!"
+      ],
+      "request_Needs_something_else@_Boolean": [
+        "Can I assist you with anything else?"
+      ],
+      "request_Needs_transfer_to_agent@_Boolean": [
+        "Would you like me to connect you to an agent who can assist further?"
+      ],
+      "request_intent": [
+        "How can I help? Here are some options:",
+        "Hi, I\u2019m TemplateBotSIM, a digital assistant. I\u2019m looking forward to helping you today."
+      ]
+    }
+  }
+}

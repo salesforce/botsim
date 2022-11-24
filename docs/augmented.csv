@@ -1,0 +1,4 @@
+MIDomainName,MIIntentName,Utterance
+TemplateBotSIM_intent_sets,report_issue_dev_augmented,The detergent powder was not properly packaged and the powder is all over my food. It wasn't properly packed.
+TemplateBotSIM_intent_sets,report_issue_dev_augmented,I would like to complain about my problem. What should I do?
+TemplateBotSIM_intent_sets,report_issue_dev_augmented,I want to reset my account password for my bank credit card. I forgot it.

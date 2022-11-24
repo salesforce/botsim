@@ -1,0 +1,9 @@
+{
+    "model_path": "ckpt/base/full_training_mscoco_paralex_qqp_snli_multi_nli_paws_qqp_train_tapaco_paws_v4_lr1e-4_nucleus_alpha0.6_debug/ckpt/epoch_77_dev_bleu_7.44_tgt_32.39_self_29.97",
+    "number_of_gpu": 1,
+    "batch_size_per_gpu": 32,
+    "test_batch_size_per_gpu": 32,
+    "max_test_num_batches": -1,
+    "test_jsonl_path": "data/raw_data/mscoco_paralex_qqp_tomhosking/data_qqp/qqp-splitforgeneval/test.jsonl",
+    "alpha" : 0.8
+}

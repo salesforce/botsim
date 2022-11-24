@@ -1,0 +1,318 @@
+{
+    "dialog_act": {
+        "inform": [
+            {
+                "request_slots": [],
+                "inform_slots": [
+                    "intent"
+                ],
+                "response": {
+                    "user": [
+                        "$intent$"
+                    ]
+                }
+            },
+            {
+                "request_slots": [],
+                "inform_slots": [
+                    "Anything_Else@Anything_Else"
+                ],
+                "response": {
+                    "agent": [],
+                    "user": [
+                        "$Anything_Else@Anything_Else$."
+                    ]
+                }
+            },
+            {
+                "request_slots": [],
+                "inform_slots": [
+                    "frequent_flyer_account_number@frequent_flyer_account"
+                ],
+                "response": {
+                    "agent": [],
+                    "user": [
+                        "$frequent_flyer_account_number@frequent_flyer_account$."
+                    ]
+                }
+            },
+            {
+                "request_slots": [],
+                "inform_slots": [
+                    "passenger_name@sys.any"
+                ],
+                "response": {
+                    "agent": [],
+                    "user": [
+                        "$passenger_name@sys.any$."
+                    ]
+                }
+            },
+            {
+                "request_slots": [],
+                "inform_slots": [
+                    "Select_Ticket_Type@Select_Ticket_Type"
+                ],
+                "response": {
+                    "agent": [],
+                    "user": [
+                        "$Select_Ticket_Type@Select_Ticket_Type$."
+                    ]
+                }
+            },
+            {
+                "request_slots": [],
+                "inform_slots": [
+                    "departure_date@sys.date"
+                ],
+                "response": {
+                    "agent": [],
+                    "user": [
+                        "$departure_date@sys.date$."
+                    ]
+                }
+            },
+            {
+                "request_slots": [],
+                "inform_slots": [
+                    "departure_airport@airport-codes"
+                ],
+                "response": {
+                    "agent": [],
+                    "user": [
+                        "$departure_airport@airport-codes$."
+                    ]
+                }
+            },
+            {
+                "request_slots": [],
+                "inform_slots": [
+                    "arrival_airport@airport-codes"
+                ],
+                "response": {
+                    "agent": [],
+                    "user": [
+                        "$arrival_airport@airport-codes$."
+                    ]
+                }
+            },
+            {
+                "request_slots": [],
+                "inform_slots": [
+                    "outbound_departure_time@sys.time"
+                ],
+                "response": {
+                    "agent": [],
+                    "user": [
+                        "$outbound_departure_time@sys.time$."
+                    ]
+                }
+            },
+            {
+                "request_slots": [],
+                "inform_slots": [
+                    "confirm_confirm_flight_details_one-way_ticket@confirm_flight_details_one-way_ticket"
+                ],
+                "response": {
+                    "agent": [],
+                    "user": [
+                        "$confirm_confirm_flight_details_one-way_ticket@confirm_flight_details_one-way_ticket$."
+                    ]
+                }
+            },
+            {
+                "request_slots": [],
+                "inform_slots": [
+                    "flight_option@flight-option"
+                ],
+                "response": {
+                    "agent": [],
+                    "user": [
+                        "$flight_option@flight-option$."
+                    ]
+                }
+            },
+            {
+                "request_slots": [],
+                "inform_slots": [
+                    "confirm_display_selected_one-way_ticket@display_selected_one-way_ticket"
+                ],
+                "response": {
+                    "agent": [],
+                    "user": [
+                        "$confirm_display_selected_one-way_ticket@display_selected_one-way_ticket$."
+                    ]
+                }
+            },
+            {
+                "request_slots": [],
+                "inform_slots": [
+                    "card_type@sys.any"
+                ],
+                "response": {
+                    "agent": [],
+                    "user": [
+                        "$card_type@sys.any$."
+                    ]
+                }
+            },
+            {
+                "request_slots": [],
+                "inform_slots": [
+                    "card_number@sys.number-sequence"
+                ],
+                "response": {
+                    "agent": [],
+                    "user": [
+                        "$card_number@sys.number-sequence$."
+                    ]
+                }
+            },
+            {
+                "request_slots": [],
+                "inform_slots": [
+                    "billing_name@sys.any"
+                ],
+                "response": {
+                    "agent": [],
+                    "user": [
+                        "$billing_name@sys.any$."
+                    ]
+                }
+            },
+            {
+                "request_slots": [],
+                "inform_slots": [
+                    "billing_street_address@sys.address"
+                ],
+                "response": {
+                    "agent": [],
+                    "user": [
+                        "$billing_street_address@sys.address$."
+                    ]
+                }
+            },
+            {
+                "request_slots": [],
+                "inform_slots": [
+                    "billing_zip_code@sys.zip-code"
+                ],
+                "response": {
+                    "agent": [],
+                    "user": [
+                        "$billing_zip_code@sys.zip-code$."
+                    ]
+                }
+            },
+            {
+                "request_slots": [],
+                "inform_slots": [
+                    "email@sys.email"
+                ],
+                "response": {
+                    "agent": [],
+                    "user": [
+                        "$email@sys.email$."
+                    ]
+                }
+            },
+            {
+                "request_slots": [],
+                "inform_slots": [
+                    "return_date@sys.date"
+                ],
+                "response": {
+                    "agent": [],
+                    "user": [
+                        "$return_date@sys.date$."
+                    ]
+                }
+            },
+            {
+                "request_slots": [],
+                "inform_slots": [
+                    "return_airport@airport-codes"
+                ],
+                "response": {
+                    "agent": [],
+                    "user": [
+                        "$return_airport@airport-codes$."
+                    ]
+                }
+            },
+            {
+                "request_slots": [],
+                "inform_slots": [
+                    "return_departure_time@sys.time"
+                ],
+                "response": {
+                    "agent": [],
+                    "user": [
+                        "$return_departure_time@sys.time$."
+                    ]
+                }
+            },
+            {
+                "request_slots": [],
+                "inform_slots": [
+                    "confirm_confirm_flight_details_round-trip_ticket@confirm_flight_details_round-trip_ticket"
+                ],
+                "response": {
+                    "agent": [],
+                    "user": [
+                        "$confirm_confirm_flight_details_round-trip_ticket@confirm_flight_details_round-trip_ticket$."
+                    ]
+                }
+            },
+            {
+                "request_slots": [],
+                "inform_slots": [
+                    "confirm_display_selected_round-trip_flight@display_selected_round-trip_flight"
+                ],
+                "response": {
+                    "agent": [],
+                    "user": [
+                        "$confirm_display_selected_round-trip_flight@display_selected_round-trip_flight$."
+                    ]
+                }
+            },
+            {
+                "request_slots": [],
+                "inform_slots": [
+                    "frequent_flyer_account@sys.number-sequence"
+                ],
+                "response": {
+                    "agent": [],
+                    "user": [
+                        "$frequent_flyer_account@sys.number-sequence$."
+                    ]
+                }
+            },
+            {
+                "request_slots": [],
+                "inform_slots": [
+                    "Frequent_Flyer_Program@Frequent_Flyer_Program"
+                ],
+                "response": {
+                    "agent": [],
+                    "user": [
+                        "$Frequent_Flyer_Program@Frequent_Flyer_Program$."
+                    ]
+                }
+            }
+        ],
+        "request": [],
+        "thanks": {
+            "request_slots": [],
+            "inform_slots": [
+                "thanks"
+            ],
+            "response": {
+                "agent": [],
+                "user": [
+                    "thanks, goodbye"
+                ]
+            }
+        }
+    }
+}

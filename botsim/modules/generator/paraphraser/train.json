@@ -1,0 +1,22 @@
+{
+    "pretrained_path": "t5-base",
+    "dropout": 0.1,
+    "number_of_gpu": 4,
+    "num_train_epochs": 100,
+    "batch_size_per_gpu": 32,
+    "test_batch_size_per_gpu": 32,
+    "max_test_num_batches": 256,
+    "alpha": 0.6,
+    "test_path": "../../pre-training_corpora/raw_data/mscoco_paralex_qqp_tomhosking/paralex_qqp_dev.jsonl",
+    "save_path": "ckpt/base/full_training_mscoco_paralex_qqp_snli_multi_nli_paws_qqp_train_tapaco_paws_v4_lr1e-4_nucleus_alpha0.6_debug_config/",
+    "train_path": "../paraphraser_dataset/train_mscoco_paralex_qqp_snli_multi_nli_paws_paws_qqp_train_tapaco_paraphrase.json",
+    "optimizer": {
+        "optimizer_name": "adam",
+        "adam_epsilon": 1e-8,
+        "learning_rate": 1e-4,
+        "weight_decay": 0.0,
+        "max_grad_norm": 1.0,
+        "warmup_steps": 0,
+        "gradient_accumulation_steps": 1
+    }
+}

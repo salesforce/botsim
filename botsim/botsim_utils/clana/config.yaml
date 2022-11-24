@@ -1,0 +1,51 @@
+visualize:
+  threshold: 0.1
+  save_path: 'clana_cm.pdf'  # make sure this is consistent with the format
+  html_save_path: 'cm_analysis.html'
+  hierarchy_path: 'hierarchy.tmp.json'
+  xlabels_rotation: -45
+  ylabels_rotation: 0
+  norm: LogNorm  # null or LogNorm
+  colormap: viridis
+  interpolation: "nearest"
+LOGGING:
+  version: 1
+  disable_existing_loggers: False
+  formatters:
+      simple:
+          format: "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
+
+  handlers:
+      console:
+          class: logging.StreamHandler
+          level: DEBUG
+          formatter: simple
+          stream: ext://sys.stdout
+
+      info_file_handler:
+          class: logging.handlers.RotatingFileHandler
+          level: INFO
+          formatter: simple
+          filename: clana.info.log
+          maxBytes: 10485760 # 10MB
+          backupCount: 20
+          encoding: utf8
+
+      error_file_handler:
+          class: logging.handlers.RotatingFileHandler
+          level: ERROR
+          formatter: simple
+          filename: clana.errors.log
+          maxBytes: 10485760 # 10MB
+          backupCount: 20
+          encoding: utf8
+
+  loggers:
+      my_module:
+          level: ERROR
+          handlers: [console]
+          propagate: no
+
+  root:
+      level: DEBUG
+      handlers: [console, info_file_handler, error_file_handler]

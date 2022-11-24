@@ -1,0 +1,68 @@
+{
+  "id": 5,
+  "platform": "Einstein_Bot",
+  "generator": {
+    "paraphraser_config": {
+      "num_t5_paraphrases": 16,
+      "num_pegasus_paraphrases": 16,
+      "num_utterances": 100,
+      "num_simulations": 100
+    },
+    "dev_intents": [
+    ],
+    "eval_intents": [
+    ],
+    "parser_config": {
+      "botversion": "1",
+      "botversion_xml": "data/bots/<platform>/<id>/bots/metadata.bot",
+      "MIUtterances_xml": "data/bots/<platform>/<id>/bots/TemplateBot.mlDomain",
+      "beginning_dialogs": [],
+      "excluded_dialogs": [],
+      "failure_ending_dialogs": []
+    },
+    "file_paths": {
+      "customer_entities": "data/bots/<platform>/<id>/goals_dir/entities.json",
+      "response_template": "data/bots/<platform>/<id>/conf/template.json",
+      "dialog_act_map": "data/bots/<platform>/<id>/conf/dialog_act_map.json",
+      "ontology": "data/bots/<platform>/<id>/conf/ontology.json",
+      "revised_dialog_act_map": "data/bots/<platform>/<id>/conf/dialog_act_map.revised.json",
+      "revised_ontology": "data/bots/<platform>/<id>/conf/ontology.revised.json",
+      "goals_dir": "data/bots/<platform>/<id>/goals_dir"
+    }
+  },
+  "simulator": {
+    "run_time": {
+      "max_round_num": 15,
+      "intent_check_turn_index": 3
+    },
+    "dev_intents": [
+    ],
+    "eval_intents": [
+    ]
+  },
+  "remediator": {
+    "file_paths": {
+      "paraphrases": "data/bots/<platform>/<id>/goals_dir/<intent>_<para_setting>_<num_utterances>_utts.paraphrases.json",
+      "simulated_dialogs": "data/bots/<platform>/<id>/remediation/<intent>/simulation_dialogs_<mode>_<para_setting>_<num_utterances>_utts_<num_simulations>_sessions.json",
+      "intent_predictions": "data/bots/<platform>/<id>/remediation/<intent>/intent_predictions_<mode>_<para_setting>_<num_utterances>_utts_<num_simulations>_sessions.json",
+      "simulation_log": "data/bots/<platform>/<id>/simulation/<intent>/logs_<mode>_<para_setting>_<num_utterances>_utts_paraphrases_<num_simulations>_sessions.json",
+      "simulation_error_info": "data/bots/<platform>/<id>/simulation/<intent>/errors_<mode>_<para_setting>_<num_utterances>_utts_paraphrases_<num_simulations>_sessions.json",
+      "ner_error_json": "data/bots/<platform>/<id>/remediation/<intent>/ner_errors_<mode>_<para_setting>_<num_utterances>_utts_<num_simulations>_sessions.json",
+      "intent_remediation": "data/bots/<platform>/<id>/remediation/<intent>/intent_remediation_<mode>_<para_setting>_<num_utterances>_utts_<num_simulations>_sessions.json"
+    },
+    "dev_intents": [
+    ],
+    "eval_intents": [
+    ]
+  },
+  "api": {
+    "end_point": "your-salesorce-bot-endpoint-url",
+    "org_Id": "your-org-id",
+    "deployment_Id": "bot-deployment-id",
+    "button_Id": "bot-button-id",
+    "location_id": "google-api-location-id",
+    "agent_id": "dialogflow-agent-id",
+    "project_id": "google-project-id",
+    "cx_credential": "botsim/clients/dialogflow_cx/cx.json"
+  }
+}

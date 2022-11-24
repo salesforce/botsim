@@ -1,0 +1,393 @@
+{
+  "DIALOGS": {
+    "Check_Frequent_Flyer_Account_Miles": {
+      "dialog_success_message": [
+        " There was an issue with your payment. Please hold while I transfer you to Customer Service.",
+        " Thank you for contacting the virtual flights agent. Enjoy your flight and have a great day! We thank you for your business. Have a great day!",
+        " Please hold while I transfer you to a live person.",
+        " I am glad I could help you today. Good-bye!"
+      ],
+      "inform_display_frequent_flyer_miles": [
+        "$ you have $ miles available for use. A free flight requires [insert company policy] miles."
+      ],
+      "intent_failure_message": [
+        "I didn't get that. Can you say it again?",
+        "One more time?",
+        "Sorry, I didn't get that. Can you rephrase?",
+        "What was that?",
+        "Sorry, could you say that again?",
+        "Can you say that again?",
+        "I didn't get that. Can you repeat?",
+        "I missed that, say that again?"
+      ],
+      "intent_success_message": [
+        " Let's check on your frequent flyer account."
+      ],
+      "request_Anything_Else@Anything_Else": [
+        " Would you like help with anything else? Can I help you with anything else?"
+      ],
+      "request_frequent_flyer_account_number@frequent_flyer_account": [
+        "What is your frequent flyer account number? [Enter account number: 123456 to begin the Apigee webhook.]"
+      ],
+      "request_passenger_name@sys.any": [
+        "What is the first and last name associated with the frequent flyer account? [Enter Melina Garcia to see the Apigee webhook response below.]"
+      ],
+      "small_talk": [
+        "This pathway features an Apigee Integration webhook. You can enter your own data or follow the prompt to activate the Apigee webhook",
+        "Thank you for that information",
+        "Now we will choose the flight time.",
+        "All of our seats are open seating. Family passengers with children under 5 are boarded first to allow families to sit together.",
+        "Option ADeparture Flight $session.params.flight_number_ADate 2022-06-14Departure Airport LFT Time $session.params.departure_time_AArrival Airport SPS Arrival Time $session.params.arrival_time_A Option BDeparture Flight $session.params.flight_number_B Date 2022-06-14Departure Airport LFT Time $session.params.departure_time_BArrival Airport SPS Arrival Time $session.params.arrival_time_B Option CDeparture Flight $session.params.flight_number_CDate 2022-06-14Departure Airport LFT Time $session.params.departure_time_CArrival Airport SPS Arrival Time $session.params.arrival_time_C"
+      ]
+    },
+    "Collect_One-Way_Ticket_Information": {
+      "dialog_success_message": [
+        " There was an issue with your payment. Please hold while I transfer you to Customer Service.",
+        " Thank you for contacting the virtual flights agent. Enjoy your flight and have a great day! We thank you for your business. Have a great day!",
+        " Please hold while I transfer you to a live person.",
+        " I am glad I could help you today. Good-bye!"
+      ],
+      "inform_display_frequent_flyer_miles": [
+        "$ you have $ miles available for use. A free flight requires [insert company policy] miles."
+      ],
+      "inform_one-way_ticket_purchase_confirmation": [
+        "[Below is a sample webhook response with both filled parameters and static data.] Your confirmation number is RLABKB Passenger $ Departure Flight DA1392 Date $ Departure Airport $ Time $ Arrival Airport $ Arrival Time $"
+      ],
+      "inform_show_one-way_available_flights": [
+        "Option A Departure Flight $ Date $ Departure Airport $ Time $ Arrival Airport $ Arrival Time $ Option B Departure Flight $ Date $ Departure Airport $ Time $ Arrival Airport $ Arrival Time $ Option C Departure Flight $ Date $ Departure Airport $ Time $ Arrival Airport $ Arrival Time $"
+      ],
+      "intent_failure_message": [
+        "I didn't get that. Can you say it again?",
+        "One more time?",
+        "Sorry, I didn't get that. Can you rephrase?",
+        "What was that?",
+        "Sorry, could you say that again?",
+        "Can you say that again?",
+        "I didn't get that. Can you repeat?",
+        "I missed that, say that again?"
+      ],
+      "intent_success_message": [
+        " Let's try checking for other options. Please note that you will be asked to re-enter your information.",
+        " Let's find a one-way ticket for you."
+      ],
+      "request_Anything_Else@Anything_Else": [
+        " Would you like help with anything else? Can I help you with anything else?"
+      ],
+      "request_arrival_airport@airport-codes": [
+        "Which airport are you flying into?"
+      ],
+      "request_billing_name@sys.any": [
+        "What is the name on the card?"
+      ],
+      "request_billing_street_address@sys.address": [
+        "What is the billing street address?"
+      ],
+      "request_billing_zip_code@sys.zip-code": [
+        "What is the billing ZIP code?"
+      ],
+      "request_card_number@sys.number-sequence": [
+        "Please enter the card number."
+      ],
+      "request_card_type@sys.any": [
+        "What card type will you be using?"
+      ],
+      "request_confirm_confirm_flight_details_one-way_ticket@confirm_flight_details_one-way_ticket": [
+        "You want a one way ticket for: Passenger $ From $ To $ Leaving on $ Time $ Is that correct?"
+      ],
+      "request_confirm_display_selected_one-way_ticket@display_selected_one-way_ticket": [
+        "[Below is a sample response with static data and filled parameters. Unfilled parameters will need a real time webhook response] Departure Flight RLABKB Date $ Departure Airport $ Time $ Arrival Airport $ Arrival Time $ The price for this ticket is $ Would you like to proceed with payment?",
+        "Departure Flight Date $ Departure Airport $ Time $ Arrival Airport $ Arrival Time $ The price for this ticket is $ Would you like to proceed with payment?"
+      ],
+      "request_departure_airport@airport-codes": [
+        "Which airport would you like to fly out of?"
+      ],
+      "request_departure_date@sys.date": [
+        "Which day would you like to leave? Which date do you want to fly?"
+      ],
+      "request_email@sys.email": [
+        "We will send a confirmation email of the ticket for your records. May I have your email please?"
+      ],
+      "request_flight_option@flight-option": [
+        "Would you like to book Option A, Option B, or Option C?"
+      ],
+      "request_outbound_departure_time@sys.time": [
+        "What time would you like to leave? Please use AM and PM in your response."
+      ],
+      "request_passenger_name@sys.any": [
+        "What is the first and last name of the passenger flying?"
+      ],
+      "small_talk": [
+        "This pathway features an Apigee Integration webhook. You can enter your own data or follow the prompt to activate the Apigee webhook",
+        "Thank you for that information. Let me check if we have a flight available.",
+        "Thank you for that information",
+        "Now we will choose the flight time.",
+        "All of our seats are open seating. Family passengers with children under 5 are boarded first to allow families to sit together."
+      ]
+    },
+    "Collect_Round-Trip_Ticket_Information": {
+      "dialog_success_message": [
+        " There was an issue with your payment. Please hold while I transfer you to Customer Service.",
+        " Thank you for contacting the virtual flights agent. Enjoy your flight and have a great day! We thank you for your business. Have a great day!",
+        " Please hold while I transfer you to a live person.",
+        " I am glad I could help you today. Good-bye!"
+      ],
+      "inform_round-trip_ticket_purchase_confirmation": [
+        "[Below is a sample webhook response with both filled parameters and static data. Unfilled parameters will need a real time webhook response] Your ticket confirmation number is HP205 $ Departure Flight DA1357 Date $ Departure Airport $ Time $ Arrival Airport $ Arrival Time 8:00 PM Return Flight DA9842: Date $ Departure Airport $ Time $ Arrival Airport $ Arrival Time 10:00 PM"
+      ],
+      "inform_show_round-trip_available_flights": [
+        "[Sample webhook response of available flights] Option A Departure Flight BL378M Date $ Departure Airport $ Time 6:15 AM Arrival Airport $ Arrival Time 7:15 AM Return Flight DA1357 Date $ Time 10:00 PM Departure Airport $ Time 11:00 PM Arrival Airport $ Option B Departure Flight NW781A Date $ Departure Airport $ Time 9:30 AM Arrival Airport $ Arrival Time 11:30 AM Return Flight DA1347 Date $ Departure Airport $ Time 6:00 PM Arrival Airport $ Time 11:00 PM Option C Departure Flight DA1357 Date $ Departure Airport $ Time $ Arrival Airport $ Arrival Time 8:00 PM Return Flight DA9842: Date $ Departure Airport $ Time $ Arrival Airport $ Arrival Time 9:00 PM"
+      ],
+      "intent_failure_message": [
+        "I didn't get that. Can you say it again?",
+        "One more time?",
+        "Sorry, I didn't get that. Can you rephrase?",
+        "What was that?",
+        "Sorry, could you say that again?",
+        "Can you say that again?",
+        "I didn't get that. Can you repeat?",
+        "I missed that, say that again?"
+      ],
+      "intent_success_message": [
+        " Let's try checking for other options. Please note that you will be asked to re-enter your information.",
+        " Let's find a round trip ticket for you.",
+        " Great. Let's find a round trip ticket for you."
+      ],
+      "request_Anything_Else@Anything_Else": [
+        " Would you like help with anything else? Can I help you with anything else?"
+      ],
+      "request_billing_name@sys.any": [
+        "What is the name on the card?"
+      ],
+      "request_billing_street_address@sys.address": [
+        "What is the billing street address?"
+      ],
+      "request_billing_zip_code@sys.zip-code": [
+        "What is the billing ZIP code?"
+      ],
+      "request_card_number@sys.number-sequence": [
+        "Please enter the card number."
+      ],
+      "request_card_type@sys.any": [
+        "What card type will you be using?"
+      ],
+      "request_confirm_confirm_flight_details_round-trip_ticket@confirm_flight_details_round-trip_ticket": [
+        "This is to confirm that $ will fly From $ To $ Leaving on $ Outbound Flight Time $ Returning on $ Return Flight Time $ Is that correct?"
+      ],
+      "request_confirm_display_selected_round-trip_flight@display_selected_round-trip_flight": [
+        "[Unfilled parameters will need a real time webhook response] Departure Flight $ Date $ Departure Airport $ Time $ Arrival Airport $ Time $ Return Flight $ Date $ Departure Airport $ Time $ Arrival Airport $ Time $ The price for this ticket is $ You have an available account credit of: $ Would you like to proceed with payment?",
+        "[Unfilled parameters will need a real time webhook response] Departure Flight $ Date $ Departure Airport $ Time $ Arrival Airport $ Time $ Return Flight $ Date $ Departure Airport $ Time $ Arrival Airport $ Time $ The price for this ticket is $ You have an available account credit of: $ Would you like to proceed with payment?",
+        "Departure Flight $ Date $ Departure Airport $ Time $ Arrival Airport $ Time $ Return Flight $ Date $ Departure Airport $ Time $ Arrival Airport $ Time $ The price for this ticket is $ You have an available account credit of: $ Would you like to proceed with payment?"
+      ],
+      "request_departure_airport@airport-codes": [
+        "Which airport are you leaving from?"
+      ],
+      "request_departure_date@sys.date": [
+        "Which day would you like to leave? Which date do you want to fly?"
+      ],
+      "request_email@sys.email": [
+        "We will send a confirmation email of the ticket for your records. May I have your email please?"
+      ],
+      "request_flight_option@flight-option": [
+        "Would you like to book Flight Option A, Flight Option B, or Option C?"
+      ],
+      "request_frequent_flyer_account@sys.number-sequence": [
+        "If you would like to use your frequent flyer points/miles to pay for all or part of your ticket, please enter your account number now."
+      ],
+      "request_outbound_departure_time@sys.time": [
+        "What time would you like to leave on the outbound flight? Please use AM and PM in your response."
+      ],
+      "request_passenger_name@sys.any": [
+        "What is the first and last name of the passenger flying?"
+      ],
+      "request_return_airport@airport-codes": [
+        "What is the name of the airport you would like to fly to?"
+      ],
+      "request_return_date@sys.date": [
+        "Which date will you return? What is your return date?"
+      ],
+      "request_return_departure_time@sys.time": [
+        "What time would you like to leave on the return flight home? Please use AM and PM in your response."
+      ],
+      "small_talk": [
+        "This pathway features an Apigee Integration webhook. You can enter your own data or follow the prompt to activate the Apigee webhook",
+        "Thank you for that information. Let me check if we have a flight available.",
+        "Thank you for that information",
+        "Now we will choose the flight time.",
+        "All of our seats are open seating. Family passengers with children under 5 are boarded first to allow families to sit together."
+      ]
+    },
+    "Frequent_Flyer_Program": {
+      "dialog_success_message": [
+        " There was an issue with your payment. Please hold while I transfer you to Customer Service.",
+        " Thank you for contacting the virtual flights agent. Enjoy your flight and have a great day! We thank you for your business. Have a great day!",
+        " Please hold while I transfer you to a live person.",
+        " I am glad I could help you today. Good-bye!"
+      ],
+      "inform_check_frequent_flyer_account_miles": [
+        "This pathway features an Apigee Integration webhook. You can enter your own data or follow the prompt to activate the Apigee webhook."
+      ],
+      "inform_display_frequent_flyer_miles": [
+        "$ you have $ miles available for use. A free flight requires [insert company policy] miles."
+      ],
+      "inform_display_new_frequent_flyer_account_number": [
+        "Your new frequent flyer account number is [display webhook response]. You can find more information about our frequent flyer program at [URL]."
+      ],
+      "inform_join_frequent_flyer": [
+        "[Display brief description about your airline's frequent flyer program]"
+      ],
+      "intent_failure_message": [
+        "I didn't get that. Can you say it again?",
+        "One more time?",
+        "Sorry, I didn't get that. Can you rephrase?",
+        "What was that?",
+        "Sorry, could you say that again?",
+        "Can you say that again?",
+        "I didn't get that. Can you repeat?",
+        "I missed that, say that again?"
+      ],
+      "intent_success_message": [
+        "Do you have already have a frequent flyer account with us?"
+      ],
+      "request_Anything_Else@Anything_Else": [
+        " Would you like help with anything else? Can I help you with anything else?"
+      ],
+      "request_Frequent_Flyer_Program@Frequent_Flyer_Program": [
+        "Do you have already have a frequent flyer account with us?"
+      ],
+      "request_email@sys.email": [
+        "What is your email address? We send all legal and ticket communication via email or online to you account."
+      ],
+      "request_frequent_flyer_account_number@frequent_flyer_account": [
+        "What is your frequent flyer account number? [Enter account number: 123456 to begin the Apigee webhook.]"
+      ],
+      "request_passenger_name@sys.any": [
+        "What is the first and last name associated with the frequent flyer account? [Enter Melina Garcia to see the Apigee webhook response below.]",
+        "What is your first and last name?"
+      ],
+      "small_talk": [
+        [
+          "Display brief description about your airline's frequent flyer program"
+        ],
+        "This pathway features an Apigee Integration webhook. You can enter your own data or follow the prompt to activate the Apigee webhook"
+      ]
+    },
+    "Select_Ticket_Type": {
+      "dialog_success_message": [
+        " There was an issue with your payment. Please hold while I transfer you to Customer Service.",
+        " Thank you for contacting the virtual flights agent. Enjoy your flight and have a great day! We thank you for your business. Have a great day!",
+        " Please hold while I transfer you to a live person.",
+        " I am glad I could help you today. Good-bye!"
+      ],
+      "inform_display_frequent_flyer_miles": [
+        "$ you have $ miles available for use. A free flight requires [insert company policy] miles."
+      ],
+      "inform_one-way_ticket_purchase_confirmation": [
+        "[Below is a sample webhook response with both filled parameters and static data.] Your confirmation number is RLABKB Passenger $ Departure Flight DA1392 Date $ Departure Airport $ Time $ Arrival Airport $ Arrival Time $"
+      ],
+      "inform_round-trip_ticket_purchase_confirmation": [
+        "[Below is a sample webhook response with both filled parameters and static data. Unfilled parameters will need a real time webhook response] Your ticket confirmation number is HP205 $ Departure Flight DA1357 Date $ Departure Airport $ Time $ Arrival Airport $ Arrival Time 8:00 PM Return Flight DA9842: Date $ Departure Airport $ Time $ Arrival Airport $ Arrival Time 10:00 PM"
+      ],
+      "inform_show_one-way_available_flights": [
+        "Option A Departure Flight $ Date $ Departure Airport $ Time $ Arrival Airport $ Arrival Time $ Option B Departure Flight $ Date $ Departure Airport $ Time $ Arrival Airport $ Arrival Time $ Option C Departure Flight $ Date $ Departure Airport $ Time $ Arrival Airport $ Arrival Time $"
+      ],
+      "inform_show_round-trip_available_flights": [
+        "Option A Departure Flight BL378M Date $ Departure Airport $ Time 6:15 AM Arrival Airport $ Arrival Time 7:15 AM Return Flight DA1357 Date $ Time 10:00 PM Departure Airport $ Time 11:00 PM Arrival Airport $ Option B Departure Flight NW781A Date $ Departure Airport $ Time 9:30 AM Arrival Airport $ Arrival Time 11:30 AM Return Flight DA1347 Date $ Departure Airport $ Time 6:00 PM Arrival Airport $ Time 11:00 PM Option C Departure Flight DA1357 Date $ Departure Airport $ Time $ Arrival Airport $ Arrival Time 8:00 PM Return Flight DA9842: Date $ Departure Airport $ Time $ Arrival Airport $ Arrival Time 9:00 PM",
+        "Option A Departure Flight Date $ Departure Airport $ Time Arrival Airport $ Arrival Time Return Flight  $ Time  Departure Airport $ Time PM Arrival Airport $ Option B Departure Flight Date $ Departure Airport $ Time 9:30 AM Arrival Airport $ Arrival Time AM Return Flight Date $ Departure Airport $ Time 6:00 PM Arrival Airport $ Time M Option C Departure Flight DA1357 Date $ Departure Airport $ Time $ Arrival Airport $ Arrival Time 8:00 PM Return Flight DA9842: Date $ Departure Airport $ Time $ Arrival Airport $ Arrival Time 9:00 PM"
+      ],
+      "intent_failure_message": [
+        "I didn't get that. Can you say it again?",
+        "One more time?",
+        "Sorry, I didn't get that. Can you rephrase?",
+        "What was that?",
+        "Sorry, could you say that again?",
+        "Can you say that again?",
+        "I didn't get that. Can you repeat?",
+        "I missed that, say that again?"
+      ],
+      "intent_success_message": [
+        " I can help you find a ticket. Let's get started.",
+        " Let's find a one-way ticket for you.",
+        "Great. Let's find a round trip ticket for you"
+      ],
+      "request_Anything_Else@Anything_Else": [
+        " Would you like help with anything else? Can I help you with anything else?"
+      ],
+      "request_Select_Ticket_Type@Select_Ticket_Type": [
+        "Do you want a round-trip or one-way ticket?"
+      ],
+      "request_arrival_airport@airport-codes": [
+        "Which airport are you flying into?"
+      ],
+      "request_billing_name@sys.any": [
+        "What is the name on the card?"
+      ],
+      "request_billing_street_address@sys.address": [
+        "What is the billing street address?"
+      ],
+      "request_billing_zip_code@sys.zip-code": [
+        "What is the billing ZIP code?"
+      ],
+      "request_card_number@sys.number-sequence": [
+        "Please enter the card number."
+      ],
+      "request_card_type@sys.any": [
+        "What card type will you be using?"
+      ],
+      "request_confirm_confirm_flight_details_one-way_ticket@confirm_flight_details_one-way_ticket": [
+        "You want a one way ticket for: Passenger $ From $ To $ Leaving on $ Time $ Is that correct?"
+      ],
+      "request_confirm_confirm_flight_details_round-trip_ticket@confirm_flight_details_round-trip_ticket": [
+        "This is to confirm that $ will fly From $ To $ Leaving on $ Outbound Flight Time $ Returning on $ Return Flight Time $ Is that correct?"
+      ],
+      "request_confirm_display_selected_one-way_ticket@display_selected_one-way_ticket": [
+        "[Below is a sample response with static data and filled parameters. Unfilled parameters will need a real time webhook response] Departure Flight RLABKB Date $ Departure Airport $ Time $ Arrival Airport $ Arrival Time $ The price for this ticket is $ Would you like to proceed with payment?",
+        "Departure Flight Date $ Departure Airport $ Time $ Arrival Airport $ Arrival Time $ The price for this ticket is $ Would you like to proceed with payment?"
+      ],
+      "request_confirm_display_selected_round-trip_flight@display_selected_round-trip_flight": [
+        "[Unfilled parameters will need a real time webhook response] Departure Flight $ Date $ Departure Airport $ Time $ Arrival Airport $ Time $ Return Flight $ Date $ Departure Airport $ Time $ Arrival Airport $ Time $ The price for this ticket is $ You have an available account credit of: $ Would you like to proceed with payment?",
+        "Departure Flight $ Date $ Departure Airport $ Time $ Arrival Airport $ Time $ Return Flight $ Date $ Departure Airport $ Time $ Arrival Airport $ Time $ The price for this ticket is $ You have an available account credit of: $ Would you like to proceed with payment?"
+      ],
+      "request_departure_airport@airport-codes": [
+        "Which airport would you like to fly out of?",
+        "Which airport are you leaving from?"
+      ],
+      "request_departure_date@sys.date": [
+        "Which day would you like to leave? Which date do you want to fly?"
+      ],
+      "request_email@sys.email": [
+        "We will send a confirmation email of the ticket for your records. May I have your email please?"
+      ],
+      "request_flight_option@flight-option": [
+        "Would you like to book Option A, Option B, or Option C?",
+        "Would you like to book Flight Option A, Flight Option B, or Option C?"
+      ],
+      "request_frequent_flyer_account@sys.number-sequence": [
+        "If you would like to use your frequent flyer points/miles to pay for all or part of your ticket, please enter your account number now."
+      ],
+      "request_outbound_departure_time@sys.time": [
+        "What time would you like to leave on the outbound flight? Please use AM and PM in your response.",
+        "What time would you like to leave? Please use AM and PM in your response."
+      ],
+      "request_passenger_name@sys.any": [
+        "What is the first and last name of the passenger flying?"
+      ],
+      "request_return_airport@airport-codes": [
+        "What is the name of the airport you would like to fly to?"
+      ],
+      "request_return_date@sys.date": [
+        "Which date will you return? What is your return date?"
+      ],
+      "request_return_departure_time@sys.time": [
+        "What time would you like to leave on the return flight home? Please use AM and PM in your response."
+      ],
+      "small_talk": [
+        "This pathway features an Apigee Integration webhook. You can enter your own data or follow the prompt to activate the Apigee webhook",
+        "Let's check on your frequent flyer account",
+        "Thank you for that information",
+        "Now we will choose the flight time.",
+        "All of our seats are open seating. Family passengers with children under 5 are boarded first to allow families to sit together.",
+        "Option ADeparture Flight $session.params.flight_number_ADate 2022-06-14Departure Airport LFT Time $session.params.departure_time_AArrival Airport SPS Arrival Time $session.params.arrival_time_A Option BDeparture Flight $session.params.flight_number_B Date 2022-06-14Departure Airport LFT Time $session.params.departure_time_BArrival Airport SPS Arrival Time $session.params.arrival_time_B Option CDeparture Flight $session.params.flight_number_CDate 2022-06-14Departure Airport LFT Time $session.params.departure_time_CArrival Airport SPS Arrival Time $session.params.arrival_time_C"
+      ]
+    }
+  }
+}
