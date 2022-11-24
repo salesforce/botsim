@@ -25,7 +25,7 @@ def get_argparser():
     parser.add_argument("--api_credential", help="bot API credential path", type=str, required=True)
     return parser
 
-def set_default_simulation_intents(config):
+def set_default_simulation_intents(config, module="generator"):
     revised_dialog_map = "data/bots/{}/{}/conf/dialog_act_map.revised.json".format(config["platform"], config["id"])
     if not os.path.exists(revised_dialog_map):
         raise ValueError("Revise {} and save it to {}".format(revised_dialog_map.replace(".revised", ""),
@@ -33,11 +33,11 @@ def set_default_simulation_intents(config):
     with open(revised_dialog_map, "r") as nlu:
         dialog_act_map = json.load(nlu)
         intents = list(dialog_act_map["DIALOGS"].keys())
-        config["generator"]["dev_intents"] = intents
+        config[module]["dev_intents"] = intents
         config["intents"] = intents
-        config["generator"]["eval_intents"] = \
-            config["generator"]["eval_intents"] = [intent + "_eval" for intent in intents]
-        config["remediator"]["eval_intents"] = config["generator"]["eval_intents"]
+        config[module]["eval_intents"] = \
+            config[module]["eval_intents"] = [intent + "_eval" for intent in intents]
+        config["remediator"]["eval_intents"] = config[module]["eval_intents"]
         warnings.warn("Empty dev_intents. Default applied to include all intents/dialogs.")
 
 def load_simulation_config(platform, test_name):

@@ -19,7 +19,7 @@ if __name__ == "__main__":
                           num_t5_paraphrases=config["generator"]["paraphraser_config"]["num_t5_paraphrases"],
                           num_pegasus_paraphrases=config["generator"]["paraphraser_config"]["num_pegasus_paraphrases"])
     if len(config["generator"]["dev_intents"]) == 0:
-        set_default_simulation_intents(config)
+        set_default_simulation_intents(config, "generator")
     for intent_set in config["generator"]:
         if intent_set.find("intent") == -1: continue
         generator.generate_paraphrases(

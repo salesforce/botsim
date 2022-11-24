@@ -14,8 +14,8 @@ if __name__ == "__main__":
     args = get_argparser().parse_args()
 
     config = load_simulation_config(args.platform, args.test_name)
-    if len(config["generator"]["dev_intents"]) == 0:
-        set_default_simulation_intents(config)
+    if len(config["remediator"]["dev_intents"]) == 0:
+        set_default_simulation_intents(config, "remediator")
 
     report = Remediator.analyze_and_remediate(config)
     path = "data/bots/{}/{}/".format(config["platform"], config["id"])

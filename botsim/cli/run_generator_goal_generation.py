@@ -18,7 +18,7 @@ if __name__ == "__main__":
                           num_t5_paraphrases=config["generator"]["paraphraser_config"]["num_t5_paraphrases"],
                           num_pegasus_paraphrases=config["generator"]["paraphraser_config"]["num_pegasus_paraphrases"])
     if len(config["generator"]["dev_intents"]) == 0:
-        set_default_simulation_intents(config)
+        set_default_simulation_intents(config, "generator")
     generator.generate_goals(config["generator"]["file_paths"]["goals_dir"],
                              config["generator"]["file_paths"]["ontology"],
                              config["generator"]["eval_intents"], -1.0, True,

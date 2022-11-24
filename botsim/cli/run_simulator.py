@@ -44,18 +44,27 @@ def simulate_single_intent(job_config):
 
 def simulate_conversations_multithread(simulation_config):
     print("multiprocess simulation of Einstein Bot")
-    dev_intents = simulation_config["generator"]["dev_intents"]
+    dev_intents = simulation_config["simulator"]["dev_intents"]
     dev_jobs = []
     for intent in dev_intents:
         dev_jobs.append({"config": simulation_config, "intent_name": intent, "mode": "dev"})
 
-    eval_intents = simulation_config["generator"]["eval_intents"]
+    eval_intents = simulation_config["simulator"]["eval_intents"]
     eval_jobs = []
     for intent in eval_intents:
         eval_jobs.append({"config": simulation_config, "intent_name": intent, "mode": "eval"})
     processed = {}
     from multiprocessing import Pool
     num_process = 4
+    try:
+        pool = Pool(num_process)
+        pool.map(simulate_single_intent, dev_jobs)
+    finally:
+        pool.close()
+        pool.join()
+        for intent_name in dev_intents:
+            processed[intent_name] = "success"
+
     try:
         pool = Pool(num_process)
         pool.map(simulate_single_intent, eval_jobs)
@@ -70,9 +79,9 @@ def simulate_conversations(simulation_config):
     if simulation_config["generator"]["paraphraser_config"]["num_utterances"] == -1:
         simulation_config["generator"]["paraphraser_config"]["num_utterances"] = "all"
     modes = ["dev"]
-    if len(simulation_config["generator"]["eval_intents"]) > 0:
+    if len(simulation_config["simulator"]["eval_intents"]) > 0:
         modes.append("eval")
-    intents = simulation_config["generator"]["dev_intents"]
+    intents = simulation_config["simulator"]["dev_intents"]
     for intent_name in intents:
         for mode in modes:
             job_config = {"config": simulation_config, "intent_name": intent_name, "mode": mode}
@@ -88,8 +97,8 @@ if __name__ == "__main__":
     if not os.path.exists(revised_dialog_map):
         raise ValueError("Revise {} and save it to {}".format(revised_dialog_map.replace(".revised", ""),
                                                               revised_dialog_map))
-    if len(config["generator"]["dev_intents"]) == 0:
-        set_default_simulation_intents(config)
+    if len(config["simulator"]["dev_intents"]) == 0 and len(config["simulator"]["eval_intents"]) == 0:
+        set_default_simulation_intents(config, "simulator")
     if config["platform"] == "DialogFlow_CX":
         simulate_conversations(config)
     else:
