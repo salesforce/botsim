@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Extending BotSIM to new bot platforms &mdash; BotSIM  documentation</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/sphinx_highlight.js"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="Remediator Dashboard Navigation" href="dashboard.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="index.html" class="icon icon-home"> BotSIM
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Introduction</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="intro.html">What is BotSIM?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="intro.html#botsim-architecture">BotSIM  Architecture</a></li>
+<li class="toctree-l1"><a class="reference internal" href="intro.html#botsim-system-design">BotSIM System Design</a></li>
+<li class="toctree-l1"><a class="reference internal" href="intro.html#installation">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="intro.html#running-streamlit-app">Running Streamlit App</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Deep-dive</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="deep_dive.html">Configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="deep_dive.html#generator">Generator</a></li>
+<li class="toctree-l1"><a class="reference internal" href="deep_dive.html#simulator">Simulator</a></li>
+<li class="toctree-l1"><a class="reference internal" href="deep_dive.html#remediator">Remediator</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Tutorial</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="tutorials.html">Retrieve Einstein BotBuilder bot metadata</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorials.html#streamlit-web-app">Streamlit Web App</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorials.html#botsim-command-line-tools">BotSIM command line tools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dashboard.html">Remediator Dashboard Navigation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dashboard.html#apply-intent-model-remediation-suggestions">Apply intent model remediation suggestions</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Advanced Usage</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Extending BotSIM to new bot platforms</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#parser">Parser</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#bot-api-client">Bot API client</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="#incorporating-advanced-models">Incorporating advanced models</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#natural-language-inference-nli-model-as-botsim-nlu">Natural Language Inference (NLI) model as BotSIM NLU</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#reinforcement-learning-based-policy">Reinforcement Learning based policy</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">BotSIM</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home"></a></li>
+      <li class="breadcrumb-item active">Extending BotSIM to new bot platforms</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/advanced_usage.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  
+<style>
+/* CSS overrides for sphinx_rtd_theme */
+
+/* 24px margin */
+.nbinput.nblast.container,
+.nboutput.nblast.container {
+    margin-bottom: 19px;  /* padding has already 5px */
+}
+
+/* ... except between code cells! */
+.nblast.container + .nbinput.container {
+    margin-top: -19px;
+}
+
+.admonition > p:before {
+    margin-right: 4px;  /* make room for the exclamation icon */
+}
+
+/* Fix math alignment, see https://github.com/rtfd/sphinx_rtd_theme/pull/686 */
+.math {
+    text-align: unset;
+}
+</style>
+<section id="extending-botsim-to-new-bot-platforms">
+<h1>Extending BotSIM to new bot platforms<a class="headerlink" href="#extending-botsim-to-new-bot-platforms" title="Permalink to this heading"></a></h1>
+<p>Bot developers can extend BotSIM to new platforms by implementing their platform-dependent parsers and API clients.
+They serve as the “adaptors” in order to apply BotSIM’s the “generation-simulation-remediation” pipeline.</p>
+<section id="parser">
+<h2>Parser<a class="headerlink" href="#parser" title="Permalink to this heading"></a></h2>
+<p>The parser interface is defined in generator.parser and has the following important functions to implement.
+As these functions are highly platform dependent, the implementation might be non-trivial and require access to bot design documentations from the bot platform provider.
+We provide our initial parser implementations for the Einstein BotBuilder (<code class="docutils literal notranslate"><span class="pre">platform.botbuilder</span></code>) and Google DialogFlow CX (<code class="docutils literal notranslate"><span class="pre">platform.dialogflow_cx</span></code>) platforms.
+The utility functions supporting the parsers are under  <code class="docutils literal notranslate"><span class="pre">modules.generator.utils.&lt;platform-name&gt;/parser_utilities.py</span></code></p>
+<ol class="arabic">
+<li><p><code class="docutils literal notranslate"><span class="pre">extract_local_dialog_act_map</span></code> function generates a “local” dialog act map by ignoring incoming and outputting  transitions. In other words, the local map only considers the messages/actions explicitly defined within the dialog. These local dialog act maps are modelled as graph nodes during the subsequent conversation graph modelling. In particular, the messages for the two special dialog acts, namely “intent_success_message”and “dialog_success_message” are also generated here according to the following heuristics:   “intent_success_message” contains the first request message and all its previous normal messages    “dialog_success_message” contains the last messages.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">conversation_graph_modelling</span></code> models the entire bot design as a graph. Each individual dialog is represented by its local dialog act maps and modelled as the graph nodes. Transitions among the individual dialogs are modelled as the graph edges. The graph modelling is based on the networkx package. There are two outputs from the function: the final dialog act maps and the graph data for conversation path visualisation.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">parse</span></code> function defines a general parser pipeline for all platforms starting from parsed local dialog act maps.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">parse</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+  <span class="c1"># extract local dialog act maps which are later modelled as graph nodes</span>
+  <span class="n">local_dialog_act_maps</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">extract_local_dialog_act_map</span><span class="p">()</span>
+  <span class="bp">self</span><span class="o">.</span><span class="n">dialog_act_maps</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">conv_graph_visualisation_data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">conversation_graph_modelling</span><span class="p">(</span><span class="n">local_dialog_act_maps</span><span class="p">)</span>
+  <span class="bp">self</span><span class="o">.</span><span class="n">dialog_with_intents_labels</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">dialog_act_maps</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
+  <span class="bp">self</span><span class="o">.</span><span class="n">dialog_ontology</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">customer_entities</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">extract_ontology</span><span class="p">()</span>
+</pre></div>
+</div>
+</li>
+</ol>
+<p>Given a new bot platform, developers can follow the following steps for implementing their new platform-specific parsers:</p>
+<ol class="arabic simple">
+<li><p>Refer to bot design documents or APIs of the platform to study how bot dialogs are designed. Useful information includes</p></li>
+</ol>
+<blockquote>
+<div><ol class="arabic simple">
+<li><p>How user information is requested by bots</p></li>
+<li><p>Relationship between bot messages and  actions to associate bot messages to dialog actions (request/inform)</p></li>
+<li><p>What entities are requested in the bot messages. Together with the actions, a dialog act map entry can be inferred from the bot messages (e.g., request_Email)</p></li>
+</ol>
+</div></blockquote>
+<ol class="arabic simple" start="2">
+<li><p>Study the bot dialogs to understand their intents and identify the candidate messages for  “intent_success_messages” and “dialog_success_messages”</p></li>
+<li><p>Inferring dialog acts: implement <code class="docutils literal notranslate"><span class="pre">modules.generator.utils.&lt;new-platform-name&gt;/parser_utilities.py</span></code> to parse dialog related bot design elements to extract only dialog/intent information such as messages, actions, transitions.</p></li>
+</ol>
+<p>The goal is to</p>
+<blockquote>
+<div><ol class="arabic simple">
+<li><p>associate bot messages with  actions, entities, dialog transitions</p></li>
+<li><p>infer dialog acts for each dialog from the actions and entities. These utility functions are subsequently called by the <code class="docutils literal notranslate"><span class="pre">extract_local_dialog_act_map</span></code> function  to produce the local dialog act maps. They are also responsible for extracting intent training utterances either from metadata (Einstein Bots) or API (Google DialogFlow CX).</p></li>
+</ol>
+</div></blockquote>
+<ol class="arabic simple" start="4">
+<li><p>Implement parser functions: start implementation for extracting the local dialog act maps, final dialog act maps and the ontologies.</p></li>
+<li><p>Depending on the availability or accessibility of bot design documents, there might be multiple rounds of development of step 3 and 4.</p></li>
+</ol>
+</section>
+<section id="bot-api-client">
+<h2>Bot API client<a class="headerlink" href="#bot-api-client" title="Permalink to this heading"></a></h2>
+<p>The BotSIM Simulator performs dialog simulation by calling bot APIs. Similar to the parsers, developers need to implement the API clients for their bot platforms.
+The interface is defined in <code class="docutils literal notranslate"><span class="pre">modules.simulator.simulation_client_base</span></code>   with the most important function <code class="docutils literal notranslate"><span class="pre">perform_batch_simulation</span></code> which performs a batch of simulation episodes starting from <code class="docutils literal notranslate"><span class="pre">simulation_goals[start_episode]</span></code>.
+A code snippet of the dialog loop is given below. Note the functions <code class="docutils literal notranslate"><span class="pre">enqueue_bot_actions_from_bot_messages</span></code>, <code class="docutils literal notranslate"><span class="pre">policy</span></code>, <code class="docutils literal notranslate"><span class="pre">locate_simulation_errors</span></code>, <code class="docutils literal notranslate"><span class="pre">log_episode_simulation_results</span></code> of
+<code class="docutils literal notranslate"><span class="pre">user_simulator</span></code> are platform-agnostic and can be shared by all bot platforms.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">while</span> <span class="n">episode_index</span> <span class="o">&lt;</span> <span class="nb">len</span><span class="p">(</span><span class="n">simulation_goals</span><span class="p">):</span>
+     <span class="n">user_simulator</span><span class="o">.</span><span class="n">reset</span><span class="p">(</span><span class="n">start_episode</span><span class="p">)</span>
+     <span class="n">session_finished</span> <span class="o">=</span> <span class="kc">False</span>
+     <span class="c1"># a conversation loop between BotSIM and the bot</span>
+     <span class="k">while</span> <span class="ow">not</span> <span class="n">session_finished</span><span class="p">:</span>
+         <span class="c1"># The simulator (shared by all platforms) parses a list of consecutive</span>
+         <span class="c1"># bot messages into a queue of semantic-level actions. BotSIM subsequently</span>
+         <span class="c1"># response to such actions one by one.</span>
+         <span class="n">status</span> <span class="o">=</span> <span class="n">user_simulator</span><span class="o">.</span><span class="n">enqueue_bot_actions_from_bot_messages</span><span class="p">(</span>
+             <span class="s2">&quot;DialogFlow CX&quot;</span><span class="p">,</span>  <span class="c1"># name of the bot</span>
+             <span class="n">bot_messages</span><span class="p">,</span>     <span class="c1"># current bot messages</span>
+             <span class="n">bot_action_frame</span><span class="p">,</span> <span class="c1"># current dialog state</span>
+             <span class="n">start_episode</span><span class="p">,</span>
+             <span class="bp">self</span><span class="o">.</span><span class="n">dialog_logs</span><span class="p">)</span>
+     <span class="c1"># Response to all bot_actions one by one</span>
+         <span class="k">for</span> <span class="n">bot_action</span> <span class="ow">in</span> <span class="n">user_simulator</span><span class="o">.</span><span class="n">state</span><span class="p">[</span><span class="s2">&quot;bot_action_queue&quot;</span><span class="p">]:</span>
+             <span class="k">if</span> <span class="n">user_simulator</span><span class="o">.</span><span class="n">state</span><span class="p">[</span><span class="s2">&quot;action&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;fail&quot;</span><span class="p">:</span>
+                 <span class="bp">self</span><span class="o">.</span><span class="n">dialog_logs</span><span class="p">[</span><span class="n">start_episode</span><span class="p">][</span><span class="s2">&quot;chat_log&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">bot_messages</span><span class="p">)</span>
+                 <span class="n">result</span> <span class="o">=</span> <span class="n">user_simulator</span><span class="o">.</span><span class="n">locate_simulation_errors</span><span class="p">()</span>
+                 <span class="n">session_finished</span> <span class="o">=</span> <span class="kc">True</span>
+             <span class="k">elif</span> <span class="n">user_simulator</span><span class="o">.</span><span class="n">state</span><span class="p">[</span><span class="s2">&quot;action&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;success&quot;</span><span class="p">:</span>
+                 <span class="bp">self</span><span class="o">.</span><span class="n">dialog_logs</span><span class="p">[</span><span class="n">start_episode</span><span class="p">][</span><span class="s2">&quot;chat_log&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">bot_messages</span><span class="p">)</span>
+                 <span class="n">session_finished</span> <span class="o">=</span> <span class="kc">True</span>
+
+             <span class="k">if</span> <span class="n">session_finished</span><span class="p">:</span>
+                 <span class="n">episode_success</span><span class="p">,</span> <span class="n">episode_intent_error</span><span class="p">,</span> <span class="n">episode_ner_error</span><span class="p">,</span> \
+                 <span class="n">episode_other_error</span><span class="p">,</span> <span class="n">episode_turns</span> <span class="o">=</span> \
+                 <span class="n">user_simulator</span><span class="o">.</span><span class="n">log_episode_simulation_results</span><span class="p">(</span>
+                 <span class="n">result</span><span class="p">,</span> <span class="n">start_episode</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">dialog_logs</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">dialog_errors</span><span class="p">)</span>
+                 <span class="k">break</span>
+             <span class="c1"># apply BotSIM rule-based policy to get natural language BotSIM message</span>
+             <span class="n">botsim_action</span><span class="p">,</span> <span class="n">botsim_message</span><span class="p">,</span> <span class="n">botsim_response_slots</span> <span class="o">=</span> \
+                 <span class="n">user_simulator</span><span class="o">.</span><span class="n">policy</span><span class="p">(</span><span class="n">bot_action</span><span class="p">)</span>
+             <span class="c1"># Send BotSIM message back to bot via API to continue conversation</span>
+             <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">botsim_message</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+                 <span class="n">text_input</span> <span class="o">=</span> <span class="n">session</span><span class="o">.</span><span class="n">TextInput</span><span class="p">(</span><span class="n">text</span><span class="o">=</span><span class="n">botsim_message</span><span class="p">)</span>
+                 <span class="n">query_input</span> <span class="o">=</span> <span class="n">session</span><span class="o">.</span><span class="n">QueryInput</span><span class="p">(</span><span class="n">text</span><span class="o">=</span><span class="n">text_input</span><span class="p">,</span> <span class="n">language_code</span><span class="o">=</span><span class="s2">&quot;en&quot;</span><span class="p">)</span>
+                 <span class="k">try</span><span class="p">:</span>
+                     <span class="n">request</span> <span class="o">=</span> <span class="n">session</span><span class="o">.</span><span class="n">DetectIntentRequest</span><span class="p">(</span><span class="n">session</span><span class="o">=</span><span class="n">session_id</span><span class="p">,</span> <span class="n">query_input</span><span class="o">=</span><span class="n">query_input</span><span class="p">)</span>
+                     <span class="n">response</span> <span class="o">=</span> <span class="n">session_client</span><span class="o">.</span><span class="n">detect_intent</span><span class="p">(</span><span class="n">request</span><span class="o">=</span><span class="n">request</span><span class="p">)</span>
+                 <span class="k">except</span> <span class="n">InvalidArgument</span><span class="p">:</span>
+                     <span class="k">raise</span>
+
+             <span class="n">new_bot_message</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot; &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">txt</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">split</span><span class="p">())</span>
+                             <span class="k">for</span> <span class="n">msg</span> <span class="ow">in</span> <span class="n">response</span><span class="o">.</span><span class="n">query_result</span><span class="o">.</span><span class="n">response_messages</span>
+                             <span class="k">for</span> <span class="n">txt</span> <span class="ow">in</span> <span class="n">msg</span><span class="o">.</span><span class="n">text</span><span class="o">.</span><span class="n">text</span><span class="p">]</span>
+             <span class="n">bot_messages</span> <span class="o">=</span> <span class="n">new_bot_message</span>
+         <span class="n">episode_index</span> <span class="o">+=</span> <span class="mi">1</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="incorporating-advanced-models">
+<h1>Incorporating advanced models<a class="headerlink" href="#incorporating-advanced-models" title="Permalink to this heading"></a></h1>
+<p>For efficiency reasons, the dialog components of BotSIM are all based on templates (dialog act maps for NLU, response templates for NLG).
+To accommodate dialog act-level agenda-based dialog simulation, rule-based policy is adopted. Nevertheless, more advanced models can also be incorporated.</p>
+<section id="natural-language-inference-nli-model-as-botsim-nlu">
+<h2>Natural Language Inference (NLI) model as BotSIM NLU<a class="headerlink" href="#natural-language-inference-nli-model-as-botsim-nlu" title="Permalink to this heading"></a></h2>
+<p>The fuzzy matching based natural language understanding method may be replaced with a NLI model.</p>
+</section>
+<section id="reinforcement-learning-based-policy">
+<h2>Reinforcement Learning based policy<a class="headerlink" href="#reinforcement-learning-based-policy" title="Permalink to this heading"></a></h2>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="dashboard.html" class="btn btn-neutral float-left" title="Remediator Dashboard Navigation" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, salesforce.com inc..</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

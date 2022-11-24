@@ -1,0 +1,54 @@
+.. BotSIM documentation master file, created by
+   sphinx-quickstart on Sun Jul 31 10:32:27 2022.
+   You can adapt this file completely to your liking, but it should at least
+   contain the root `toctree` directive.
+
+Welcome to BotSIM's documentation!
+====================================
+
+.. toctree::
+   :maxdepth: 1
+   :caption: Introduction
+
+   intro
+
+
+.. toctree::
+   :maxdepth: 1
+   :caption: Deep-dive 
+
+   deep_dive
+
+
+..    :maxdepth: 1
+..    :caption: Advanced Training
+
+..    advanced_training
+
+.. toctree::
+   :maxdepth: 1
+   :caption: Tutorial
+
+   tutorials
+   dashboard
+
+
+.. toctree::
+   :maxdepth: 2
+   :caption: Advanced Usage
+
+   advanced_usage
+   
+   
+
+
+.. Documentations
+.. ===================
+
+
+Indices and tables
+==================
+
+* :ref:`genindex`
+* :ref:`modindex`
+* :ref:`search`
