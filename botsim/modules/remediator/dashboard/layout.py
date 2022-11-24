@@ -102,19 +102,19 @@ def render_remediation(mode, selected_intent, F1s, overall_performance, detailed
     intent_performance = overall_performance[mode.lower()][selected_intent.replace("_eval", "")]
     row2_1.metric("#Sessions", str(sum(list(intent_performance["overall_performance"].values()))), "")
     if F1s[selected_intent] < 0.9:
-        row2_2.metric("F1 score", str(F1s[selected_intent]), "Poor", "inverse")
+        row2_2.metric("F1 score", str(F1s[selected_intent]), "", "inverse")
     else:
         row2_2.metric("F1 score", str(F1s[selected_intent]), "Good")
     if intent_performance["success_rate"] < 0.7:
-        row2_3.metric("Goal-completion Rate", str(intent_performance["success_rate"]), "Poor", "inverse")
+        row2_3.metric("Goal-completion Rate", str(intent_performance["success_rate"]), "", "inverse")
     else:
         row2_3.metric("Goal-completion Rate", str(intent_performance["success_rate"]), "")
     if intent_performance["intent_error_rate"] > 0.5:
-        row2_4.metric("Intent Error Rate", str(intent_performance["intent_error_rate"]), "Poor", "inverse")
+        row2_4.metric("Intent Error Rate", str(intent_performance["intent_error_rate"]), "", "inverse")
     else:
         row2_4.metric("Intent Error Rate", str(intent_performance["intent_error_rate"]), "")
     if intent_performance["NER_error_rate"] > 0.5:
-        row2_5.metric("NER Error Rate", str(intent_performance["NER_error_rate"]), "Poor", "inverse")
+        row2_5.metric("NER Error Rate", str(intent_performance["NER_error_rate"]), "", "inverse")
     else:
         row2_5.metric("NER Error Rate", str(intent_performance["NER_error_rate"]), "")
     row2_6.metric("Other Error Rate", str(intent_performance["other_error_rate"]), "")
