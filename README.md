@@ -5,9 +5,9 @@
 <p>
 
 <div align="center">
-  <a href="https://github.com/salesforce/botsim/releases"><img alt="Latest Release" src="https://img.shields.io/github/release/salesforce/LAVIS.svg" /></a>
+  <a href="https://github.com/salesforce/botsim/releases"><img alt="Latest Release" src="https://img.shields.io/github/release/salesforce/botsim.svg" /></a>
   <a href="https://opensource.salesforce.com/botsim/index.html">
-  <img alt="docs" src="https://github.com/salesforce/LAVIS/actions/workflows/docs.yaml/badge.svg"/>
+  <img alt="docs" src="https://github.com/salesforce/botsim/actions/workflows/docs.yaml/badge.svg"/>
   <a href="https://opensource.org/licenses/BSD-3-Clause">
   <img alt="license" src="https://img.shields.io/badge/License-BSD_3--Clause-blue.svg"/>
   </a>
@@ -63,18 +63,18 @@ Key features of BotSIM include:
 
 ## Getting Started
 ### Streamlit Web App
-The Streamlit Web App can be used to 
+The most straightforward way of getting started with BotSIM is the Streamlit Web App. The app is developed as a multi-page app to guide users to leverage BotSIM's "generation-simulation-remediation" pipeline for evaluation, diagnosis and remediation of their bots.     
 <p align="center" width="100%">
     <img width="100%" src="docs/BotSIM_App.png">
 </p>
 
-The following commands can be used to run BotSIM as a Streamlit Web App locally:
+The following commands can be used to start the Streamlit Web App locally:
 ```bash
   export PYTHONPATH=./:$PYTHONPATH
   export DATABASE_URL="db/botsim_sqlite_demo.db"
   streamlit run botsim/streamlit_app/app.py
 ```
-The App can also be deplpyed as a docker image:
+The App can also be deployed as a docker image:
 ```
   # build the docker image
   docker build -t botsim-streamlit .
@@ -85,11 +85,11 @@ The App can also be deplpyed as a docker image:
 Alternatively, users can also use the command line tools to deep-dive into BotSIM's generation-simulation-remediation pipeline.
 
 ## Tutorial
-We provide the following tutorials in the tutorial section of the documentation. 
-- Using Streamlit Web App
-- Using BotSIM command line tools
-- Navigating through bot health dashboard
-- Applying remedidation suggestions
+We provide the following tutorials in the [tutorial section](https:///latest/tutorials.html) of the [code documentation](). 
+- [Streamlit Web App](https://latest/tutorials.html#streamlit-web-app)
+- [BotSIM command line tools](https://latest/tutorials.html#botsim-command-line-tools)
+- [Bot health dashboard navigation](https://atest/dashboard.html)
+- [Applying remedidation suggestions](https://latest/dashboard.html#apply-intent-model-remediation-suggestions)
 
 ## Documentation 
 For more details of the system components and advanced usages, please refer to [code documentation]((https://opensource.salesforce.com/botsim//latest/index.html#)]).
@@ -100,7 +100,7 @@ You can find more details in our technical report and  system demo paper.
 If you're using BotSIM in your research or applications, please cite using this BibTeX for technical report:
 ```
 @article{guangsen2022-botsim-tr,
-  author    = {Guangsen Wang and Shafiq Joty and Junnan Li and Steven Hoi},
+  author    = {Guangsen Wang and Junnan Li and Shafiq Joty and Steven Hoi},
   title     = {BotSIM: An End-to-End Bot Simulation Toolkit for Commercial Task-Oriented Dialog Systems},
   year      = {2022},
   doi       = {},
@@ -114,8 +114,7 @@ or the following BibTex for our system demo paper:
   author    = {Guangsen Wang and Samson Tan and Shafqi Joty and Guang Wu and Jimmy Au and Steven Hoi},
   title     = {BotSIM: An End-to-End Bot Simulation Framework for Commercial Task-Oriented Dialog Systems},
   year      = {2022},
-  doi       = {},
-  url       = {},
+  url       = {https://arxiv.org/abs/2211.11982},
   archivePrefix = {arXiv},
 }
 ```

@@ -107,12 +107,23 @@ To accommodate dialog act-level agenda-based dialog simulation, rule-based polic
 
 Natural Language Inference (NLI) model as BotSIM NLU 
 ******************************************************
-The fuzzy matching based natural language understanding method may be replaced with a NLI model. 
+The natural language understanding component of BotSIM relies on fuzzy matching to convert bot messages to dialog acts. 
+To cope with bots that may be powered by a natural language generation model, the lexical-based fuzzy matching is not enough. The limitation can be circumvented by incorporating a semantic-based
+NLU. A good candidate is to use a Natural Language Inference (NLI) model to compute the matching scores of the bot messages with the ones in the dialog act maps.
+The NLI model can be added by  the following steps:
 
-Reinforcement Learning based policy
+- Create a new subclass of ``botsim.models.nlu.nlu_model``
+- Implement ``predict(bot_message, intent_name)`` function to map the ``bot_message`` to the best dialog act defined in the dialog named ``intent_name``
+- Change the ``nlu_model`` in the user simulator ``botsim.modules.simulator.abus`` with the new NLU model
+
+Neural-based NLG model
 ************************************
+To increase the naturalness of the template-based responses, a neural-based NLG model may be used to convert the template messages to be more natural. 
+The model can be incorporated by following the steps below:
 
-
+- Create a new NLG module under ``botsim.models.nlg``
+- Implement ``generate(dialog_state)`` interface to take the semantic representation of dialog state and return a natural language response
+- Change the ``nlg_model`` in the user simulator ``botsim.modules.simulator.abus`` with the new NLU model
 
 
 
