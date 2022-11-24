@@ -45,8 +45,7 @@
 <li class="toctree-l1"><a class="reference internal" href="intro.html">What is BotSIM?</a></li>
 <li class="toctree-l1"><a class="reference internal" href="intro.html#botsim-architecture">BotSIM  Architecture</a></li>
 <li class="toctree-l1"><a class="reference internal" href="intro.html#botsim-system-design">BotSIM System Design</a></li>
-<li class="toctree-l1"><a class="reference internal" href="intro.html#installation">Installation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="intro.html#running-streamlit-app">Running Streamlit App</a></li>
+<li class="toctree-l1"><a class="reference internal" href="intro.html#getting-started">Getting Started</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Deep-dive</span></p>
 <ul>
@@ -59,7 +58,7 @@
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="tutorials.html">Retrieve Einstein BotBuilder Bot Metadata</a></li>
 <li class="toctree-l1"><a class="reference internal" href="tutorials.html#streamlit-web-app">Streamlit Web App</a></li>
-<li class="toctree-l1"><a class="reference internal" href="tutorials.html#botsim-command-line-tools">BotSIM command line tools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorials.html#command-line-tools">Command Line Tools</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Remediator Dashboard Navigation</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#bot-health-reports">Bot Health Reports</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#remediation-suggestions">Remediation suggestions</a></li>
@@ -126,8 +125,15 @@
 <h1>Remediator Dashboard Navigation<a class="headerlink" href="#remediator-dashboard-navigation" title="Permalink to this heading"></a></h1>
 <section id="bot-health-reports">
 <h2>Bot Health Reports<a class="headerlink" href="#bot-health-reports" title="Permalink to this heading"></a></h2>
-<p>The bot health dashboard consists of a set of multi-level performance reports. At the highest level, users can have a historical view of most recent simulation/test sessions (e.g., after each major bot update). The historical performance comparison can help users evaluate the impacts of bot changes quantitatively, from which they can make decisions like whether or not keep certain changes.
-In the session-specific performance summary, users can zoom in for more details of a selected test session including the data distribution, overall dialog performance metrics. Furthermore, one can select a dialog/intent of the specific testing session to investigate the detailed intent and NER performance in the dialog-specific performance summary. Through the dialog-specific performance report, one can quickly identify the most confusing intents and entities. This saves significant efforts and helps better allocation of resources for troubleshooting and bot improvement.</p>
+<p>The bot health dashboard consists of a set of multi-level performance reports. At the highest level,
+users can have a historical view of most recent simulation/test sessions (e.g., after each major bot update).
+The historical performance comparison can help users evaluate the impacts of bot changes quantitatively,
+from which they can make decisions like whether or not to keep certain changes.
+In the session-specific performance summary, users can zoom in for more details of a selected test session
+including the data distribution, overall dialog performance metrics. Furthermore, one can select a dialog/intent of
+the specific testing session to investigate the detailed intent and NER performance in the dialog-specific performance summary.
+Through the dialog-specific performance report, one can quickly identify the most confusing intents and entities.
+This saves significant efforts and helps better allocation of resources for troubleshooting and bot improvement.</p>
 <a class="reference internal image-reference" href="_images/BotSIM_Performance_Report.png"><img alt="_images/BotSIM_Performance_Report.png" src="_images/BotSIM_Performance_Report.png" style="width: 550px;" /></a>
 </section>
 <section id="remediation-suggestions">
@@ -136,8 +142,8 @@ In the session-specific performance summary, users can zoom in for more details 
 The remediation dashboards given below allow detailed investigation of all intent or NER errors along with their corresponding simulated chat logs.
 The root causes of the failed conversations are identified via backtracking of the simulation agenda.
 For troubleshooting intent models, the remediator attempts to identify the intent utterances and paraphrases that are wrongly predicted by the current model. Depending on the wrongly classified intent classes, the remediator would suggest some follow-up actions including 1) augmenting the intent training set with the queries deemed to be out-of-domain by the current intent model, 2) moving the intent utterance to another intent if most of paraphrases of the former intent utterance are classified to the latter intent.
-Similarly for NER model, the remediator collects all the wrongly extracted entities and the messages with such entities. Depending on the entity extraction method, users can follow the suggestions to troubleshooting or improving the bot NER capabilities.
-Note the suggestions are meant to be used as guidelines rather than strictly followed. More importantly, they can always be extended by users to include domain expertise in troubleshooting bots related to their products/services.</p>
+Similarly for the NER model, the remediator collects all the wrongly extracted entities and the messages with such entities. Depending on the entity extraction method, users can follow the suggestions to troubleshooting or improving the bot NER capabilities.
+Note the suggestions are meant to be used as guidelines rather than strictly followed. More importantly, users can always extend them to include domain expertise in troubleshooting bots related to their products/services.</p>
 <a class="reference internal image-reference" href="_images/Dashboard_Intent_Remediation.png"><img alt="_images/Dashboard_Intent_Remediation.png" src="_images/Dashboard_Intent_Remediation.png" style="width: 550px;" /></a>
 <a class="reference internal image-reference" href="_images/Dashboard_NER_Remediation.png"><img alt="_images/Dashboard_NER_Remediation.png" src="_images/Dashboard_NER_Remediation.png" style="width: 550px;" /></a>
 </section>
@@ -146,7 +152,7 @@ Note the suggestions are meant to be used as guidelines rather than strictly fol
 <p>Another useful component of the Remediator is the suite of conversation analytical tools. They further help bot practitioners gain more insights for troubleshooting and
 improving their dialog systems. The confusion matrix analysis breaks down the intent model performance into (sortable) recall, precision and F1 accuracies to help identify the
 worse performing intents. Another useful analytical tool is the tSNE~clustering of the intent utterances using sentence transformer embeddings. The tSNE visualisation enables users
-to gauge the training data quality. It is also an effective tool in identifying overlapping intents and can potential benefit new intent discovery as well.
+to gauge the training data quality. It is also an effective tool in identifying overlapping intents and can potentially benefit new intent discovery as well.
 Lastly, powered by parsers’ conversation graph modelling capability, the dialog path explorer can be used to visualise different conversation flows of the current bot design.
 For example, users can select the source and target dialogs and investigate the generated dialog paths. Not only is the tool valuable for comprehensive testing coverage of conversation paths,
 it also offers a controllable approach to troubleshooting dialog design related errors or even improving the current design.</p>
@@ -157,11 +163,11 @@ it also offers a controllable approach to troubleshooting dialog design related 
 <h1>Apply intent model remediation suggestions<a class="headerlink" href="#apply-intent-model-remediation-suggestions" title="Permalink to this heading"></a></h1>
 <p>The most straightforward approach of applying remediation suggestions is to augment the the recommended misclassified paraphrases  to the original
 training set to retrain the intent model.</p>
-<p>For Einstein BotBuilder platform, new intent sets can be created as a csv file to include the augmented training set. The csv file can be deployed
+<p>For the Einstein BotBuilder platform, new intent sets can be created as a csv file to include the augmented training set. The csv file can be deployed
 to users’ org via <a class="reference external" href="https://workbench.developerforce.com/login.php">Salesforce Workbench</a>. The new intent model can be retrained by associate the
 new intent set name <code class="docutils literal notranslate"><span class="pre">report_issue_dev_augmented</span></code> with the <code class="docutils literal notranslate"><span class="pre">Report</span> <span class="pre">an</span> <span class="pre">Issue</span></code> intent.</p>
 <table class="colwidths-given docutils align-default" id="id1">
-<caption><span class="caption-text">Snippet of augmented intent set csv file for Einstein BotBuilder Platform</span><a class="headerlink" href="#id1" title="Permalink to this table"></a></caption>
+<caption><span class="caption-text">Snippet of augmented intent set csv file for the Einstein BotBuilder Platform</span><a class="headerlink" href="#id1" title="Permalink to this table"></a></caption>
 <colgroup>
 <col style="width: 5%" />
 <col style="width: 5%" />
@@ -188,7 +194,7 @@ new intent set name <code class="docutils literal notranslate"><span class="pre"
 </tr>
 </tbody>
 </table>
-<p>For DialogFlow CX, the recommanded paraphrases can be add back to the corresponding training set and the intent model will be automatically retrained.</p>
+<p>For DialogFlow CX, the recommended paraphrases can be add back to the corresponding training set and the intent model will be automatically retrained.</p>
 <p>The table below shows the intent F1 score comparison before and after intent model retraining based on the simulation goals created from the same evaluation set.</p>
 <table class="colwidths-given docutils align-default">
 <colgroup>

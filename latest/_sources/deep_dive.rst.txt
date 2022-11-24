@@ -1,6 +1,7 @@
 Configuration
 ###########################
-We use a customisable configuration file to control the whole BotSIM pipeline. The template configuration is provided in the repo under ``botsim/conf/config.json``. An example/template is given below. 
+We use a customisable configuration file to control the stages of the BotSIM pipeline. The template configuration is provided in the 
+repo as ``botsim/conf/config.json``. An example template is given below. 
 
 .. code-block:: json
 
@@ -54,13 +55,13 @@ We use a customisable configuration file to control the whole BotSIM pipeline. T
         "remediator": {
 
             "file_paths": {
-                "paraphrases": "data/bots/Einstein_Bot/4/goals_dir/<intent>_<para_setting>_utt_<num_utterances>.paraphrases.json",
-                "simulated_dialogs": "data/bots/Einstein_Bot/4/remediation/<intent>/simulation_dialogs_<mode>_<para_setting>_utt_<num_utterances>_<num_simulations>_sessions.json",
-                "intent_predictions": "data/bots/Einstein_Bot/4/remediation/<intent>/intent_predictions_<mode>_<para_setting>_utt_<num_utterances>_<num_simulations>_sessions.json",
-                "simulation_log": "data/bots/Einstein_Bot/4/simulation/<intent>/logs_<mode>_<para_setting>_utt_<num_utterances>_paraphrases_<num_simulations>_sessions_continue_from_0.json",
-                "simulation_error_info": "data/bots/Einstein_Bot/4/simulation/<intent>/errors_<mode>_<para_setting>_utt_<num_utterances>_paraphrases_<num_simulations>_sessions_continue_from_0.json",
-                "ner_error_json": "data/bots/Einstein_Bot/4/remediation/<intent>/ner_errors_<mode>_<para_setting>_utt_<num_utterances>_<num_simulations>_sessions.json",
-                "intent_remediation": "data/bots/Einstein_Bot/4/remediation/<intent>/intent_remediation_<mode>_<para_setting>_utt_<num_utterances>_<num_simulations>_sessions.json"
+                "paraphrases": "data/bots/Einstein_Bot/4/goals_dir/<intent>_<para_setting>_<num_utterances>_utts.paraphrases.json",
+                "simulated_dialogs": "data/bots/Einstein_Bot/4/remediation/<intent>/simulation_dialogs_<mode>_<para_setting>_<num_utterances>_utts_<num_simulations>_sessions.json",
+                "intent_predictions": "data/bots/Einstein_Bot/4/remediation/<intent>/intent_predictions_<mode>_<para_setting>_<num_utterances>_utts_<num_simulations>_sessions.json",
+                "simulation_log": "data/bots/Einstein_Bot/4/simulation/<intent>/logs_<mode>_<para_setting>_<num_utterances>_utts_paraphrases_<num_simulations>_sessions.json",
+                "simulation_error_info": "data/bots/Einstein_Bot/4/simulation/<intent>/errors_<mode>_<para_setting>_<num_utterances>_utts_paraphrases_<num_simulations>_sessions.json",
+                "ner_error_json": "data/bots/Einstein_Bot/4/remediation/<intent>/ner_errors_<mode>_<para_setting>_<num_utterances>_utts_<num_simulations>_sessions.json",
+                "intent_remediation": "data/bots/Einstein_Bot/4/remediation/<intent>/intent_remediation_<mode>_<para_setting>_<num_utterances>_utts_<num_simulations>_sessions.json"
             },
 
             "dev_intents": [],
@@ -81,8 +82,9 @@ We use a customisable configuration file to control the whole BotSIM pipeline. T
 
 Generator
 ##################
-The generator takes bot designs and intent utterances as input and produces the required configuration files and dialog goals for dialog simulation.
-The following code can be used to invoke individual generator functions:
+The generator takes bot designs and intent utterances as input and produces the required configuration files to serve as BotSIM's NLU and NLG models.
+The generator also applies paraphrasing models to the input intent utterances and use the paraphrases as intent queries in the simulation goals.
+The following code shows how different components of the generator work:
 
 .. code-block:: python
 
@@ -141,7 +143,7 @@ The following code can be used to invoke individual generator functions:
 
 Simulator
 #########################################################
-After simulation goals are created by the generator, we can initialise a bot platform simulator client to perform agenda-based dialog user simulation via:
+With the simulation goals, we can initialise a bot platform simulator client to perform agenda-based dialog user simulation via:
 
 .. code-block:: python
     
@@ -172,15 +174,18 @@ After simulation goals are created by the generator, we can initialise a bot pla
             client = LiveAgentClient(config)
         client.simulate_conversation(None)
 
-This will start the dialog simulation and output the following files upon finishing for each intent/dialog and mode (dev/eval) under ``data/bots/Einstein_Bot/4/simulation/<intent>/``:
-- **simulation chatlogs**: ``logs_<mode>_20_20_utt_<num_utterances>_paraphrases_<num_simulations>_sessions_continue_from_0.json``
-- **simulation error info**: ``errors_<mode>_<para_setting>_utt_<num_utterances>_paraphrases_<num_simulations>_sessions_continue_from_0.json``
-These two files serive as the inputs to the remediator.
+This will start the dialog simulation for each intent/dialog and mode (dev/eval) included in the configuration file.
+Upon the completion of each simulation session, the following outputs will be generated  under ``data/bots/Einstein_Bot/4/simulation/<intent>/``:
+
+- **simulation chat logs**: ``logs_<mode>_<para_setting>_<num_utterances>_utts_paraphrases_<num_simulations>_sessions.json``
+- **simulation error info**: ``errors_<mode>_<para_setting>_<num_utterances>_utts_paraphrases_<num_simulations>_sessions.json``
+
+These two files will be used as the inputs to the remediator.
 
 Remediator
 ######################################
-The Remediator analyzes the simulated conversations, visualizes the bot health reports and provide actionable remediation suggestions for bot troubleshooting and improvement. 
-The code below shows how the aggregated bot reports are generated. 
+The Remediator analyzes the simulated conversations (chat logs and error info), visualizes the bot health reports and provides actionable 
+remediation suggestions for bot troubleshooting and improvement. The code below shows how the aggregated bot reports are generated. 
 
 .. code-block:: python
 
@@ -212,8 +217,9 @@ The code below shows how the aggregated bot reports are generated.
     aggregated_report_path = path + "aggregated_report.json"
     dump_json_to_file(aggregated_report_path, report)
 
-The data in the aggregated report is used to support the dashboard visualisation:
-- ``dataset_info`` contains the data distribution for each intent
+The information of the aggregated report is used to support the bot health dashboard visualisation:
+
+- ``dataset_info`` contains the data distribution for each intent in terms of number of simulation episodes.
 - ``overall_performance`` contains the performance metrics such as NLU performance in terms of intent and NER accuracies, task-completion rates
 - ``intent_reports`` contains the bot health report for each dialog, including 
 

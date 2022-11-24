@@ -45,8 +45,7 @@
 <li class="toctree-l1"><a class="reference internal" href="intro.html">What is BotSIM?</a></li>
 <li class="toctree-l1"><a class="reference internal" href="intro.html#botsim-architecture">BotSIM  Architecture</a></li>
 <li class="toctree-l1"><a class="reference internal" href="intro.html#botsim-system-design">BotSIM System Design</a></li>
-<li class="toctree-l1"><a class="reference internal" href="intro.html#installation">Installation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="intro.html#running-streamlit-app">Running Streamlit App</a></li>
+<li class="toctree-l1"><a class="reference internal" href="intro.html#getting-started">Getting Started</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Deep-dive</span></p>
 <ul class="current">
@@ -59,7 +58,7 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="tutorials.html">Retrieve Einstein BotBuilder Bot Metadata</a></li>
 <li class="toctree-l1"><a class="reference internal" href="tutorials.html#streamlit-web-app">Streamlit Web App</a></li>
-<li class="toctree-l1"><a class="reference internal" href="tutorials.html#botsim-command-line-tools">BotSIM command line tools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorials.html#command-line-tools">Command Line Tools</a></li>
 <li class="toctree-l1"><a class="reference internal" href="dashboard.html">Remediator Dashboard Navigation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="dashboard.html#apply-intent-model-remediation-suggestions">Apply intent model remediation suggestions</a></li>
 </ul>
@@ -119,7 +118,8 @@
 </style>
 <section id="configuration">
 <h1>Configuration<a class="headerlink" href="#configuration" title="Permalink to this heading"></a></h1>
-<p>We use a customisable configuration file to control the whole BotSIM pipeline. The template configuration is provided in the repo under <code class="docutils literal notranslate"><span class="pre">botsim/conf/config.json</span></code>. An example/template is given below.</p>
+<p>We use a customisable configuration file to control the stages of the BotSIM pipeline. The template configuration is provided in the
+repo as <code class="docutils literal notranslate"><span class="pre">botsim/conf/config.json</span></code>. An example template is given below.</p>
 <div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span><span class="w"></span>
 <span class="w">    </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;4&quot;</span><span class="p">,</span><span class="w"></span>
 <span class="w">    </span><span class="nt">&quot;platform&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Einstein_Bot&quot;</span><span class="p">,</span><span class="w"></span>
@@ -170,13 +170,13 @@
 <span class="w">    </span><span class="nt">&quot;remediator&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
 
 <span class="w">        </span><span class="nt">&quot;file_paths&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">            </span><span class="nt">&quot;paraphrases&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;data/bots/Einstein_Bot/4/goals_dir/&lt;intent&gt;_&lt;para_setting&gt;_utt_&lt;num_utterances&gt;.paraphrases.json&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w">            </span><span class="nt">&quot;simulated_dialogs&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;data/bots/Einstein_Bot/4/remediation/&lt;intent&gt;/simulation_dialogs_&lt;mode&gt;_&lt;para_setting&gt;_utt_&lt;num_utterances&gt;_&lt;num_simulations&gt;_sessions.json&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w">            </span><span class="nt">&quot;intent_predictions&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;data/bots/Einstein_Bot/4/remediation/&lt;intent&gt;/intent_predictions_&lt;mode&gt;_&lt;para_setting&gt;_utt_&lt;num_utterances&gt;_&lt;num_simulations&gt;_sessions.json&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w">            </span><span class="nt">&quot;simulation_log&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;data/bots/Einstein_Bot/4/simulation/&lt;intent&gt;/logs_&lt;mode&gt;_&lt;para_setting&gt;_utt_&lt;num_utterances&gt;_paraphrases_&lt;num_simulations&gt;_sessions_continue_from_0.json&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w">            </span><span class="nt">&quot;simulation_error_info&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;data/bots/Einstein_Bot/4/simulation/&lt;intent&gt;/errors_&lt;mode&gt;_&lt;para_setting&gt;_utt_&lt;num_utterances&gt;_paraphrases_&lt;num_simulations&gt;_sessions_continue_from_0.json&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w">            </span><span class="nt">&quot;ner_error_json&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;data/bots/Einstein_Bot/4/remediation/&lt;intent&gt;/ner_errors_&lt;mode&gt;_&lt;para_setting&gt;_utt_&lt;num_utterances&gt;_&lt;num_simulations&gt;_sessions.json&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w">            </span><span class="nt">&quot;intent_remediation&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;data/bots/Einstein_Bot/4/remediation/&lt;intent&gt;/intent_remediation_&lt;mode&gt;_&lt;para_setting&gt;_utt_&lt;num_utterances&gt;_&lt;num_simulations&gt;_sessions.json&quot;</span><span class="w"></span>
+<span class="w">            </span><span class="nt">&quot;paraphrases&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;data/bots/Einstein_Bot/4/goals_dir/&lt;intent&gt;_&lt;para_setting&gt;_&lt;num_utterances&gt;_utts.paraphrases.json&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">            </span><span class="nt">&quot;simulated_dialogs&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;data/bots/Einstein_Bot/4/remediation/&lt;intent&gt;/simulation_dialogs_&lt;mode&gt;_&lt;para_setting&gt;_&lt;num_utterances&gt;_utts_&lt;num_simulations&gt;_sessions.json&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">            </span><span class="nt">&quot;intent_predictions&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;data/bots/Einstein_Bot/4/remediation/&lt;intent&gt;/intent_predictions_&lt;mode&gt;_&lt;para_setting&gt;_&lt;num_utterances&gt;_utts_&lt;num_simulations&gt;_sessions.json&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">            </span><span class="nt">&quot;simulation_log&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;data/bots/Einstein_Bot/4/simulation/&lt;intent&gt;/logs_&lt;mode&gt;_&lt;para_setting&gt;_&lt;num_utterances&gt;_utts_paraphrases_&lt;num_simulations&gt;_sessions.json&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">            </span><span class="nt">&quot;simulation_error_info&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;data/bots/Einstein_Bot/4/simulation/&lt;intent&gt;/errors_&lt;mode&gt;_&lt;para_setting&gt;_&lt;num_utterances&gt;_utts_paraphrases_&lt;num_simulations&gt;_sessions.json&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">            </span><span class="nt">&quot;ner_error_json&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;data/bots/Einstein_Bot/4/remediation/&lt;intent&gt;/ner_errors_&lt;mode&gt;_&lt;para_setting&gt;_&lt;num_utterances&gt;_utts_&lt;num_simulations&gt;_sessions.json&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">            </span><span class="nt">&quot;intent_remediation&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;data/bots/Einstein_Bot/4/remediation/&lt;intent&gt;/intent_remediation_&lt;mode&gt;_&lt;para_setting&gt;_&lt;num_utterances&gt;_utts_&lt;num_simulations&gt;_sessions.json&quot;</span><span class="w"></span>
 <span class="w">        </span><span class="p">},</span><span class="w"></span>
 
 <span class="w">        </span><span class="nt">&quot;dev_intents&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[],</span><span class="w"></span>
@@ -199,8 +199,9 @@
 </section>
 <section id="generator">
 <h1>Generator<a class="headerlink" href="#generator" title="Permalink to this heading"></a></h1>
-<p>The generator takes bot designs and intent utterances as input and produces the required configuration files and dialog goals for dialog simulation.
-The following code can be used to invoke individual generator functions:</p>
+<p>The generator takes bot designs and intent utterances as input and produces the required configuration files to serve as BotSIM’s NLU and NLG models.
+The generator also applies paraphrasing models to the input intent utterances and use the paraphrases as intent queries in the simulation goals.
+The following code shows how different components of the generator work:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">botsim.platforms.botbuilder.generator_wrapper</span> <span class="kn">import</span> <span class="n">Generator</span>
 <span class="n">platform</span> <span class="o">=</span> <span class="s2">&quot;Einstein_Bot&quot;</span>
 <span class="n">test_id</span> <span class="o">=</span> <span class="s2">&quot;4&quot;</span>
@@ -257,7 +258,7 @@ The following code can be used to invoke individual generator functions:</p>
 </section>
 <section id="simulator">
 <h1>Simulator<a class="headerlink" href="#simulator" title="Permalink to this heading"></a></h1>
-<p>After simulation goals are created by the generator, we can initialise a bot platform simulator client to perform agenda-based dialog user simulation via:</p>
+<p>With the simulation goals, we can initialise a bot platform simulator client to perform agenda-based dialog user simulation via:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">mode</span> <span class="o">=</span> <span class="s2">&quot;dev&quot;</span>
 <span class="n">goal_dir</span> <span class="o">=</span> <span class="s2">&quot;data/bots/</span><span class="si">{}</span><span class="s2">/</span><span class="si">{}</span><span class="s2">/goals_dir/&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">platform</span><span class="p">,</span> <span class="n">test_id</span><span class="p">)</span>
 <span class="n">num_t5_paraphrases</span> <span class="o">=</span> <span class="n">config</span><span class="p">[</span><span class="s2">&quot;generator&quot;</span><span class="p">][</span><span class="s2">&quot;paraphraser_config&quot;</span><span class="p">][</span><span class="s2">&quot;num_t5_paraphrases&quot;</span><span class="p">]</span>
@@ -286,15 +287,18 @@ The following code can be used to invoke individual generator functions:</p>
     <span class="n">client</span><span class="o">.</span><span class="n">simulate_conversation</span><span class="p">(</span><span class="kc">None</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>This will start the dialog simulation and output the following files upon finishing for each intent/dialog and mode (dev/eval) under <code class="docutils literal notranslate"><span class="pre">data/bots/Einstein_Bot/4/simulation/&lt;intent&gt;/</span></code>:
-- <strong>simulation chatlogs</strong>: <code class="docutils literal notranslate"><span class="pre">logs_&lt;mode&gt;_20_20_utt_&lt;num_utterances&gt;_paraphrases_&lt;num_simulations&gt;_sessions_continue_from_0.json</span></code>
-- <strong>simulation error info</strong>: <code class="docutils literal notranslate"><span class="pre">errors_&lt;mode&gt;_&lt;para_setting&gt;_utt_&lt;num_utterances&gt;_paraphrases_&lt;num_simulations&gt;_sessions_continue_from_0.json</span></code>
-These two files serive as the inputs to the remediator.</p>
+<p>This will start the dialog simulation for each intent/dialog and mode (dev/eval) included in the configuration file.
+Upon the completion of each simulation session, the following outputs will be generated  under <code class="docutils literal notranslate"><span class="pre">data/bots/Einstein_Bot/4/simulation/&lt;intent&gt;/</span></code>:</p>
+<ul class="simple">
+<li><p><strong>simulation chat logs</strong>: <code class="docutils literal notranslate"><span class="pre">logs_&lt;mode&gt;_&lt;para_setting&gt;_&lt;num_utterances&gt;_utts_paraphrases_&lt;num_simulations&gt;_sessions.json</span></code></p></li>
+<li><p><strong>simulation error info</strong>: <code class="docutils literal notranslate"><span class="pre">errors_&lt;mode&gt;_&lt;para_setting&gt;_&lt;num_utterances&gt;_utts_paraphrases_&lt;num_simulations&gt;_sessions.json</span></code></p></li>
+</ul>
+<p>These two files will be used as the inputs to the remediator.</p>
 </section>
 <section id="remediator">
 <h1>Remediator<a class="headerlink" href="#remediator" title="Permalink to this heading"></a></h1>
-<p>The Remediator analyzes the simulated conversations, visualizes the bot health reports and provide actionable remediation suggestions for bot troubleshooting and improvement.
-The code below shows how the aggregated bot reports are generated.</p>
+<p>The Remediator analyzes the simulated conversations (chat logs and error info), visualizes the bot health reports and provides actionable
+remediation suggestions for bot troubleshooting and improvement. The code below shows how the aggregated bot reports are generated.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">botsim.modules.remediator.Remediator</span> <span class="kn">import</span> <span class="n">Remediator</span>
 <span class="kn">from</span> <span class="nn">botsim.botsim_utils.utils</span> <span class="kn">import</span> <span class="n">dump_json_to_file</span>
 <span class="n">dev_intents</span> <span class="o">=</span> <span class="n">config</span><span class="p">[</span><span class="s2">&quot;remediator&quot;</span><span class="p">][</span><span class="s2">&quot;dev_intents&quot;</span><span class="p">]</span>
@@ -324,16 +328,19 @@ The code below shows how the aggregated bot reports are generated.</p>
 <span class="n">dump_json_to_file</span><span class="p">(</span><span class="n">aggregated_report_path</span><span class="p">,</span> <span class="n">report</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>The data in the aggregated report is used to support the dashboard visualisation:
-- <code class="docutils literal notranslate"><span class="pre">dataset_info</span></code> contains the data distribution for each intent
-- <code class="docutils literal notranslate"><span class="pre">overall_performance</span></code> contains the performance metrics such as NLU performance in terms of intent and NER accuracies, task-completion rates
-- <code class="docutils literal notranslate"><span class="pre">intent_reports</span></code> contains the bot health report for each dialog, including</p>
+<p>The information of the aggregated report is used to support the bot health dashboard visualisation:</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">dataset_info</span></code> contains the data distribution for each intent in terms of number of simulation episodes.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">overall_performance</span></code> contains the performance metrics such as NLU performance in terms of intent and NER accuracies, task-completion rates</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">intent_reports</span></code> contains the bot health report for each dialog, including</p>
 <blockquote>
 <div><ul class="simple">
 <li><p>Simulation chat logs and associated error information for each episode</p></li>
 <li><p>Detailed intent and NER errors and remediation suggestions</p></li>
 </ul>
 </div></blockquote>
+</li>
+</ul>
 </section>
 
 

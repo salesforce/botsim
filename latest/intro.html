@@ -50,8 +50,11 @@
 <li class="toctree-l2"><a class="reference internal" href="#application-layer">Application Layer</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="#installation">Installation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="#running-streamlit-app">Running Streamlit App</a></li>
+<li class="toctree-l1"><a class="reference internal" href="#getting-started">Getting Started</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#installation">Installation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#running-streamlit-app">Running Streamlit App</a></li>
+</ul>
+</li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Deep-dive</span></p>
 <ul>
@@ -64,7 +67,7 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="tutorials.html">Retrieve Einstein BotBuilder Bot Metadata</a></li>
 <li class="toctree-l1"><a class="reference internal" href="tutorials.html#streamlit-web-app">Streamlit Web App</a></li>
-<li class="toctree-l1"><a class="reference internal" href="tutorials.html#botsim-command-line-tools">BotSIM command line tools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorials.html#command-line-tools">Command Line Tools</a></li>
 <li class="toctree-l1"><a class="reference internal" href="dashboard.html">Remediator Dashboard Navigation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="dashboard.html#apply-intent-model-remediation-suggestions">Apply intent model remediation suggestions</a></li>
 </ul>
@@ -124,8 +127,10 @@
 </style>
 <section id="what-is-botsim">
 <h1>What is BotSIM?<a class="headerlink" href="#what-is-botsim" title="Permalink to this heading"></a></h1>
-<p>BotSIM is a modular, open-source <em>Bot SIM</em>ulation toolkit to serve as a one-stop solution for large-scale data-efficient end-to-end evaluation, diagnosis and remediation of commercial task-oriented dialog (TOD) systems.</p>
-<p>As a simulation framework, bot developers can extend BotSIM to support their own bot platforms. As a toolkit, BotSIM can be readily applied  by bot admins or practitioners  with little or even no technical backgrounds to perform testing and remediation of their bots.</p>
+<p>BotSIM is a modular, open-source <em>Bot SIM</em>ulation toolkit to serve as a one-stop solution for
+large-scale data-efficient end-to-end evaluation, diagnosis and remediation of commercial task-oriented dialog systems (chatbots).</p>
+<p>As a simulation framework, bot developers can extend BotSIM to support new bot platforms. As a toolkit, BotSIM can be readily used
+by bot admins or practitioners to perform testing and remediation of their bots.</p>
 <p>Key features of BotSIM include:</p>
 <ul class="simple">
 <li><p><strong>Multi-stage bot evaluation</strong>: BotSIM can be used for both pre-deployment testing and potentially post-deployment performance monitoring.</p></li>
@@ -143,20 +148,23 @@
 <ul class="simple">
 <li><p><strong>Generator</strong> takes bot designs and intent utterances as input and produces the required  configuration files and dialog goals for dialog simulation.</p></li>
 <li><p><strong>Simulator</strong> performs agenda-based dialog simulation through bot APIs.</p></li>
-<li><p><strong>Remediator</strong> enerates health reports, performs analyses, and provides actionable insights to troubleshoot and improve dialog systems.</p></li>
+<li><p><strong>Remediator</strong> generates health reports, performs analyses, and provides actionable insights to troubleshoot and improve dialog systems.</p></li>
 </ul>
 </section>
 <section id="botsim-system-design">
 <h1>BotSIM System Design<a class="headerlink" href="#botsim-system-design" title="Permalink to this heading"></a></h1>
 <a class="reference internal image-reference" href="_images/BotSIM_design.png"><img alt="_images/BotSIM_design.png" src="_images/BotSIM_design.png" style="width: 550px;" /></a>
-<p>The key design principles of BotSIM include modularity, extensibility and usability so that the framework can be easily adopted by both bot end users and developers. The framework comprises of three layers, namely the infrastructure layer, the adaptor layer and the toolkit layer.</p>
+<p>The key design principles of BotSIM include modularity, extensibility and usability so that the framework can be easily adopted by both bot end users and developers.
+The framework comprises three layers, namely the infrastructure layer, the adaptor layer and the toolkit layer.</p>
 <section id="infrastructure-layer">
 <h2>Infrastructure layer<a class="headerlink" href="#infrastructure-layer" title="Permalink to this heading"></a></h2>
 <p>The infrastructure layer is designed to offer fundamental model support for the framework.
-It comprises two major categories: the natural language understanding (NLU), natural language generation (NLG) models and the key modules including the generator, the simulator and the remediator
-LAVIS has six key modules.
-- <code class="docutils literal notranslate"><span class="pre">botsim.models</span></code> contains BotSIM’s  NLU and NLG models. From a dialogue system perspective, BotSIM can be viewed as counterpart to a chatbot: it needs to “understand” chatbot messages (NLU) and “respond” in natural languages (NLG). Currently, fuzzy matching-based NLU and template-based NLG models are provided for efficiency reasons. More advanced  NLU and NLG models can also be incorporated by the developers.
-- <code class="docutils literal notranslate"><span class="pre">botsim.modules</span></code> consists of the three key  modules to power BotSIM’s “generation-simulation-remediation” pipeline.</p>
+It comprises two major categories: the natural language understanding (NLU), natural language generation (NLG) models
+and the key modules including the generator, the simulator and the remediator.</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">botsim.models</span></code> contains BotSIM’s  NLU and NLG models. From a dialogue system perspective, BotSIM can be viewed as a counterpart to a chatbot: it needs to “understand” chatbot messages (NLU) and “respond” in natural languages (NLG).
+Currently, fuzzy matching-based NLU and template-based NLG models are provided for efficiency reasons. Developers can also incorporate more advanced NLU and NLG models..</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">botsim.modules</span></code> consists of the three key  modules to power BotSIM’s “generation-simulation-remediation” pipeline.</p>
 <blockquote>
 <div><ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">botsim.modules.generator</span></code> supports two major functionalities: 1) <code class="docutils literal notranslate"><span class="pre">parser</span></code> to parse bot metadata to infer dialog acts and dialog-act maps (BotSIM’s NLU); 2) <code class="docutils literal notranslate"><span class="pre">paraphraser</span></code> to generate paraphrases of the input intent utterances to be used as intent queries in the simulation goals to probe bots’ intent model.</p></li>
@@ -164,6 +172,8 @@ LAVIS has six key modules.
 <li><p><code class="docutils literal notranslate"><span class="pre">botsim.modules.remediator</span></code> analyzes the simulation dialogs and produces the performance metrics and conversational analytics to support the dashboard visualisation.</p></li>
 </ul>
 </div></blockquote>
+</li>
+</ul>
 </section>
 <section id="adaptor-layer-accommodating-new-bot-platforms">
 <h2>Adaptor Layer: accommodating  new bot platforms<a class="headerlink" href="#adaptor-layer-accommodating-new-bot-platforms" title="Permalink to this heading"></a></h2>
@@ -182,26 +192,33 @@ LAVIS has six key modules.
 </ul>
 </section>
 </section>
+<section id="getting-started">
+<h1>Getting Started<a class="headerlink" href="#getting-started" title="Permalink to this heading"></a></h1>
 <section id="installation">
-<h1>Installation<a class="headerlink" href="#installation" title="Permalink to this heading"></a></h1>
+<h2>Installation<a class="headerlink" href="#installation" title="Permalink to this heading"></a></h2>
 <ol class="arabic simple">
 <li><p>(Optional) Creating conda environment</p></li>
 </ol>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>conda create -n botsim <span class="nv">python</span><span class="o">=</span><span class="m">3</span>.9
+<blockquote>
+<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>conda create -n botsim <span class="nv">python</span><span class="o">=</span><span class="m">3</span>.9
 conda activate botsim
 </pre></div>
 </div>
+</div></blockquote>
 <ol class="arabic simple" start="2">
 <li><p>Cloning and building dependencies</p></li>
 </ol>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git clone https://github.com/salesforce/botsim.git
-<span class="nb">cd</span> BotSIM
+<blockquote>
+<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git clone https://github.com/salesforce/botsim.git
+<span class="nb">cd</span> botsim
 pip install .
 </pre></div>
 </div>
+</div></blockquote>
 </section>
 <section id="running-streamlit-app">
-<h1>Running Streamlit App<a class="headerlink" href="#running-streamlit-app" title="Permalink to this heading"></a></h1>
+<h2>Running Streamlit App<a class="headerlink" href="#running-streamlit-app" title="Permalink to this heading"></a></h2>
+<a class="reference internal image-reference" href="_images/BotSIM_App.png"><img alt="_images/BotSIM_App.png" src="_images/BotSIM_App.png" style="width: 550px;" /></a>
 <ol class="arabic simple">
 <li><p>Running Streamlit App locally</p></li>
 </ol>
@@ -219,7 +236,9 @@ docker build -t botsim-streamlit .
 docker run -p <span class="m">8501</span>:8501 botsim-streamlit
 </pre></div>
 </div>
-<p>Alternatively, users can also use the command line tools to gain more flexibility. More details of how to run the command line tools are given in the tutorial section below.</p>
+<p>Alternatively, users can also use the command line tools to gain more flexibility.
+More details of how to run the command line tools are given later in the tutorial section.</p>
+</section>
 </section>
 
 

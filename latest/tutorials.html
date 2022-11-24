@@ -45,8 +45,7 @@
 <li class="toctree-l1"><a class="reference internal" href="intro.html">What is BotSIM?</a></li>
 <li class="toctree-l1"><a class="reference internal" href="intro.html#botsim-architecture">BotSIM  Architecture</a></li>
 <li class="toctree-l1"><a class="reference internal" href="intro.html#botsim-system-design">BotSIM System Design</a></li>
-<li class="toctree-l1"><a class="reference internal" href="intro.html#installation">Installation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="intro.html#running-streamlit-app">Running Streamlit App</a></li>
+<li class="toctree-l1"><a class="reference internal" href="intro.html#getting-started">Getting Started</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Deep-dive</span></p>
 <ul>
@@ -65,7 +64,7 @@
 <li class="toctree-l2"><a class="reference internal" href="#health-reports-and-analytics">4. Health Reports and Analytics</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="#botsim-command-line-tools">BotSIM command line tools</a><ul>
+<li class="toctree-l1"><a class="reference internal" href="#command-line-tools">Command Line Tools</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#step-1-prepare-botsim-configuration-file">Step 1: Prepare BotSIM configuration file</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#stage-2-generation">Stage 2: Generation</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#step-3-dialog-simulation">Step 3: Dialog Simulation</a></li>
@@ -133,7 +132,7 @@
 <h1>Retrieve Einstein BotBuilder Bot Metadata<a class="headerlink" href="#retrieve-einstein-botbuilder-bot-metadata" title="Permalink to this heading"></a></h1>
 <p>There are two inputs required by BotSIM for dialog simulation with the Einstein BotBuilder platform:</p>
 <ol class="arabic">
-<li><p><code class="docutils literal notranslate"><span class="pre">botVersions</span></code> metadata contains dialog flows, bot messages,  entities, etc. It also includes  intents and their training utterances (if intent sets not used). If intent sets are used, it defines the references to the respective intent sets for all intents. The utterances in the intent sets are to be extracted from MlDomains metadata)</p>
+<li><p><code class="docutils literal notranslate"><span class="pre">botVersions</span></code> metadata contains dialog flows, bot messages,  entities, etc. It also includes  intents and their training utterances (if intent sets are not used). If intent sets are used, it defines the references to the respective intent sets for all intents. The utterances in the intent sets are to be extracted from MlDomains metadata)</p>
 <blockquote>
 <div><div class="highlight-xml notranslate"><div class="highlight"><pre><span></span> <span class="cp">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span>
  <span class="nt">&lt;Package</span> <span class="na">xmlns=</span><span class="s">&quot;http://soap.sforce.com/2006/04/metadata&quot;</span><span class="nt">&gt;</span>
@@ -168,8 +167,14 @@ Like the previous metadata, a “package.xml” can be used to retrieve the inte
 </div>
 </div></blockquote>
 <p>By default, after unzipping, the <code class="docutils literal notranslate"><span class="pre">MLDomain</span></code> metadata is also extracted under  unpackaged/mlDomains. The mlDomains xml files are laster parsed to get the training utterances for all intents.</p>
-<p>3. <strong>[Optional] Preparing evaluation intent utterances.</strong> To test and monitor the intent model performance, it is advised to hold-out a set of intent queries as the evaluation set, although the set can be created automatically by taking a subset of the paraphrases from the intent training utterances in mlDomain. Alternatively, an evaluation set can also be created from production chat logs.  The purpose of the evaluation set is to evaluate and monitor the intent model performance after each model update. For example, if customers want to update the intent model with new user utterances, they might want to see how this affect the intent model performance compared to  previous versions by running the dialog simulation on the same evaluation set.
-If the evaluation utterances are not explicitly provided, the paraphrases of the training utterances will be randomly divided into two sets for development and evaluation purposes.</p>
+<p>3. <strong>[Optional] Preparing evaluation intent utterances.</strong> To test and monitor the intent model performance,
+it is advised to hold-out a set of intent queries as the evaluation set, although the set can be created automatically by
+taking a subset of the paraphrases from the intent training utterances in mlDomain. Alternatively, an evaluation set can also
+be created from production chat logs.  The purpose of the evaluation set is to evaluate and monitor the intent model performance
+after each model update. For example, if customers want to update the intent model with new user utterances, they might want to see how
+this affects the intent model performance compared to  previous versions by running the dialog simulation on the same evaluation set.
+If the evaluation utterances are not explicitly provided, the paraphrases of the training utterances will be randomly divided into
+two sets for development and evaluation purposes.</p>
 </section>
 <section id="streamlit-web-app">
 <h1>Streamlit Web App<a class="headerlink" href="#streamlit-web-app" title="Permalink to this heading"></a></h1>
@@ -196,9 +201,9 @@ by the Python Flask API server running the following services:</p>
 “-1” means to use all intent utterances.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">No.</span> <span class="pre">of</span> <span class="pre">paraphrases</span></code> is the number of paraphrases to be generated for each intent utterance.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">No.</span> <span class="pre">of</span> <span class="pre">dialog</span> <span class="pre">simulations</span></code> is the number of dialog simulation episodes allowed for each intent. Default value “-1” means using all the paraphrases.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">Maximum</span> <span class="pre">No.</span> <span class="pre">of</span> <span class="pre">dialog</span> <span class="pre">turns</span></code> is to control the simulation runtime. When exceeding the maximum number of dialog turns, the episide is considered a failed conversation.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Maximum</span> <span class="pre">No.</span> <span class="pre">of</span> <span class="pre">dialog</span> <span class="pre">turns</span></code> is to control the simulation runtime. When exceeding the maximum number of dialog turns, the episode is considered a failed conversation.</p></li>
 </ul>
-<p>Lastly, users need to upload their API crendentials for BotSIM to perform dialog user simulation.</p>
+<p>Lastly, users need to upload their API credentials for BotSIM to perform dialog user simulation.</p>
 </section>
 <section id="upload-inputs">
 <h2>2. Upload Inputs<a class="headerlink" href="#upload-inputs" title="Permalink to this heading"></a></h2>
@@ -214,17 +219,17 @@ and ontology file. For <code class="docutils literal notranslate"><span class="p
 the dialog simulation by checking the two options: <code class="docutils literal notranslate"><span class="pre">Simulation</span> <span class="pre">on</span> <span class="pre">held-out</span> <span class="pre">evaluation</span> <span class="pre">set</span></code> and <code class="docutils literal notranslate"><span class="pre">Simulation</span> <span class="pre">on</span> <span class="pre">dev</span> <span class="pre">set</span></code>.</p>
 <p>The two datasets are created automatically from the original intent training utterances and used as follows:</p>
 <ol class="arabic simple">
-<li><p>The orignal intent utterance set is split into two non-overlapping set (70-30 dev-eval split by default). The evaluation utterances are kept to benchmark difference changes to the intent models.</p></li>
+<li><p>The original intent utterance set is split into two non-overlapping set (70-30 dev-eval split by default). The evaluation utterances are kept to benchmark difference changes to the intent models.</p></li>
 <li><p>Apply paraphrasing models to the two datasets to generate the paraphrase intent queries for the simulation goals.</p></li>
 <li><p>The simulation goals created from the <code class="docutils literal notranslate"><span class="pre">dev</span></code> paraphrase intent queries are used to evaluate the current bot models via dialog simulation.</p></li>
 <li><p>After applying remediation suggestions based on the simulated conversations on the <code class="docutils literal notranslate"><span class="pre">dev</span></code> goal set, the <code class="docutils literal notranslate"><span class="pre">eval</span></code> goals can be used to compare the bot performance and verify the efficacy of the remediation.</p></li>
 </ol>
-<p>The simulation will start in the background after <code class="docutils literal notranslate"><span class="pre">Start</span> <span class="pre">Dialog</span> <span class="pre">Simulation</span></code> button is clicked.</p>
+<p>The simulation will start in the background after the <code class="docutils literal notranslate"><span class="pre">Start</span> <span class="pre">Dialog</span> <span class="pre">Simulation</span></code> button is clicked.</p>
 </section>
 <section id="health-reports-and-analytics">
 <h2>4. Health Reports and Analytics<a class="headerlink" href="#health-reports-and-analytics" title="Permalink to this heading"></a></h2>
 <p>The simulation performance will be presented in the dashboard upon completion of the dialog simulation.
-The App uses a database to store all previous simulations so that users can have a historcal comparison of their bot performance across
+The App uses a database to store all previous simulations so that users can have a historical comparison of their bot performance across
 different changes applied.</p>
 <p>The left panel allows users to select a particular test session (<code class="docutils literal notranslate"><span class="pre">Choose</span> <span class="pre">Test</span> <span class="pre">ID</span></code>) and perform the following actions:</p>
 <ul class="simple">
@@ -236,8 +241,8 @@ different changes applied.</p>
 <p>The dashboard reports are detailed in the <a class="reference external" href="https://">Remediator Dashboard Navigation</a> section.</p>
 </section>
 </section>
-<section id="botsim-command-line-tools">
-<h1>BotSIM command line tools<a class="headerlink" href="#botsim-command-line-tools" title="Permalink to this heading"></a></h1>
+<section id="command-line-tools">
+<h1>Command Line Tools<a class="headerlink" href="#command-line-tools" title="Permalink to this heading"></a></h1>
 <p>This is a tutorial for applying BotSIM’s generation-simulation-remediation pipeline with command line tools.</p>
 <section id="step-1-prepare-botsim-configuration-file">
 <h2>Step 1: Prepare BotSIM configuration file<a class="headerlink" href="#step-1-prepare-botsim-configuration-file" title="Permalink to this heading"></a></h2>
@@ -274,7 +279,7 @@ users’ Google Cloud Platform console.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">num_t5_paraphrases</span></code> is the number of paraphrases generated by the T5 paraphraser per utterance.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">num_pegasus_paraphrases</span></code> is the number of paraphrases generated by the Pegasus paraphraser per utterance.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">max_num_simulations</span></code> is the maximum number of dialog simulation episodes allowed for each intent.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">max_num_dialog_turns</span></code> is the maxmum number of dialog turns allowed for one episode</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">max_num_dialog_turns</span></code> is the maximum number of dialog turns allowed for one episode</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">metadata_botversions</span></code> and <code class="docutils literal notranslate"><span class="pre">metadata_intent_utterances</span></code> are only applicable to <code class="docutils literal notranslate"><span class="pre">Einstein_Bot</span></code> platform. They are the paths of the previously
 retrieved metadata in the previous session.</p></li>
 </ul>
@@ -295,7 +300,7 @@ Based on the setups in config.json, the metadata can be parsed using</p>
 <div><ul>
 <li><p><strong>[NLU] Dialog act maps for natural language understanding of bot messages</strong>: The template is used to map bot messages to semantic-level dialog acts via fuzzy matching.</p>
 <p>The approach is adopted for the following reasons:  1) BotSIM is designed for commercial task-oriented dialog systems 2) most of the commercial chatbots adopt a “rule-action-message” scheme,
-where there are clear defined or easily inferred mappings from bot messages to rules/actions. 3) not every bot platform supports intent detection APIs to use  4) template-matching is resource
+where there are clearly defined or easily inferred mappings from bot messages to rules/actions. 3) not every bot platform supports intent detection APIs to use  4) template-matching is resource
 and cost effective than calling intent APIs powered by the neural-based intent models.
 A snippet of the automatically generated dialog act map for the dialog intent <code class="docutils literal notranslate"><span class="pre">check</span> <span class="pre">the</span> <span class="pre">status</span> <span class="pre">of</span> <span class="pre">an</span> <span class="pre">existing</span> <span class="pre">issue</span></code> is given below. The dialog acts inside each box come from the same sub-dialog.</p>
 <a class="reference internal image-reference" href="_images/BotSIM_dialog_act_map.png"><img alt="_images/BotSIM_dialog_act_map.png" src="_images/BotSIM_dialog_act_map.png" style="width: 550px;" /></a>
@@ -324,14 +329,14 @@ It is by default the first “request” message as generated by the parser.  So
 </ol>
 </div></blockquote>
 </li>
-<li><p>Sometimes candidates of other dialog acts are also need to be revised.</p></li>
+<li><p>Sometimes candidates of other dialog acts also need to be revised.</p></li>
 <li><p>The revision may sometimes need help from bot designers.</p></li>
 </ol>
 </div></blockquote>
 </li>
 <li><dl>
 <dt><strong>dialog_success_messages</strong>:</dt><dd><p>The candidate messages of dialog_success_message include bot messages that can be viewed as the successful completion of a dialog. Good candidates are the messages
-at the end of a dialog. Such messages are usually used to inform users the final outcomes of the conversation. Note for some dialogs, there are multiple outcomes with contrasting messages, we treat
+at the end of a dialog. Such messages are usually used to inform users of the final outcomes of the conversation. Note for some dialogs, there are multiple outcomes with contrasting messages, we treat
 all these outcomes as “successful” messages. For example, for “Check the status of an existing issue” intent, if users have their case numbers and successfully authenticate themselves,
 the dialog produces the first success message, otherwise the second message is displayed indicating a human agent will take over the case.</p>
 <div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span><span class="w"></span>
@@ -345,14 +350,14 @@ the dialog produces the first success message, otherwise the second message is d
 </dd>
 </dl>
 </li>
-<li><p><strong>small_talks</strong>: For messages that do not have any associated actions (request/inform etc.), we put them under the small_talks act. They will be ignored by BotSIM during dialog simulation. Examples include “I can help you with that”, “Got it”.</p></li>
+<li><p><strong>small_talks</strong>: For messages that do not have any associated actions (request/inform etc.), we put them under the small_talks act. BotSIM will ignore them during dialog simulation. Examples include “I can help you with that”, “Got it”.</p></li>
 <li><p><strong>request_intent</strong>: The bot messages of request_intent usually are the welcome messages if available (e.g., Einstein BotBuilder).</p></li>
 </ul>
 </div></blockquote>
 </li>
 <li><p><strong>[NLG] BotSIM natural language response templates</strong></p>
 <p>BotSIM adopts a dialog-act-level agenda-based user simulator for dialog simulation.  As shown in the previous dialog act map figure, BotSIM needs to convert the dialog acts to natural language
-messages and send them back to bot via API. For efficiency reasons,
+messages and send them back to the bot via API. For efficiency reasons,
 template-based NLG templates are used to map BotSIM dialog acts to natural language templates with entity slots. An example is given below for the “informing” the “email” slot to the bot.</p>
 <div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span><span class="w"></span>
 <span class="w"> </span><span class="nt">&quot;dia_act&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
@@ -376,10 +381,10 @@ template-based NLG templates are used to map BotSIM dialog acts to natural langu
 </pre></div>
 </div>
 <p>Given a dialog act, e.g., “request_email”, a response is randomly chosen from a set of pre-defined templates (“response”) with a “email” slot, which is replaced by the value in the goal during
-dialog simulation. To increase the diversity and improve the naturalness of the responses, users are advised to adding more templates gradually for more robust evaluation of the NER model.</p>
+dialog simulation. To increase the diversity and improve the naturalness of the responses, users are advised to add more templates gradually for more robust evaluation of the NER model.</p>
 </li>
 <li><p><strong>[Entity] ontology</strong>
-The ontology file is another parser output to include the set of entities used by each dialog/intent. An snippet of the file is given below for the entities of dialog “Check the status of an existing issue”.</p>
+The ontology file is another parser output to include the set of entities used by each dialog/intent. A snippet of the file is given below for the entities of dialog “Check the status of an existing issue”.</p>
 <div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span><span class="w"></span>
 <span class="w">    </span><span class="nt">&quot;Check_the_status_of_an_existing_issue&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
 <span class="w">        </span><span class="nt">&quot;Case_Comments&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w"></span>
@@ -406,7 +411,7 @@ The entity extraction can be model-based or regular extraction based. For exampl
 </div></blockquote>
 </li>
 <li><p>Applying paraphrasing and generating simulation goals
-In addition to parsing raw metadata input, another major function of the generator to prepare the simulation goals. These are analogous to “bot testing data”.
+In addition to parsing raw metadata input, another major function of the generator is to prepare the simulation goals. These are analogous to “bot testing data”.
 The goal defines a set of dialog act and slot-value pairs needed to complete a certain task.  An example goal of the “check the status of an existing issue” intent is given below:</p>
 <div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span><span class="w"></span>
 <span class="w">  </span><span class="nt">&quot;Goal&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>

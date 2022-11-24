@@ -44,8 +44,7 @@
 <li class="toctree-l1"><a class="reference internal" href="intro.html">What is BotSIM?</a></li>
 <li class="toctree-l1"><a class="reference internal" href="intro.html#botsim-architecture">BotSIM  Architecture</a></li>
 <li class="toctree-l1"><a class="reference internal" href="intro.html#botsim-system-design">BotSIM System Design</a></li>
-<li class="toctree-l1"><a class="reference internal" href="intro.html#installation">Installation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="intro.html#running-streamlit-app">Running Streamlit App</a></li>
+<li class="toctree-l1"><a class="reference internal" href="intro.html#getting-started">Getting Started</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Deep-dive</span></p>
 <ul>
@@ -58,7 +57,7 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="tutorials.html">Retrieve Einstein BotBuilder Bot Metadata</a></li>
 <li class="toctree-l1"><a class="reference internal" href="tutorials.html#streamlit-web-app">Streamlit Web App</a></li>
-<li class="toctree-l1"><a class="reference internal" href="tutorials.html#botsim-command-line-tools">BotSIM command line tools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorials.html#command-line-tools">Command Line Tools</a></li>
 <li class="toctree-l1"><a class="reference internal" href="dashboard.html">Remediator Dashboard Navigation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="dashboard.html#apply-intent-model-remediation-suggestions">Apply intent model remediation suggestions</a></li>
 </ul>
@@ -127,16 +126,16 @@
 <section id="extending-botsim-to-new-bot-platforms">
 <h1>Extending BotSIM to new bot platforms<a class="headerlink" href="#extending-botsim-to-new-bot-platforms" title="Permalink to this heading"></a></h1>
 <p>Bot developers can extend BotSIM to new platforms by implementing their platform-dependent parsers and API clients.
-They serve as the “adaptors” in order to apply BotSIM’s the “generation-simulation-remediation” pipeline.</p>
+They serve as the “adaptors” in order to apply BotSIM’s “generation-simulation-remediation” pipeline.</p>
 <section id="parser">
 <h2>Parser<a class="headerlink" href="#parser" title="Permalink to this heading"></a></h2>
 <p>The parser interface is defined in generator.parser and has the following important functions to implement.
-As these functions are highly platform dependent, the implementation might be non-trivial and require access to bot design documentations from the bot platform provider.
+As these functions are highly platform dependent, the implementation might be non-trivial and require access to bot design documentation from the bot platform provider.
 We provide our initial parser implementations for the Einstein BotBuilder (<code class="docutils literal notranslate"><span class="pre">platform.botbuilder</span></code>) and Google DialogFlow CX (<code class="docutils literal notranslate"><span class="pre">platform.dialogflow_cx</span></code>) platforms.
 The utility functions supporting the parsers are under  <code class="docutils literal notranslate"><span class="pre">modules.generator.utils.&lt;platform-name&gt;/parser_utilities.py</span></code></p>
 <ol class="arabic">
-<li><p><code class="docutils literal notranslate"><span class="pre">extract_local_dialog_act_map</span></code> function generates a “local” dialog act map by ignoring incoming and outputting  transitions. In other words, the local map only considers the messages/actions explicitly defined within the dialog. These local dialog act maps are modelled as graph nodes during the subsequent conversation graph modelling. In particular, the messages for the two special dialog acts, namely “intent_success_message”and “dialog_success_message” are also generated here according to the following heuristics:   “intent_success_message” contains the first request message and all its previous normal messages    “dialog_success_message” contains the last messages.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">conversation_graph_modelling</span></code> models the entire bot design as a graph. Each individual dialog is represented by its local dialog act maps and modelled as the graph nodes. Transitions among the individual dialogs are modelled as the graph edges. The graph modelling is based on the networkx package. There are two outputs from the function: the final dialog act maps and the graph data for conversation path visualisation.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">extract_local_dialog_act_map</span></code> function generates a “local” dialog act map by ignoring incoming and output  transitions. In other words, the local map only considers the messages/actions explicitly defined within the dialog. These local dialog act maps are modelled as graph nodes during the subsequent conversation graph modelling. In particular, the messages for the two special dialog acts, namely “intent_success_message”and “dialog_success_message” are also generated here according to the following heuristics:   “intent_success_message” contains the first request message and all its previous normal messages    “dialog_success_message” contains the last messages.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">conversation_graph_modelling</span></code> models the entire bot design as a graph. Each individual dialog is represented by its local dialog act maps and modelled as the graph nodes. Transitions among the individual dialogs are modelled as the graph edges. The graph modelling is based on the <code class="docutils literal notranslate"><span class="pre">networkx</span></code> package. There are two outputs from the function: the final dialog act maps and the graph data for conversation path visualisation.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">parse</span></code> function defines a general parser pipeline for all platforms starting from parsed local dialog act maps.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">parse</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
   <span class="c1"># extract local dialog act maps which are later modelled as graph nodes</span>
