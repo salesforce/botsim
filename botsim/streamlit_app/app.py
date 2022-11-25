@@ -29,12 +29,12 @@ if not hasattr(st, "already_started_server"):
     app.config["UPLOAD_FOLDER"] = "bots/"
     CORS(app)
 
-    @app.route("/pipeline", methods=["GET", "POST"])
+    @app.route("/remediation", methods=["GET", "POST"])
     def run_pipeline():
         url = request.url
         if (url[0] == "/" and not url.find("//") == 0) or url.find("http://127.0.0.1:8887/") == 0:
             latest_bot_id, latest_stage = database.get_last_db_row()
-            return botsim_pipeline(latest_bot_id)
+            return botsim_remediation(latest_bot_id)
 
 
     @app.route("/simulation", methods=["GET", "POST"])
