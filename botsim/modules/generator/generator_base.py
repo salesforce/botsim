@@ -91,7 +91,7 @@ class GeneratorBase:
             post_processed_paraphrases = self.paraphraser.post_process_paraphrases(
                 self.paraphraser.paraphrase(intent_to_training_utts, intent, number_utterances))
             para_config = "_".join([str(x) for x in self.num_paraphrases_per_model])
-            if number_utterances > 0:
+            if isinstance(number_utterances, int) and number_utterances > 0:
                 para_config = para_config + "_" + str(number_utterances)+"_utts"
                 paraphrase_json = destination + "/" + intent + "_" + para_config + ".paraphrases.json"
             else:

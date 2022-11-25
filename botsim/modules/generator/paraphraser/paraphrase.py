@@ -151,7 +151,7 @@ class Paraphraser:
         :return:
         """
         sentences = intent_train_utt[intent_name]
-        if number_utterances > 0:
+        if isinstance(number_utterances, int) and number_utterances > 0:
             sentences = random.sample(sentences, min(number_utterances, len(sentences)))
         paraphrases, paraphrases_pegasus = [], []
         if self.num_return_sequences[0] > 0:

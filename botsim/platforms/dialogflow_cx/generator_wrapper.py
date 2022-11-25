@@ -111,7 +111,7 @@ class Generator(GeneratorBase):
         # if paraphrase:
         para_config = "_".join([str(x) for x in self.num_paraphrases_per_model])
 
-        if number_utterances > 0:
+        if isinstance(number_utterances, int) and number_utterances > 0:
             para_config = para_config + "_" + str(number_utterances)+"_utts"
         else:
             para_config = para_config + "_all_utts"
