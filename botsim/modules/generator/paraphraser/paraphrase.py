@@ -89,13 +89,14 @@ class Paraphraser:
         i = 0
         paraphrases = []
         tokenizer = AutoTokenizer.from_pretrained("t5-base")
-        if not os.path.exists("./t5_paraphraser/pytorch_model.bin") and self.num_return_sequences[0] > 0:
+        model_path = "botsim/modules/generator/paraphraser/t5_paraphraser"
+        if not os.path.exists("{}/pytorch_model.bin".format(model_path)) and self.num_return_sequences[0] > 0:
             # download the model check point
             url = "https://storage.googleapis.com/sfr-botsim-research/epoch_88_dev_bleu_7.09_tgt_31.81_self_29.99/pytorch_model.bin"
-            download_google_drive_url(url, "t5_paraphraser", "pytorch_model.bin")
+            download_google_drive_url(url, model_path, "pytorch_model.bin")
         else:
             return paraphrases
-        model = AutoModelWithLMHead.from_pretrained("./t5_paraphraser")
+        model = AutoModelWithLMHead.from_pretrained(model_path)
 
         while i <= int(len(sentences) / self.batch_size):
             end = (i + 1) * self.batch_size if \
