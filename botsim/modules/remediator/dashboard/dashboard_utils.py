@@ -151,7 +151,7 @@ def get_wrong_paraphrase_episode_id(chatlog, intent_query_index=1):
 
 def parse_confusion_matrix(database, test_id, mode):
     config = dict(database.get_one_bot_test_instance(test_id))
-    cm_report_path = "data/bots/{}/{}/cm_{}_report.json".format(config["type"], test_id, mode)
+    cm_report_path = "data/bots/{}/{}/remediation/cm_{}_report.json".format(config["type"], test_id, mode)
 
     if file_exists("botsim", cm_report_path):
         report = read_s3_json("botsim", cm_report_path)

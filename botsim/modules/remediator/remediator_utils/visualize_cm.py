@@ -13,7 +13,7 @@ from botsim.botsim_utils.clana.optimize import (
     calculate_weight_matrix,
     simulated_annealing,
 )
-
+import botsim.botsim_utils.clana.clustering as clana_clustering
 cfg = botsim_utils.clana.utils.load_cfg()
 
 
@@ -83,8 +83,8 @@ def cm_analysis_report(
         )
 
     else:
-        from botsim.botsim_utils.clana.clustering import extract_clusters
-        grouping = extract_clusters(cm, labels)
+        #from botsim.botsim_utils.clana.clustering import extract_clusters
+        grouping = clana_clustering.extract_clusters(cm, labels)
         y_pred = [0]
         cluster_i = 0
         for el in grouping:
@@ -92,8 +92,8 @@ def cm_analysis_report(
                 cluster_i += 1
             y_pred.append(cluster_i)
         with open(cfg["visualize"]["hierarchy_path"], "w") as outfile:
-            hierarchy = botsim.botsim_utils.clana.clustering.apply_grouping(class_indices, grouping)
-            hierarchy_mixed = botsim.botsim_utils.clana.clustering._remove_single_element_groups(hierarchy)
+            hierarchy = clana_clustering.apply_grouping(class_indices, grouping)
+            hierarchy_mixed = clana_clustering._remove_single_element_groups(hierarchy)
             str_ = json.dumps(
                 hierarchy_mixed,
                 indent=4,
@@ -105,11 +105,9 @@ def cm_analysis_report(
 
         # Print nice
         return_json["clusters"] = []
-        for group in botsim.botsim_utils.clana.clustering.apply_grouping(labels, grouping):
+        for group in clana_clustering.apply_grouping(labels, grouping):
             print("\t{}: {}".format(len(group), list(group)))
-            grp = {}
-            grp["size"] = len(group)
-            grp["intents"] = list(group)
+            grp = {"size": len(group), "intents": list(group)}
             if len(group) > 1:
                 grp["remediation"] = "Resolve confusions among intents in the group"
             else:
