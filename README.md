@@ -74,7 +74,7 @@ The following commands can be used to start the Streamlit Web App locally:
   export DATABASE_URL="db/botsim_sqlite_demo.db"
   streamlit run botsim/streamlit_app/app.py
 ```
-The App can also be deployed to GCP for access to GPU resources. Detailed deployment instructions are given in the [GCP Deployment](https://opensource.salesforce.com/botsim//latest/tutorials.html) section of the documentation.
+The App can also be deployed to GCP for access to GPU resources. Detailed deployment instructions are given in the [GCP Deployment](https://opensource.salesforce.com/botsim//latest/advanced_usage.html#gcp-deployment) section of the documentation.
 
 ### Command Line Tools
 Alternatively, users can also deep-dive to learn more about BotSIM's system components through the command line tools. Details are given in the [tutorial section](https://opensource.salesforce.com/botsim//latest/tutorials.html#botsim-command-line-tools) of the code documentation(https://opensource.salesforce.com/botsim//latest/tutorials.html).
@@ -87,8 +87,8 @@ We provide the following tutorials in the [code documentation](https://opensourc
 - [Applying Remedidation Suggestions](https://opensource.salesforce.com/botsim//latest/dashboard.html#apply-intent-model-remediation-suggestions)
 
 ## Documentation 
-For more details of the system components and advanced usages, please refer to the [code documentation](https://opensource.salesforce.com/botsim//latest/index.html#).
-We welcome the contribution from the open-source community to improve the toolkit! To support new bot platforms, please also follow the guidelines detailed in the code documentation.
+For more details of the [system components](https://opensource.salesforce.com/botsim/latest/deep_dive.html) and [advanced usages](https://opensource.salesforce.com/botsim//latest/advanced_usage.html), please refer to the [code documentation](https://opensource.salesforce.com/botsim//latest/index.html#).
+We welcome the contribution from the open-source community to improve the toolkit! To support new bot platforms, please also follow the [guidelines](https://opensource.salesforce.com/botsim/latest/advanced_usage.html) detailed in the code documentation.
 
 ## System Demo Paper and Technical Report
 You can find more details of system designs in our technical report. Detailed system descriptions are given in our EMNLP 2022 system demo paper.
