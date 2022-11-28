@@ -49,5 +49,4 @@ def get_checkpoint_name(prefix):
     file_names = os.listdir(prefix)
     for name in file_names:
         if name.startswith('epoch'):
-            print(name)
             return name
