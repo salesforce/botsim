@@ -1,0 +1,45 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: <deploy-name>
+spec:
+  selector:
+    matchLabels:
+      app: botsim-streamlit-gpu-app
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: botsim-streamlit-gpu-app
+    spec:
+      restartPolicy: Always
+      containers:
+      - name: botsim-streamlit-gpu
+        image: "gcr.io/<project_name>/botsim_streamlit_gpu"
+        ports:
+        - containerPort: 8501
+        resources:
+          limits:
+            nvidia.com/gpu: 1
+            cpu: "7"
+            memory: 45G
+      tolerations:
+        - key: "gpu_num"
+          operator: "Equal"
+          value: "1"
+          effect: "NoSchedule"
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: <service-name>
+  labels:
+    app: botsim-streamlit-gpu-app
+spec:
+  type: LoadBalancer
+  ports:
+    - port: 8501
+      targetPort: 8501
+  selector:
+    app: botsim-streamlit-gpu-app
