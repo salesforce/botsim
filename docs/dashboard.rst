@@ -48,12 +48,13 @@ it also offers a controllable approach to troubleshooting dialog design related 
 
 Apply intent model remediation suggestions
 ###########################################
+
 The most straightforward approach of applying remediation suggestions is to augment the the recommended misclassified paraphrases  to the original
 training set to retrain the intent model. 
 
-For the Einstein BotBuilder platform, new intent sets can be created as a csv file to include the augmented training set. The csv file can be deployed
-to users' org via `Salesforce Workbench <https://workbench.developerforce.com/login.php>`_. The new intent model can be retrained by associate the 
-new intent set name ``report_issue_dev_augmented`` with the ``Report an Issue`` intent.
+For the Einstein BotBuilder platform, new intent sets can be created as a csv file for the augmented training set. The csv file can be deployed
+to users' org via `Salesforce Workbench <https://workbench.developerforce.com/login.php>`_. The new intent model can be trained by associate the 
+new intent set ``report_issue_dev_augmented`` with the ``Report an Issue`` intent.
 
 .. csv-table:: Snippet of augmented intent set csv file for the Einstein BotBuilder Platform
    :file: augmented.csv
@@ -90,7 +91,9 @@ The table below shows the intent F1 score comparison before and after intent mod
      - 0.96
      - 0.87
 
-We observe consistent improvements for all intents on the evaluation set   after model retraining. More challenging intents (lower F1s), e.g., "Report an Issue (RI)" and "Connect with Sales (CS)", saw larger performance gains compared to the easier ones such as "End Chat (EC)" (higher  F1s). This demonstrates the efficacy of BotSIM and is likely due to more paraphrases being selected for retraining the model on the more challenging intents.
+We observe consistent improvements for all intents on the evaluation set   after model retraining. More challenging intents (lower F1s), e.g., "Report an Issue (RI)" and "Connect with Sales (CS)", 
+saw larger performance gains compared to the easier ones such as "End Chat (EC)" (higher  F1s). This demonstrates the efficacy of BotSIM and is likely due to more paraphrases being selected 
+for retraining the model on the more challenging intents.
 
 .. list-table::
    :widths: 30 40 20 20 20 20 30

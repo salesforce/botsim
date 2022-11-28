@@ -35,7 +35,7 @@
 
 
 ## Introduction
-BotSIM is a Bot SIMulation toolkit for large-scale data-efficient end-to-end evaluation, diagnosis and remediation of commercial task-oriented dialog (TOD) systems, a.k.a. "Chatbots".
+BotSIM is an open-source Bot SIMulation toolkit for large-scale data-efficient end-to-end evaluation, diagnosis and remediation of commercial task-oriented dialog systems (chatbots) across muliple bot platforms. 
 This toolkit aims to provide bot developers and practitioners with a one-stop solution to accelerate bot development and evaluation, reduce cost and time-to-market.
 As a modular framework, BotSIM can be extended by bot developers to support new bot platforms. As a toolkit, BotSIM offers an easy-to-use App and a suite of command line tools for bot practitioners to readily apply BotSIM's "generation-simulation-remediation" pipeline. 
 
@@ -47,8 +47,13 @@ Key features of BotSIM include:
 - **Bot health report dashboard**: The bot health report dashboard presents a multi-granularity top-down view of bot performance. Together with the analytical tools, they help bot practitioners quickly diagnose and troubleshoot their bots.
 - **Easy extension to new bot platform**: BotSIM can be easily extended to support new bot platforms. BotSIM currently supports  [Salesforce Einstein BotBuilder](https://help.salesforce.com/s/articleView?id=sf.bots_service_intro.htm&type=5) and [Google DialogFlow CX](https://cloud.google.com/dialogflow/cx/docs/basics)
 
-## Installation
 
+## Prerequisite 
+To use BotSIM, users need to have API access to the following supported bot platforms:
+- Salesforce EinsteinBotBuilder LiveAgent API: `org ID`, `button ID`, `deployment Id`, `chat endpoint`
+- Google DialogFlow CX API: `location ID`, `project ID`, `agent ID` and JSON API token
+
+## Installation
 1. (Optional) Creating conda environment
 ```bash
    conda create -n botsim python=3.9
@@ -63,13 +68,14 @@ Key features of BotSIM include:
 ```
 
 ## Getting Started
+
 ### Streamlit Web App
 The most straightforward way of getting started with BotSIM is the Streamlit Web App. 
-A  demo of the Streamlit App can be accessed [here](https://salesforce-botsim.herokuapp.com/).
 The multi-page App is developed to guide users to leverage BotSIM's "generation-simulation-remediation" pipeline for evaluation, diagnosis and remediation of their bots.     
 <p align="center" width="100%">
-    <img width="100%" src="docs/_static/BotSIM_App.png">
+    <img width="100%" src="docs/_static/BotSIM_health_reports_readme.png">
 </p>
+
 
 The following commands can be used to start the Streamlit Web App locally:
 ```bash
@@ -94,6 +100,7 @@ For more details of the [system components](https://opensource.salesforce.com/bo
 We welcome the contribution from the open-source community to improve BotSIM. To support new bot platforms, please also follow the [guidelines](https://opensource.salesforce.com/botsim/latest/advanced_usage.html) detailed in the code documentation.
 
 ## System Demo and Technical Report
+A dashboard demo of the Streamlit App can be accessed [here](https://salesforce-botsim.herokuapp.com/).
 You can find more details regarding BotSIM designs in our technical report:
 ```
 @article{guangsen2022-botsim-tr,
@@ -108,7 +115,7 @@ You can find more details regarding BotSIM designs in our technical report:
 The detailed system descriptions are presented in the following EMNLP 2022 system demo paper:
 ```
 @article{guangsen2022-botsim-demo,
-  author    = {Guangsen Wang and Samson Tan and Shafqi Joty and Guang Wu and Jimmy Au and Steven Hoi},
+  author    = {Guangsen Wang and Samson Tan and Shafqi Joty and Gang Wu and Jimmy Au and Steven Hoi},
   title     = {BotSIM: An End-to-End Bot Simulation Framework for Commercial Task-Oriented Dialog Systems},
   year      = {2022},
   url       = {https://arxiv.org/abs/2211.11982},
