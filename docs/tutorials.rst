@@ -66,8 +66,9 @@ This page is to collect the simulation configuration parameters from users.
 The input fields from the side panel include:
 
 - ``Bot Platform`` allows users to choose their bot platform type, currently supporting ``Einstein_Bot`` and ``DialogFlow_CX``
-- ``Bot Name`` is the name of their bot, e.g., ``travel agent bot''
+- ``Bot Name`` is the name of their bot, e.g., ``travel agent bot``
 - ``Text Description`` allows users to write "commit messages" of the simulation. This is to keep track of the bot testing sessions to better compare the historical performance. 
+
 For example, "adding 100 more intent training utterances to Report_an_Issue intent".
 
 The ``Dialog Generation & Simulation Configuration`` inputs on the main page include:
