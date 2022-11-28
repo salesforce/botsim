@@ -54,6 +54,14 @@ def app(database):
                     generation = requests.post(url=generation_url)
                 with st.spinner("Dialog simulation in progress"):
                     simulation = requests.post(url=simulation_url)
+    elif latest_stage == "s04_paraphrases_generated":
+        # assuming intents have been selected in the paraphrasing step
+        # no options given here
+        st.info("Paraphrases have been created.")
+        if st.button("Start Dialog Simulation"):
+            with st.spinner("Goal creation in progress"):
+                generation = requests.post(url=generation_url)
+
     elif latest_stage == "s05_goal_created":
         latest_bot_id, latest_stage = database.get_last_db_row()
         config = dict(database.get_one_bot_test_instance(latest_bot_id))

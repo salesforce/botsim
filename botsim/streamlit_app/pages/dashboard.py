@@ -12,6 +12,11 @@ from botsim.modules.remediator.dashboard.dashboard_utils import (
 from botsim.modules.remediator.dashboard.plot import (plot_stacked_bar_chart,
                                                       plot_confusion_matrix)
 
+from botsim.modules.remediator.dashboard.layout import (render_summary_reports,
+                                                        render_dialog_report,
+                                                        render_remediation,
+                                                        render_analytics)
+
 
 def app(database=None):
     row1_spacer1, row1_1, row1_spacer2 = st.columns((.1, 3.2, .1))
@@ -55,12 +60,18 @@ def app(database=None):
                          style.applymap(color_cell, subset=["success_rate(%)"]).
                          set_table_styles(styles))
 
-        if mode == "Dev":
-            st.plotly_chart(plot_stacked_bar_chart(dev_metrics, set(df_data_filtered["test_id"])),
-                            use_container_width=True)
+        if mode.lower() == "dev":
+            st.plotly_chart(
+                plot_stacked_bar_chart(
+                    dev_metrics,
+                    set(df_data_filtered["test_id"])),
+                use_container_width=True)
         else:
-            st.plotly_chart(plot_stacked_bar_chart(eval_metrics, set(df_data_filtered["test_id"])),
-                            use_container_width=True)
+            st.plotly_chart(
+                plot_stacked_bar_chart(
+                    eval_metrics,
+                    set(df_data_filtered["test_id"])),
+                use_container_width=True)
 
     selected_test_id = st.sidebar.selectbox("Choose Test ID 👇", df_data_filtered["test_id"])
     options = set(st.sidebar.multiselect("What would you like to do?",
@@ -69,40 +80,65 @@ def app(database=None):
 
     selected_intent = ""
     if "Check Detailed Reports" in options:
-        if mode == "Dev":
-            selected_intent = st.sidebar.selectbox("Choose Dev Intents", dev_intents[selected_test_id])
+        if mode.lower() == "dev":
+            selected_intent = st.sidebar.selectbox(
+                "Choose Dev Intents",
+                dev_intents[selected_test_id])
         else:
-            selected_intent = st.sidebar.selectbox("Choose Eval Intents", eval_intents[selected_test_id]).replace(
-                "_eval", "")
+            selected_intent = st.sidebar.selectbox(
+                "Choose Eval Intents",
+                eval_intents[selected_test_id]).replace("_eval", "")
 
-    if mode == "Dev":
+    if mode.lower() == "dev":
         render_page("dev", selected_test_id, selected_intent, options, all_intents, database)
     else:
         render_page("eval", selected_test_id, selected_intent, options, all_intents, database)
 
 
-def render_page(mode, test, selected_intent, options, all_intents, database):
-    dataset_info, overall_performance, detailed_performance = get_bot_health_reports(database, test)
+def render_page(mode, test_id, selected_intent, options, all_intents, database):
+    dataset_info, \
+    overall_performance, \
+    detailed_performance = get_bot_health_reports(database, test_id)
+
     if dataset_info is not None:
-        confusion_matrix, classes, recalls, precisions, F1_scores, intent_clusters, intent_supports = \
-            parse_confusion_matrix(database, test, mode)
+        confusion_matrix, \
+        classes, \
+        recalls, \
+        precisions, \
+        F1_scores, \
+        intent_clusters, \
+        intent_supports = parse_confusion_matrix(database, test_id, mode)
+
         confusion_matrix_plot = plot_confusion_matrix(confusion_matrix, classes)
 
         if "Check Summary Reports" in options:
-            from botsim.modules.remediator.dashboard.layout import render_summary_reports
-            render_summary_reports(database, mode, test, dataset_info, overall_performance)
+            render_summary_reports(database,
+                                   mode,
+                                   test_id,
+                                   dataset_info,
+                                   overall_performance)
         if "Check Detailed Reports" in options:
-            from botsim.modules.remediator.dashboard.layout import render_dialog_report
-            render_dialog_report(mode, selected_intent, F1_scores, overall_performance, detailed_performance)
+            render_dialog_report(mode,
+                                 selected_intent,
+                                 F1_scores,
+                                 overall_performance,
+                                 detailed_performance)
         if "Investigate Dialog" in options:
-            from botsim.modules.remediator.dashboard.layout import render_remediation
             if selected_intent == "":
                 st.sidebar.error("'Check Dialog Reports' before investigation")
             else:
-                render_remediation(mode, selected_intent, F1_scores, overall_performance, detailed_performance)
+                render_remediation(mode,
+                                   selected_intent,
+                                   F1_scores,
+                                   overall_performance,
+                                   detailed_performance)
         if "Conversational Analytics" in options:
-            from botsim.modules.remediator.dashboard.layout import render_analytics
-            render_analytics(database, test, confusion_matrix_plot, recalls, precisions, F1_scores,
+            render_analytics(database,
+                             test_id,
+                             confusion_matrix_plot,
+                             recalls,
+                             precisions,
+                             F1_scores,
                              intent_clusters,
                              intent_supports,
                              all_intents)

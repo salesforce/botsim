@@ -3,6 +3,11 @@
 #   SPDX-License-Identifier: BSD-3-Clause
 #   For full license text, see the LICENSE file in the repo root or https://opensource.org/licenses/BSD-3-Clause
 
+"""
+The code is adapted from the clana library: https://github.com/MartinThoma/clana
+For confusion matrix visualisation. The raw confusion matrix data is computed by
+the remediator and provided here for visualisation purpose only.
+"""
 import json, math
 
 from botsim import botsim_utils
@@ -10,7 +15,6 @@ import botsim.botsim_utils.clana.io
 import botsim.botsim_utils.clana.utils
 from botsim.botsim_utils.clana.optimize import (
     calculate_score,
-    calculate_weight_matrix,
     simulated_annealing,
 )
 import botsim.botsim_utils.clana.clustering as clana_clustering
@@ -57,14 +61,14 @@ def cm_analysis_report(
         # return
     else:
         # get_cm_problems(confusion_matrix, labels)
-        weights = calculate_weight_matrix(len(confusion_matrix))
-        print("Score: {}".format(calculate_score(confusion_matrix, weights)))
-        print(confusion_matrix)
+        # weights = calculate_weight_matrix(len(confusion_matrix))
+        # print("Score: {}".format(calculate_score(confusion_matrix, weights)))
+        # print(confusion_matrix)
         result = simulated_annealing(
             confusion_matrix, perm, score=calculate_score, deterministic=True, steps=steps
         )
-        print("Score: {}".format(calculate_score(result.cm, weights)))
-        print("Perm: {}".format(list(result.perm)))
+        # print("Score: {}".format(calculate_score(result.cm, weights)))
+        # print("Perm: {}".format(list(result.perm)))
         # clana.io.ClanaCfg.store_permutation(cm_file, result.perm, steps)
         labels = [labels[i] for i in result.perm]
         class_indices = list(range(len(labels)))
@@ -83,7 +87,6 @@ def cm_analysis_report(
         )
 
     else:
-        #from botsim.botsim_utils.clana.clustering import extract_clusters
         grouping = clana_clustering.extract_clusters(cm, labels)
         y_pred = [0]
         cluster_i = 0
@@ -136,12 +139,11 @@ def compute_cm_json(cm, labels):
     """
     if labels is None:
         labels = [str(i) for i in range(len(cm))]
-
     el_max = 20000
 
-    intent_to_recall = {}
-    intent_to_precision = {}
-    intent_to_F1 = {}
+    recall_score = {}
+    precision_score = {}
+    F1_score = {}
     cm_t = cm.transpose()
     header_cells = []
     for i, label in enumerate(labels):
@@ -149,7 +151,7 @@ def compute_cm_json(cm, labels):
             precision = 0
         else:
             precision = cm[i][i] / float(sum(cm_t[i]))
-            intent_to_precision[label] = precision
+            precision_score[label] = precision
         background_color = "transparent"
         if precision < 0.2:
             background_color = "red"
@@ -172,12 +174,12 @@ def compute_cm_json(cm, labels):
             recall = 0
         else:
             recall = cm[i][i] / float(support)
-        if label in intent_to_precision:
-            intent_to_recall[label] = recall
-            f1 = 2 * recall * intent_to_precision[label] / (recall + intent_to_precision[label])
+        if label in precision_score:
+            recall_score[label] = recall
+            f1 = 2 * recall * precision_score[label] / (recall + precision_score[label])
             if math.isnan(f1):
                 f1 = 0.0
-            intent_to_F1[label] = f1
+            F1_score[label] = f1
         background_color = "transparent"
         if recall < 0.2:
             background_color = "red"
@@ -209,9 +211,9 @@ def compute_cm_json(cm, labels):
         body_rows.append({"row": body_row, "support": support})
 
     ## classes ordered  by descending precision
-    recall_sorted = sorted(intent_to_recall.items(), key=lambda x: x[1], reverse=True)
-    precision_sorted = sorted(intent_to_precision.items(), key=lambda x: x[1], reverse=True)
-    F1_sorted = sorted(intent_to_F1.items(), key=lambda x: x[1], reverse=True)
+    recall_sorted = sorted(recall_score.items(), key=lambda x: x[1], reverse=True)
+    precision_sorted = sorted(precision_score.items(), key=lambda x: x[1], reverse=True)
+    F1_sorted = sorted(F1_score.items(), key=lambda x: x[1], reverse=True)
 
     return header_cells, body_rows, recall_sorted, precision_sorted, F1_sorted
 

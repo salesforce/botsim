@@ -165,9 +165,6 @@ def plot_intent_performance(intent, mode, overall_performance, detailed_performa
     ner_errors = detailed_performance[mode][intent.replace("_eval", "")]["ner_errors"]
     intent_predictions = overall_performance[mode][intent.replace("_eval", "")]["intent_predictions"]
 
-    import plotly.graph_objects as go
-    from plotly.subplots import make_subplots
-
     prediction_labels, prediction_counts = [], []
     for p in intent_predictions:
         prediction_labels.append(p)
@@ -175,14 +172,14 @@ def plot_intent_performance(intent, mode, overall_performance, detailed_performa
 
     entity_labels, entity_counts = [], []
     for ent in ner_errors:
-        type = ner_errors[ent]["extraction_type"]
+        extraction_type = ner_errors[ent]["extraction_type"]
         if "pattern" in ner_errors[ent]:
             pattern = ner_errors[ent]["pattern"]
-        if type == "UNK": continue
-        if type == "regex":
+        if extraction_type == "UNK": continue
+        if extraction_type == "regex":
             entity_labels.append(ner_errors[ent]["entity_name"] + " (" + pattern + ")")
         else:
-            entity_labels.append(ner_errors[ent]["entity_name"] + " extracted via " + type)
+            entity_labels.append(ner_errors[ent]["entity_name"] + " extracted via " + extraction_type)
         count = 0
         if "missed" in ner_errors[ent]:
             count += len(ner_errors[ent]["missed"])

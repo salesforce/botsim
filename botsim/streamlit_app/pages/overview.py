@@ -6,7 +6,6 @@
 import streamlit as st
 from PIL import Image
 
-def app(database):
-    #display = Image.open("botsim/streamlit_app/BotSIM_onepager.png")
+def app(database=None):
     display = Image.open("botsim/streamlit_app/BotSIM_Flow_onepager.png")
     st.image(display)

@@ -8,12 +8,40 @@ import botsim.modules.remediator.dashboard.dashboard_utils as dashboard_utils
 import botsim.modules.remediator.dashboard.plot as dashboard_plot
 from streamlit_chat import message
 
+
+def plot_dialog_performance_banner(overall_performance, F1_scores, selected_intent, mode):
+    row2_spacer1, row2_1, row2_spacer2, row2_2, row2_spacer3, row2_3, \
+    row2_spacer4, row2_4, row2_spacer5, row2_5, row2_spacer6, row2_6 = st.columns(
+        (.8, 2.5, .4, 2.5, .4, 2.5, .4, 2.5, .4, 2.5, .4, 2.5))
+
+    intent_performance = overall_performance[mode.lower()][selected_intent.replace("_eval", "")]
+    row2_1.metric("#Sessions", str(sum(list(intent_performance["overall_performance"].values()))), "")
+    if F1_scores[selected_intent] < 0.9:
+        row2_2.metric("F1 score", str(F1_scores[selected_intent]), "", "inverse")
+    else:
+        row2_2.metric("F1 score", str(F1_scores[selected_intent]), "Good")
+    if intent_performance["success_rate"] < 0.7:
+        row2_3.metric("Goal-completion Rate", str(intent_performance["success_rate"]), "", "inverse")
+    else:
+        row2_3.metric("Goal-completion Rate", str(intent_performance["success_rate"]), "")
+    if intent_performance["intent_error_rate"] > 0.5:
+        row2_4.metric("Intent Error Rate", str(intent_performance["intent_error_rate"]), "", "inverse")
+    else:
+        row2_4.metric("Intent Error Rate", str(intent_performance["intent_error_rate"]), "")
+    if intent_performance["NER_error_rate"] > 0.5:
+        row2_5.metric("NER Error Rate", str(intent_performance["NER_error_rate"]), "", "inverse")
+    else:
+        row2_5.metric("NER Error Rate", str(intent_performance["NER_error_rate"]), "")
+    row2_6.metric("Other Error Rate", str(intent_performance["other_error_rate"]), "")
+
+
 def render_summary_reports(database, mode, test, dataset_info, overall_performance):
     row1_spacer1, row1_1, row1_spacer2 = st.columns((.2, 7.1, .2))
     with row1_1:
         st.header("Bot health reports 📊")
-        st.markdown("The bot health reports consist of a summary report across all intents and "
-                    "per-intent reports to show both the task-completion and NLU performance.")
+        st.markdown("The bot health reports comprises 1) a summary report of a simulation session "
+                    "across all intents and 2) "
+                    "intent/dialog-specific reports to show both the task-completion and NLU performance.")
     row2_spacer1, row2_1, row2_spacer2 = st.columns((.2, 7.1, .4))
     with row2_1:
         st.subheader("Performance summary for selected test (test_id={}):".format(test))
@@ -46,36 +74,15 @@ def render_summary_reports(database, mode, test, dataset_info, overall_performan
         st.plotly_chart(dashboard_plot.plot_test_performance(intent_to_errors), use_container_width=True)
 
 
-def render_dialog_report(mode, selected_intent, F1s, overall_performance, detailed_performance):
+def render_dialog_report(mode, selected_intent, F1_scores, overall_performance, detailed_performance):
     row1_spacer1, row1_1, row1_spacer2 = st.columns((.3, 7.1, .4))
-    if not F1s:
-        F1s = {selected_intent: 1.0}
+    if not F1_scores:
+        F1_scores = {selected_intent: 1.0}
     with row1_1:
         st.markdown("---")
         st.subheader("Performance report for selected dialog \"" + selected_intent + "\"")
-    row2_spacer1, row2_1, row2_spacer2, row2_2, row2_spacer3, row2_3, \
-    row2_spacer4, row2_4, row2_spacer5, row2_5, row2_spacer6, row2_6 = st.columns(
-        (.8, 2.5, .4, 2.5, .4, 2.5, .4, 2.5, .4, 2.5, .4, 2.5))
 
-    intent_performance = overall_performance[mode.lower()][selected_intent.replace("_eval", "")]
-    row2_1.metric("#Sessions", str(sum(list(intent_performance["overall_performance"].values()))), "")
-    if F1s[selected_intent] < 0.9:
-        row2_2.metric("F1 score", str(F1s[selected_intent]), "", "inverse")
-    else:
-        row2_2.metric("F1 score", str(F1s[selected_intent]), "Good")
-    if intent_performance["success_rate"] < 0.7:
-        row2_3.metric("Goal-completion Rate", str(intent_performance["success_rate"]), "", "inverse")
-    else:
-        row2_3.metric("Goal-completion Rate", str(intent_performance["success_rate"]), "")
-    if intent_performance["intent_error_rate"] > 0.5:
-        row2_4.metric("Intent Error Rate", str(intent_performance["intent_error_rate"]), "", "inverse")
-    else:
-        row2_4.metric("Intent Error Rate", str(intent_performance["intent_error_rate"]), "")
-    if intent_performance["NER_error_rate"] > 0.5:
-        row2_5.metric("NER Error Rate", str(intent_performance["NER_error_rate"]), "", "inverse")
-    else:
-        row2_5.metric("NER Error Rate", str(intent_performance["NER_error_rate"]), "")
-    row2_6.metric("Other Error Rate", str(intent_performance["other_error_rate"]), "")
+    plot_dialog_performance_banner(overall_performance, F1_scores, selected_intent, mode)
 
     st.plotly_chart(
         dashboard_plot.plot_intent_performance(
@@ -84,10 +91,10 @@ def render_dialog_report(mode, selected_intent, F1s, overall_performance, detail
         use_container_width=True)
 
 
-def render_remediation(mode, selected_intent, F1s, overall_performance, detailed_performance):
+def render_remediation(mode, selected_intent, F1_scores, overall_performance, detailed_performance):
     row1_spacer1, row1_1, row1_spacer2 = st.columns((.2, 7.1, .2))
-    if not F1s:
-        F1s = {selected_intent: 1.0}
+    if not F1_scores:
+        F1_scores = {selected_intent: 1.0}
     with row1_1:
         st.markdown("---")
         st.header("Remediation Suggestions for {} 🛠️".format(selected_intent))
@@ -96,28 +103,7 @@ def render_remediation(mode, selected_intent, F1s, overall_performance, detailed
                     "They can also be extended by BotSIM users to include domain expertise or bot-specific "
                     "information. ")
 
-    row2_spacer1, row2_1, row2_spacer2, row2_2, row2_spacer3, row2_3, \
-    row2_spacer4, row2_4, row2_spacer5, row2_5, row2_spacer6, row2_6 = st.columns(
-        (.8, 2.5, .4, 2.5, .4, 2.5, .4, 2.5, .4, 2.5, .4, 2.5))
-    intent_performance = overall_performance[mode.lower()][selected_intent.replace("_eval", "")]
-    row2_1.metric("#Sessions", str(sum(list(intent_performance["overall_performance"].values()))), "")
-    if F1s[selected_intent] < 0.9:
-        row2_2.metric("F1 score", str(F1s[selected_intent]), "", "inverse")
-    else:
-        row2_2.metric("F1 score", str(F1s[selected_intent]), "Good")
-    if intent_performance["success_rate"] < 0.7:
-        row2_3.metric("Goal-completion Rate", str(intent_performance["success_rate"]), "", "inverse")
-    else:
-        row2_3.metric("Goal-completion Rate", str(intent_performance["success_rate"]), "")
-    if intent_performance["intent_error_rate"] > 0.5:
-        row2_4.metric("Intent Error Rate", str(intent_performance["intent_error_rate"]), "", "inverse")
-    else:
-        row2_4.metric("Intent Error Rate", str(intent_performance["intent_error_rate"]), "")
-    if intent_performance["NER_error_rate"] > 0.5:
-        row2_5.metric("NER Error Rate", str(intent_performance["NER_error_rate"]), "", "inverse")
-    else:
-        row2_5.metric("NER Error Rate", str(intent_performance["NER_error_rate"]), "")
-    row2_6.metric("Other Error Rate", str(intent_performance["other_error_rate"]), "")
+    plot_dialog_performance_banner(overall_performance, F1_scores, selected_intent, mode)
 
     row3_spacer1, row3_1, row3_spacer2 = st.columns((.2, 7.1, .2))
     with row3_1:
@@ -147,13 +133,13 @@ def render_remediation(mode, selected_intent, F1s, overall_performance, detailed
     if len(droplist_labels) > 0:
         row4_spacer1, row4_1, row4_spacer2, row4_2, row4_spacer3 = st.columns((.4, 8.3, .4, .4, .2))
         with row4_1:
-            st.markdown("For intent classification models, we show the wrongly predicted paraphrases intent queries "
+            st.markdown("For intent models, we show the wrongly predicted paraphrases intent queries "
                         "grouped by their corresponding original"
                         " training utterances (**sorted in descending order by number of errors**). "
                         "Detailed analysis can be found on the right hand side expander.")
         row5_spacer1, row5_1, row5_spacer2, row5_2, row5_spacer3 = st.columns((.4, 4.3, .4, 4.3, .2))
         with row5_1:
-            utt_selected = st.selectbox("Which utterance do you want to analyze? "
+            utt_selected = st.selectbox("Which utterance do you want to investigate? "
                                         "(" + str(len(droplist_labels)) + " in total)",
                                         list(droplist_labels), key="utt")
         with row5_2:
@@ -213,15 +199,16 @@ def render_remediation(mode, selected_intent, F1s, overall_performance, detailed
                     st.json(ner_errors)
 
 
-def render_analytics(database, test, cm_plot, recalls, precisions, F1s, intent_to_clusters, intent_to_supports,
+def render_analytics(database, test, cm_plot, recalls, precisions, F1_scores, intent_to_clusters, intent_to_supports,
                      all_intents):
     row1_spacer1, row1_1, row1_spacer2 = st.columns((.2, 7.1, .2))
     with row1_1:
         st.markdown("---")
         st.header("Conversation Analytics ⚙️")
-        st.markdown("BotSIM also offers  analytical tools for helping users gain more insights into their systems. "
+        st.markdown("Analytical tools for helping users gain insights into their bots for "
+                    "troubleshooting and improvement. "
                     "These tools include confusion matrix analysis, intent utterance tSNE clustering and "
-                    "bootstrap-based confidence analysis ")
+                    "many more can be added in the layout.")
 
     row2_spacer1, row2_1, row2_spacer2 = st.columns((.4, 7.1, .4))
     with row2_1:
@@ -244,24 +231,24 @@ def render_analytics(database, test, cm_plot, recalls, precisions, F1s, intent_t
 
             sorted_recall = dict(sorted(recalls.items(), key=lambda item: -item[1]))
             sorted_precision = dict(sorted(precisions.items(), key=lambda item: -item[1]))
-            sorted_F1 = dict(sorted(F1s.items(), key=lambda item: -item[1]))
+            sorted_F1 = dict(sorted(F1_scores.items(), key=lambda item: -item[1]))
             table = []
 
             if sorted_by == "Sorted by Recall":
                 for intent in sorted_recall:
-                    precision, recall, F1 = sorted_precision[intent], recalls[intent], F1s[intent]
+                    precision, recall, F1_score = sorted_precision[intent], recalls[intent], F1_scores[intent]
                     table.append(
-                        [intent, precision, recall, F1, intent_to_supports[intent], intent_to_clusters[intent]])
+                        [intent, precision, recall, F1_score, intent_to_supports[intent], intent_to_clusters[intent]])
             elif sorted_by == "Sorted by Precision":
                 for intent in sorted_precision:
-                    precision, recall, F1 = sorted_precision[intent], recalls[intent], F1s[intent]
+                    precision, recall, F1_score = sorted_precision[intent], recalls[intent], F1_scores[intent]
                     table.append(
-                        [intent, precision, recall, F1, intent_to_supports[intent], intent_to_clusters[intent]])
+                        [intent, precision, recall, F1_score, intent_to_supports[intent], intent_to_clusters[intent]])
             else:
                 for intent in sorted_F1:
-                    precision, recall, F1 = sorted_precision[intent], recalls[intent], F1s[intent]
+                    precision, recall, F1_score = sorted_precision[intent], recalls[intent], F1_scores[intent]
                     table.append(
-                        [intent, precision, recall, F1, intent_to_supports[intent], intent_to_clusters[intent]])
+                        [intent, precision, recall, F1_score, intent_to_supports[intent], intent_to_clusters[intent]])
 
         row4_spacer1, row4_1, row4_2, row4_3, row4_4, row4_5, row4_6, row4_spacer2 = st.columns(
             (2.3, 1.5, 1.5, 1.5, 1.5, 1.5, 1.5, 0.5))
@@ -290,10 +277,10 @@ def render_analytics(database, test, cm_plot, recalls, precisions, F1s, intent_t
     with row5_1:
         st.markdown("---")
         st.subheader("tSNE visualisation of intent training utterances")
-        st.markdown("To gauge the quality of the intent training utterances and identify intent overlaps,  "
-                    "tSNE clustering is performed based on the sentence transformer embeddings of the intent training "
+        st.markdown("To gauge the intent training data quality,  "
+                    "tSNE clustering is performed on the sentence transformer embeddings of the intent training "
                     "utterances. "
-                    "By examining the clusters, not only can  users find intents with significant overlap in training "
+                    "Not only can  the clustering identify intents with significant overlap in training "
                     "data semantic space, "
-                    "they can also potentially discover novel intents from production logs to aid dialog re-design.")
+                    "it can also potentially discover novel intents from production logs to aid dialog re-design.")
         st.plotly_chart(dashboard_plot.plot_tSNE(all_intents, database, test), use_container_width=True)

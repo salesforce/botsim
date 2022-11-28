@@ -191,13 +191,24 @@ def botsim_generation(test_id):
         result = json.loads(apply_paraphrasing(test_instance))
         if result:
             database.update_stage("s04_paraphrases_generated", test_id)
+            database.update_status(test_id, "paraphrasing_finished")
             generate_goals_from_paraphrases(test_instance)
             database.update_stage("s05_goal_created", test_id)
-            database.update_status(test_id, "paraphrasing_finished")
+            database.update_status(test_id, "goal created")
             return json.dumps({"status": "ok"})
         else:
             database.update_status(test_id, "running")
             return json.dumps({"status": "error"})
+    elif settings["stage"] == "s04_paraphrases_generated":
+        generate_goals_from_paraphrases(test_instance)
+        database.update_stage("s05_goal_created", test_id)
+        database.update_status(test_id, "goal created")
+        return json.dumps({"status": "ok"})
+    elif settings["stage"] == "s05_goal_created":
+        return json.dumps({"status": "ok"})
+    return json.dumps({"status": "error"})
+
+
 
 
 #########################

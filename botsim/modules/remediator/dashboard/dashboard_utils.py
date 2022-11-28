@@ -5,7 +5,13 @@
 
 import os, json
 import numpy as np
-from botsim.botsim_utils.utils import read_s3_json, dump_s3_file, file_exists, read_s3_data, convert_list_to_dict
+from botsim.botsim_utils.utils import (
+    read_s3_json,
+    dump_s3_file,
+    file_exists,
+    read_s3_data,
+    convert_list_to_dict,
+    S3_BUCKET_NAME)
 from sentence_transformers import SentenceTransformer
 
 
@@ -30,10 +36,11 @@ def get_embedding(intents, database, test_id="169", paraphrase=False, para_setti
     dev_embedding, dev_labels = np.empty((0, 384)), {"label": []}
 
     if "STORAGE" in os.environ and os.environ["STORAGE"] == "S3":
-        if file_exists("botsim", goals_dir + "/dev_embedding.npy") and \
-                file_exists("botsim", goals_dir + "/dev_embedding_label.npy"):
-            dev_embedding = np.frombuffer(read_s3_data("botsim", goals_dir + "/dev_embedding.npy")).reshape(-1, 384)
-            dev_labels = read_s3_json("botsim", goals_dir + "/dev_embedding_label.npy")["label"]
+        if file_exists(S3_BUCKET_NAME, goals_dir + "/dev_embedding.npy") and \
+                file_exists(S3_BUCKET_NAME, goals_dir + "/dev_embedding_label.npy"):
+            dev_embedding = np.frombuffer(read_s3_data(S3_BUCKET_NAME, goals_dir + "/dev_embedding.npy")).reshape(-1,
+                                                                                                                  384)
+            dev_labels = read_s3_json(S3_BUCKET_NAME, goals_dir + "/dev_embedding_label.npy")["label"]
             return dev_embedding, dev_labels
     else:
         if os.path.exists(goals_dir + "/dev_embedding.npy"):
@@ -47,13 +54,13 @@ def get_embedding(intents, database, test_id="169", paraphrase=False, para_setti
     for i, intent in enumerate(intents):
         file_name = goals_dir + "/" + intent + "_" + para_setting + ".paraphrases.json"
         if "STORAGE" in os.environ and os.environ["STORAGE"] == "S3":
-            if not file_exists("botsim", file_name):
+            if not file_exists(S3_BUCKET_NAME, file_name):
                 paraphrase = False
                 file_name = goals_dir + "/" + intent + ".json"
-                utterances = read_s3_json("botsim", file_name)[intent]
+                utterances = read_s3_json(S3_BUCKET_NAME, file_name)[intent]
             else:
                 print("processing", intent)
-                paras = read_s3_json("botsim", file_name)
+                paras = read_s3_json(S3_BUCKET_NAME, file_name)
                 utterances = []
                 for p in paras:
                     utterances.append(p["source"])
@@ -65,7 +72,6 @@ def get_embedding(intents, database, test_id="169", paraphrase=False, para_setti
                 file_name = goals_dir + "/" + intent + ".json"
                 utterances = json.load(open(file_name))[intent]
             else:
-                print("processing", intent)
                 paras = json.load(open(file_name))
                 utterances = []
                 for p in paras:
@@ -81,7 +87,7 @@ def get_embedding(intents, database, test_id="169", paraphrase=False, para_setti
         dump_s3_file(goals_dir + "/dev_embedding.npy", dev_embedding.tobytes())
         dump_s3_file(goals_dir + "/dev_embedding_label.npy", bytes(json.dumps(dev_labels, indent=2).encode("UTF-8")))
     else:
-        with  open(goals_dir + "/dev_embedding.npy", "wb") as f:
+        with open(goals_dir + "/dev_embedding.npy", "wb") as f:
             np.save(f, dev_embedding, allow_pickle=False)
         with  open(goals_dir + "/dev_embedding_label.npy", "wb") as f:
             np.save(f, dev_labels, allow_pickle=True)
@@ -110,9 +116,9 @@ def get_bot_health_reports(database, test_id):
     report_path = "data/bots/{}/{}/aggregated_report.json".format(config["type"], test_id)
 
     if "STORAGE" in os.environ and os.environ["STORAGE"] == "S3":
-        if not file_exists("botsim", report_path):
+        if not file_exists(S3_BUCKET_NAME, report_path):
             return None, None, None
-        report = read_s3_json("botsim", report_path)
+        report = read_s3_json(S3_BUCKET_NAME, report_path)
     else:
         if not os.path.exists(report_path):
             return None, None, None
@@ -130,8 +136,8 @@ def get_entities(database, test_id):
     entities = None
 
     if "STORAGE" in os.environ and os.environ["STORAGE"] == "S3":
-        if file_exists("botsim", entity_path):
-            entities = read_s3_json("botsim", entity_path)
+        if file_exists(S3_BUCKET_NAME, entity_path):
+            entities = read_s3_json(S3_BUCKET_NAME, entity_path)
     else:
         if os.path.exists(entity_path):
             entities = json.load(open(entity_path, "r"))
@@ -153,8 +159,8 @@ def parse_confusion_matrix(database, test_id, mode):
     config = dict(database.get_one_bot_test_instance(test_id))
     cm_report_path = "data/bots/{}/{}/remediation/cm_{}_report.json".format(config["type"], test_id, mode)
 
-    if file_exists("botsim", cm_report_path):
-        report = read_s3_json("botsim", cm_report_path)
+    if file_exists(S3_BUCKET_NAME, cm_report_path):
+        report = read_s3_json(S3_BUCKET_NAME, cm_report_path)
     else:
         return None, None, None, None, None, None, None
     rows = report["cm_table"]["body_row"]

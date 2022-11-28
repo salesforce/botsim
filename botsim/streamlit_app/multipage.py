@@ -7,16 +7,10 @@ import streamlit as st
 
 
 class MultiPage:
-    """Framework for combining multiple streamlit applications."""
     def __init__(self):
-        """Constructor  to generate a application/page  list."""
         self.pages = []
 
     def add_page(self, title, function):
-        """Add a page/app
-        :param title: title of the page
-        :param function: python function for rending the page
-        """
         self.pages.append(
             {
                 "title": title,
@@ -25,8 +19,6 @@ class MultiPage:
         )
 
     def run(self, database):
-        """Run the multi-page app
-        """
         page = st.sidebar.selectbox(
             "App Navigation",
             self.pages,

@@ -16,8 +16,8 @@ def check_unfinished_simulations(database):
     latest_bot_id, latest_stage = database.get_last_db_row()
     if latest_bot_id == -1:
         return False
-    if latest_stage == "has_goals" or latest_stage == "has_paraphrase":
-        st.warning("You have an unfinished simulation (id=" + str(latest_bot_id) + ")")
+    if latest_stage == "s05_goal_created" or latest_stage == "s04_paraphrases_generated":
+        st.warning("You have an unfinished simulation session (id=" + str(latest_bot_id) + ")")
         row0_1, row0_spacer1, row0_2 = st.columns((4.0, .05, 4.3))
         with row0_1:
             discard_simulation = st.checkbox("Discard the simulation?")
@@ -26,7 +26,7 @@ def check_unfinished_simulations(database):
         if discard_simulation:
             database.delete_bot_test_instance(latest_bot_id)
         if continue_simulation:
-            st.warning("Navigate to simulation page to resume the simulation")
+            st.warning("Navigate to simulation page to resume the simulation.")
         return True
     return False
 
@@ -48,7 +48,8 @@ def app(database):
         settings["status"] = "new"
         st.sidebar.info("Due to security and privacy reasons, the demo does not accept any uploads, thus users cannot "
                         "try the demo on their own bots yet. We will open-source the fully functional app after "
-                        " these issues are cleared. For this demo, users can try the dashboard and dialog path generation"
+                        "these issues are cleared. For this demo, users can try the dashboard and dialog path "
+                        "generation "
                         " with the provided simulation data.")
     st.markdown("**Dialog Generation & Simulation Configuration**")
 
