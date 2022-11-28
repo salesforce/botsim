@@ -194,16 +194,16 @@ The training paraphrase pairs can be created by sampling real user queries with 
 
 .. code-block:: json
 
-    {
+  [
         {
-            "text":" "<sos_s> <original text 1> <eos_s>",
-            "paraphrase": "<sos_t> <paraphrased text 1> <eos_t>"
+          "text":"<sos_s> <original text 1> <eos_s>",
+          "paraphrase": "<sos_t> <paraphrased text 1> <eos_t>"
         },
         {
-            "text":" "<sos_s> <original text 2> <eos_s>",
-            "paraphrase": "<sos_t> <paraphrased text 2> <eos_t>"
+          "text":"<sos_s> <original text 2> <eos_s>",
+          "paraphrase": "<sos_t> <paraphrased text 2> <eos_t>"
         }
-    }
+  ]
 
 To benchmark with the state-of-the-art `HRQ-VAE <https://github.com/tomhosking/hrq-vae>`_ model, the dev and test data (in jsonl format) can be directly downloaded from the repo.
 
