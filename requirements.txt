@@ -8,7 +8,7 @@ faker
 xmlplain==1.6.0
 matplotlib==3.4.3
 rapidfuzz
-httpx==0.22.0
+httpx==0.23.0
 asyncio==3.4.3
 transformers==4.16.2
 numpy
