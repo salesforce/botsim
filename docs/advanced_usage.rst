@@ -196,11 +196,11 @@ The training paraphrase pairs can be created by sampling real user queries with 
 
     {
         {
-            "text":" "<sos_s> <original text 1> <eos_s>"
+            "text":" "<sos_s> <original text 1> <eos_s>",
             "paraphrase": "<sos_t> <paraphrased text 1> <eos_t>"
         },
         {
-            "text":" "<sos_s> <original text 2> <eos_s>"
+            "text":" "<sos_s> <original text 2> <eos_s>",
             "paraphrase": "<sos_t> <paraphrased text 2> <eos_t>"
         }
     }
