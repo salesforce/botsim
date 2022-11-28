@@ -42,8 +42,7 @@
               <p class="caption" role="heading"><span class="caption-text">Introduction</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="intro.html">What is BotSIM?</a></li>
-<li class="toctree-l1"><a class="reference internal" href="intro.html#botsim-architecture">BotSIM  Architecture</a></li>
-<li class="toctree-l1"><a class="reference internal" href="intro.html#botsim-system-design">BotSIM System Design</a></li>
+<li class="toctree-l1"><a class="reference internal" href="intro.html#botsim-pipeline">BotSIM  Pipeline</a></li>
 <li class="toctree-l1"><a class="reference internal" href="intro.html#getting-started">Getting Started</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Deep-dive</span></p>
@@ -63,8 +62,10 @@
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Advanced Usage</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="advanced_usage.html">Extending BotSIM to New Bot Platforms</a></li>
+<li class="toctree-l1"><a class="reference internal" href="advanced_usage.html">BotSIM System Design</a></li>
+<li class="toctree-l1"><a class="reference internal" href="advanced_usage.html#extending-botsim-to-new-bot-platforms">Extending BotSIM to New Bot Platforms</a></li>
 <li class="toctree-l1"><a class="reference internal" href="advanced_usage.html#incorporating-advanced-models">Incorporating Advanced Models</a></li>
+<li class="toctree-l1"><a class="reference internal" href="advanced_usage.html#finetune-t5-paraphrasing-model">Finetune T5 Paraphrasing Model</a></li>
 <li class="toctree-l1"><a class="reference internal" href="advanced_usage.html#gcp-deployment">GCP Deployment</a></li>
 </ul>
 
@@ -122,8 +123,7 @@
 <p class="caption" role="heading"><span class="caption-text">Introduction</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="intro.html">What is BotSIM?</a></li>
-<li class="toctree-l1"><a class="reference internal" href="intro.html#botsim-architecture">BotSIM  Architecture</a></li>
-<li class="toctree-l1"><a class="reference internal" href="intro.html#botsim-system-design">BotSIM System Design</a></li>
+<li class="toctree-l1"><a class="reference internal" href="intro.html#botsim-pipeline">BotSIM  Pipeline</a></li>
 <li class="toctree-l1"><a class="reference internal" href="intro.html#getting-started">Getting Started</a></li>
 </ul>
 </div>
@@ -149,14 +149,27 @@
 <div class="toctree-wrapper compound">
 <p class="caption" role="heading"><span class="caption-text">Advanced Usage</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="advanced_usage.html">Extending BotSIM to New Bot Platforms</a><ul>
+<li class="toctree-l1"><a class="reference internal" href="advanced_usage.html">BotSIM System Design</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="advanced_usage.html#infrastructure-layer">Infrastructure Layer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="advanced_usage.html#adaptor-layer">Adaptor Layer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="advanced_usage.html#application-layer">Application Layer</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="advanced_usage.html#extending-botsim-to-new-bot-platforms">Extending BotSIM to New Bot Platforms</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="advanced_usage.html#parser">Parser</a></li>
 <li class="toctree-l2"><a class="reference internal" href="advanced_usage.html#bot-api-client">Bot API Client</a></li>
+<li class="toctree-l2"><a class="reference internal" href="advanced_usage.html#adding-new-rules-to-botsim-policy">Adding New Rules to BotSIM Policy</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="advanced_usage.html#incorporating-advanced-models">Incorporating Advanced Models</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="advanced_usage.html#natural-language-inference-nli-model-as-botsim-nlu">Natural Language Inference (NLI) model as BotSIM NLU</a></li>
+<li class="toctree-l2"><a class="reference internal" href="advanced_usage.html#natural-language-inference-nli-model-as-botsim-nlu">Natural Language Inference (NLI) Model as BotSIM NLU</a></li>
 <li class="toctree-l2"><a class="reference internal" href="advanced_usage.html#neural-based-nlg-model">Neural-based NLG Model</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="advanced_usage.html#finetune-t5-paraphrasing-model">Finetune T5 Paraphrasing Model</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="advanced_usage.html#prepare-paraphrase-pairs">Prepare Paraphrase Pairs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="advanced_usage.html#set-training-parameters">Set Training Parameters</a></li>
+<li class="toctree-l2"><a class="reference internal" href="advanced_usage.html#customize-model-and-trainer">Customize Model and Trainer</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="advanced_usage.html#gcp-deployment">GCP Deployment</a></li>

@@ -21,7 +21,7 @@
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Extending BotSIM to New Bot Platforms" href="advanced_usage.html" />
+    <link rel="next" title="BotSIM System Design" href="advanced_usage.html" />
     <link rel="prev" title="Retrieve Einstein BotBuilder Bot Metadata" href="tutorials.html" /> 
 </head>
 
@@ -43,8 +43,7 @@
               <p class="caption" role="heading"><span class="caption-text">Introduction</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="intro.html">What is BotSIM?</a></li>
-<li class="toctree-l1"><a class="reference internal" href="intro.html#botsim-architecture">BotSIM  Architecture</a></li>
-<li class="toctree-l1"><a class="reference internal" href="intro.html#botsim-system-design">BotSIM System Design</a></li>
+<li class="toctree-l1"><a class="reference internal" href="intro.html#botsim-pipeline">BotSIM  Pipeline</a></li>
 <li class="toctree-l1"><a class="reference internal" href="intro.html#getting-started">Getting Started</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Deep-dive</span></p>
@@ -69,8 +68,10 @@
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Advanced Usage</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="advanced_usage.html">Extending BotSIM to New Bot Platforms</a></li>
+<li class="toctree-l1"><a class="reference internal" href="advanced_usage.html">BotSIM System Design</a></li>
+<li class="toctree-l1"><a class="reference internal" href="advanced_usage.html#extending-botsim-to-new-bot-platforms">Extending BotSIM to New Bot Platforms</a></li>
 <li class="toctree-l1"><a class="reference internal" href="advanced_usage.html#incorporating-advanced-models">Incorporating Advanced Models</a></li>
+<li class="toctree-l1"><a class="reference internal" href="advanced_usage.html#finetune-t5-paraphrasing-model">Finetune T5 Paraphrasing Model</a></li>
 <li class="toctree-l1"><a class="reference internal" href="advanced_usage.html#gcp-deployment">GCP Deployment</a></li>
 </ul>
 
@@ -164,9 +165,9 @@ it also offers a controllable approach to troubleshooting dialog design related 
 <h1>Apply intent model remediation suggestions<a class="headerlink" href="#apply-intent-model-remediation-suggestions" title="Permalink to this heading"></a></h1>
 <p>The most straightforward approach of applying remediation suggestions is to augment the the recommended misclassified paraphrases  to the original
 training set to retrain the intent model.</p>
-<p>For the Einstein BotBuilder platform, new intent sets can be created as a csv file to include the augmented training set. The csv file can be deployed
-to users’ org via <a class="reference external" href="https://workbench.developerforce.com/login.php">Salesforce Workbench</a>. The new intent model can be retrained by associate the
-new intent set name <code class="docutils literal notranslate"><span class="pre">report_issue_dev_augmented</span></code> with the <code class="docutils literal notranslate"><span class="pre">Report</span> <span class="pre">an</span> <span class="pre">Issue</span></code> intent.</p>
+<p>For the Einstein BotBuilder platform, new intent sets can be created as a csv file for the augmented training set. The csv file can be deployed
+to users’ org via <a class="reference external" href="https://workbench.developerforce.com/login.php">Salesforce Workbench</a>. The new intent model can be trained by associate the
+new intent set <code class="docutils literal notranslate"><span class="pre">report_issue_dev_augmented</span></code> with the <code class="docutils literal notranslate"><span class="pre">Report</span> <span class="pre">an</span> <span class="pre">Issue</span></code> intent.</p>
 <table class="colwidths-given docutils align-default" id="id1">
 <caption><span class="caption-text">Snippet of augmented intent set csv file for the Einstein BotBuilder Platform</span><a class="headerlink" href="#id1" title="Permalink to this table"></a></caption>
 <colgroup>
@@ -236,7 +237,9 @@ new intent set name <code class="docutils literal notranslate"><span class="pre"
 </tr>
 </tbody>
 </table>
-<p>We observe consistent improvements for all intents on the evaluation set   after model retraining. More challenging intents (lower F1s), e.g., “Report an Issue (RI)” and “Connect with Sales (CS)”, saw larger performance gains compared to the easier ones such as “End Chat (EC)” (higher  F1s). This demonstrates the efficacy of BotSIM and is likely due to more paraphrases being selected for retraining the model on the more challenging intents.</p>
+<p>We observe consistent improvements for all intents on the evaluation set   after model retraining. More challenging intents (lower F1s), e.g., “Report an Issue (RI)” and “Connect with Sales (CS)”,
+saw larger performance gains compared to the easier ones such as “End Chat (EC)” (higher  F1s). This demonstrates the efficacy of BotSIM and is likely due to more paraphrases being selected
+for retraining the model on the more challenging intents.</p>
 <table class="colwidths-given docutils align-default">
 <colgroup>
 <col style="width: 17%" />
@@ -283,7 +286,7 @@ new intent set name <code class="docutils literal notranslate"><span class="pre"
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
         <a href="tutorials.html" class="btn btn-neutral float-left" title="Retrieve Einstein BotBuilder Bot Metadata" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="advanced_usage.html" class="btn btn-neutral float-right" title="Extending BotSIM to New Bot Platforms" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="advanced_usage.html" class="btn btn-neutral float-right" title="BotSIM System Design" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>

@@ -43,8 +43,7 @@
               <p class="caption" role="heading"><span class="caption-text">Introduction</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="intro.html">What is BotSIM?</a></li>
-<li class="toctree-l1"><a class="reference internal" href="intro.html#botsim-architecture">BotSIM  Architecture</a></li>
-<li class="toctree-l1"><a class="reference internal" href="intro.html#botsim-system-design">BotSIM System Design</a></li>
+<li class="toctree-l1"><a class="reference internal" href="intro.html#botsim-pipeline">BotSIM  Pipeline</a></li>
 <li class="toctree-l1"><a class="reference internal" href="intro.html#getting-started">Getting Started</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Deep-dive</span></p>
@@ -64,8 +63,10 @@
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Advanced Usage</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="advanced_usage.html">Extending BotSIM to New Bot Platforms</a></li>
+<li class="toctree-l1"><a class="reference internal" href="advanced_usage.html">BotSIM System Design</a></li>
+<li class="toctree-l1"><a class="reference internal" href="advanced_usage.html#extending-botsim-to-new-bot-platforms">Extending BotSIM to New Bot Platforms</a></li>
 <li class="toctree-l1"><a class="reference internal" href="advanced_usage.html#incorporating-advanced-models">Incorporating Advanced Models</a></li>
+<li class="toctree-l1"><a class="reference internal" href="advanced_usage.html#finetune-t5-paraphrasing-model">Finetune T5 Paraphrasing Model</a></li>
 <li class="toctree-l1"><a class="reference internal" href="advanced_usage.html#gcp-deployment">GCP Deployment</a></li>
 </ul>
 
@@ -117,10 +118,11 @@
     text-align: unset;
 }
 </style>
+<p>In this section, we deep-dive into major BotSIM components to understand their capabilties, required inputs and expected outputs.</p>
 <section id="configuration">
 <h1>Configuration<a class="headerlink" href="#configuration" title="Permalink to this heading"></a></h1>
-<p>We use a customisable configuration file to control the stages of the BotSIM pipeline. The template configuration is provided in the
-repo as <code class="docutils literal notranslate"><span class="pre">botsim/conf/config.json</span></code>. An example template is given below.</p>
+<p>We use a customisable configuration file to control the behaviours of the major components of the BotSIM pipeline. The template configuration is provided in the
+repo as <code class="docutils literal notranslate"><span class="pre">botsim/conf/config.json</span></code>. An example is given below.</p>
 <div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span><span class="w"></span>
 <span class="w">    </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;4&quot;</span><span class="p">,</span><span class="w"></span>
 <span class="w">    </span><span class="nt">&quot;platform&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Einstein_Bot&quot;</span><span class="p">,</span><span class="w"></span>
@@ -202,7 +204,7 @@ repo as <code class="docutils literal notranslate"><span class="pre">botsim/conf
 <h1>Generator<a class="headerlink" href="#generator" title="Permalink to this heading"></a></h1>
 <p>The generator takes bot designs and intent utterances as input and produces the required configuration files to serve as BotSIM’s NLU and NLG models.
 The generator also applies paraphrasing models to the input intent utterances and use the paraphrases as intent queries in the simulation goals.
-The following code shows how different components of the generator work:</p>
+The following code shows how the major functionalities of the generator:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">botsim.platforms.botbuilder.generator_wrapper</span> <span class="kn">import</span> <span class="n">Generator</span>
 <span class="n">platform</span> <span class="o">=</span> <span class="s2">&quot;Einstein_Bot&quot;</span>
 <span class="n">test_id</span> <span class="o">=</span> <span class="s2">&quot;4&quot;</span>
@@ -259,11 +261,11 @@ The following code shows how different components of the generator work:</p>
 </section>
 <section id="simulator">
 <h1>Simulator<a class="headerlink" href="#simulator" title="Permalink to this heading"></a></h1>
-<p>With the simulation goals, we can initialise a bot platform simulator client to perform agenda-based dialog user simulation via:</p>
+<p>With the simulation goals and the NLU, NLG models, we can initialise a bot platform simulator client to perform agenda-based dialog user simulation:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">mode</span> <span class="o">=</span> <span class="s2">&quot;dev&quot;</span>
 <span class="n">goal_dir</span> <span class="o">=</span> <span class="s2">&quot;data/bots/</span><span class="si">{}</span><span class="s2">/</span><span class="si">{}</span><span class="s2">/goals_dir/&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">platform</span><span class="p">,</span> <span class="n">test_id</span><span class="p">)</span>
 <span class="n">num_t5_paraphrases</span> <span class="o">=</span> <span class="n">config</span><span class="p">[</span><span class="s2">&quot;generator&quot;</span><span class="p">][</span><span class="s2">&quot;paraphraser_config&quot;</span><span class="p">][</span><span class="s2">&quot;num_t5_paraphrases&quot;</span><span class="p">]</span>
-<span class="n">num_pegasus_paraphrases</span> <span class="o">=</span> <span class="o">=</span><span class="n">config</span><span class="p">[</span><span class="s2">&quot;generator&quot;</span><span class="p">][</span><span class="s2">&quot;paraphraser_config&quot;</span><span class="p">][</span><span class="s2">&quot;num_pegasus_paraphrases&quot;</span><span class="p">]</span>
+<span class="n">num_pegasus_paraphrases</span> <span class="o">=</span> <span class="n">config</span><span class="p">[</span><span class="s2">&quot;generator&quot;</span><span class="p">][</span><span class="s2">&quot;paraphraser_config&quot;</span><span class="p">][</span><span class="s2">&quot;num_pegasus_paraphrases&quot;</span><span class="p">]</span>
 <span class="n">para_setting</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">{}</span><span class="s2">_</span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">num_t5_paraphrases</span><span class="p">,</span> <span class="n">num_pegasus_paraphrases</span><span class="p">)</span>
 <span class="n">intent_name</span> <span class="o">=</span> <span class="s2">&quot;End_Chat&quot;</span>
 <span class="n">config</span><span class="p">[</span><span class="s2">&quot;simulation&quot;</span><span class="p">]</span> <span class="o">=</span> \
@@ -285,16 +287,16 @@ The following code shows how different components of the generator work:</p>
     <span class="k">else</span><span class="p">:</span>
         <span class="kn">from</span> <span class="nn">botsim.platforms.botbuilder.simulation_client</span> <span class="kn">import</span> <span class="n">LiveAgentClient</span>
         <span class="n">client</span> <span class="o">=</span> <span class="n">LiveAgentClient</span><span class="p">(</span><span class="n">config</span><span class="p">)</span>
-    <span class="n">client</span><span class="o">.</span><span class="n">simulate_conversation</span><span class="p">(</span><span class="kc">None</span><span class="p">)</span>
+    <span class="n">client</span><span class="o">.</span><span class="n">simulate_conversation</span><span class="p">()</span>
 </pre></div>
 </div>
-<p>This will start the dialog simulation for each intent/dialog and mode (dev/eval) included in the configuration file.
-Upon the completion of each simulation session, the following outputs will be generated  under <code class="docutils literal notranslate"><span class="pre">data/bots/Einstein_Bot/4/simulation/&lt;intent&gt;/</span></code>:</p>
+<p>This will start the dialog simulation for each intent/dialog and mode (dev/eval) as specified in the configuration file <code class="docutils literal notranslate"><span class="pre">simulator[&quot;dev_intents&quot;]''</span> <span class="pre">and</span> <span class="pre">``simulator[&quot;eval_intents&quot;]''.</span>
+<span class="pre">Upon</span> <span class="pre">the</span> <span class="pre">completion</span> <span class="pre">of</span> <span class="pre">the</span> <span class="pre">simulation</span> <span class="pre">session,</span> <span class="pre">the</span> <span class="pre">following</span> <span class="pre">outputs</span> <span class="pre">will</span> <span class="pre">be</span> <span class="pre">generated</span>&#160; <span class="pre">under</span> <span class="pre">``data/bots/Einstein_Bot/4/simulation/&lt;intent&gt;/</span></code>:</p>
 <ul class="simple">
 <li><p><strong>simulation chat logs</strong>: <code class="docutils literal notranslate"><span class="pre">logs_&lt;mode&gt;_&lt;para_setting&gt;_&lt;num_utterances&gt;_utts_paraphrases_&lt;num_simulations&gt;_sessions.json</span></code></p></li>
 <li><p><strong>simulation error info</strong>: <code class="docutils literal notranslate"><span class="pre">errors_&lt;mode&gt;_&lt;para_setting&gt;_&lt;num_utterances&gt;_utts_paraphrases_&lt;num_simulations&gt;_sessions.json</span></code></p></li>
 </ul>
-<p>These two files will be used as the inputs to the remediator.</p>
+<p>These two files will be used as the inputs to the remediator for further analysis.</p>
 </section>
 <section id="remediator">
 <h1>Remediator<a class="headerlink" href="#remediator" title="Permalink to this heading"></a></h1>

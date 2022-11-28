@@ -43,16 +43,12 @@
               <p class="caption" role="heading"><span class="caption-text">Introduction</span></p>
 <ul class="current">
 <li class="toctree-l1 current"><a class="current reference internal" href="#">What is BotSIM?</a></li>
-<li class="toctree-l1"><a class="reference internal" href="#botsim-architecture">BotSIM  Architecture</a></li>
-<li class="toctree-l1"><a class="reference internal" href="#botsim-system-design">BotSIM System Design</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#infrastructure-layer">Infrastructure layer</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#adaptor-layer-accommodating-new-bot-platforms">Adaptor Layer: accommodating  new bot platforms</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#application-layer">Application Layer</a></li>
-</ul>
-</li>
+<li class="toctree-l1"><a class="reference internal" href="#botsim-pipeline">BotSIM  Pipeline</a></li>
 <li class="toctree-l1"><a class="reference internal" href="#getting-started">Getting Started</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#prerequisite">Prerequisite</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#installation">Installation</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#running-streamlit-app">Running Streamlit App</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#command-line-tools">Command Line Tools</a></li>
 </ul>
 </li>
 </ul>
@@ -73,8 +69,10 @@
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Advanced Usage</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="advanced_usage.html">Extending BotSIM to New Bot Platforms</a></li>
+<li class="toctree-l1"><a class="reference internal" href="advanced_usage.html">BotSIM System Design</a></li>
+<li class="toctree-l1"><a class="reference internal" href="advanced_usage.html#extending-botsim-to-new-bot-platforms">Extending BotSIM to New Bot Platforms</a></li>
 <li class="toctree-l1"><a class="reference internal" href="advanced_usage.html#incorporating-advanced-models">Incorporating Advanced Models</a></li>
+<li class="toctree-l1"><a class="reference internal" href="advanced_usage.html#finetune-t5-paraphrasing-model">Finetune T5 Paraphrasing Model</a></li>
 <li class="toctree-l1"><a class="reference internal" href="advanced_usage.html#gcp-deployment">GCP Deployment</a></li>
 </ul>
 
@@ -128,10 +126,10 @@
 </style>
 <section id="what-is-botsim">
 <h1>What is BotSIM?<a class="headerlink" href="#what-is-botsim" title="Permalink to this heading"></a></h1>
-<p>BotSIM is a modular, open-source <em>Bot SIM</em>ulation toolkit to serve as a one-stop solution for
-large-scale data-efficient end-to-end evaluation, diagnosis and remediation of commercial task-oriented dialog systems (chatbots).</p>
-<p>As a simulation framework, bot developers can extend BotSIM to support new bot platforms. As a toolkit, BotSIM can be readily used
-by bot admins or practitioners to perform testing and remediation of their bots.</p>
+<p>BotSIM is an open-source  <em>Bot SIM</em>ulation toolkit for
+large-scale data-efficient end-to-end evaluation, diagnosis and remediation of commercial task-oriented dialog systems (chatbots) across muliple bot platforms.
+As a simulation framework, BotSIM can be extended by bot developers to support new bot platforms. As a toolkit, it can be readily applied
+by bot admins or practitioners to their bots.</p>
 <p>Key features of BotSIM include:</p>
 <ul class="simple">
 <li><p><strong>Multi-stage bot evaluation</strong>: BotSIM can be used for both pre-deployment testing and potentially post-deployment performance monitoring.</p></li>
@@ -140,61 +138,33 @@ by bot admins or practitioners to perform testing and remediation of their bots.
 <li><p><strong>Bot health report dashboard</strong>: The bot health report dashboard presents a multi-granularity top-down view of bot performance consisting of historical performance, current  bot test performance and dialogue-specific performance. Together with the analytical tools, they help bot practitioners quickly identify the most urgent issues and properly plan their resources for troubleshooting.</p></li>
 <li><p><strong>Easy extension to new bot platform</strong>: BotSIM was built with a modular task-agnostic design, with multiple platform support in mind, so it can be easily extended to support new bot platforms. (*BotSIM currently supports  <a class="reference external" href="https://help.salesforce.com/s/articleView?id=sf.bots_service_intro.htm&amp;type=5">Salesforce Einstein BotBuilder</a> and <a class="reference external" href="https://cloud.google.com/dialogflow/cx/docs/basics">Google DialogFlow CX</a>.)</p></li>
 </ul>
-<p>BotSIM can significantly accelerate commercial bot development and evaluation, reduce cost and time-to-market by: 1) reducing efforts for test dialog creation and human-bot conversation; 2) enabling a better understanding of both Natural Language Understanding (NLU) and end-to-end performance via extensive dialog simulation; 3) improving bot troubleshooting process with actionable suggestions from simulation results analysis.</p>
+<p>BotSIM can significantly accelerate commercial bot development and evaluation, reduce cost and time-to-market by: 1) reducing manual efforts for test dialog creation and human-bot
+conversation; 2) reducing fast bot evaluation and diagnosis via  large-scale end-to-end dialog simulation;
+3) improving bot troubleshooting process with actionable suggestions from simulation results analysis.</p>
 </section>
-<section id="botsim-architecture">
-<h1>BotSIM  Architecture<a class="headerlink" href="#botsim-architecture" title="Permalink to this heading"></a></h1>
+<section id="botsim-pipeline">
+<h1>BotSIM  Pipeline<a class="headerlink" href="#botsim-pipeline" title="Permalink to this heading"></a></h1>
 <a class="reference internal image-reference" href="_images/BotSIM_Arch.png"><img alt="_images/BotSIM_Arch.png" src="_images/BotSIM_Arch.png" style="width: 550px;" /></a>
-<p>BotSIM’s “generation-simulation-remediation” pipeline is shown above.</p>
-<ul class="simple">
-<li><p><strong>Generator</strong> takes bot designs and intent utterances as input and produces the required  configuration files and dialog goals for dialog simulation.</p></li>
-<li><p><strong>Simulator</strong> performs agenda-based dialog simulation through bot APIs.</p></li>
-<li><p><strong>Remediator</strong> generates health reports, performs analyses, and provides actionable insights to troubleshoot and improve dialog systems.</p></li>
-</ul>
-</section>
-<section id="botsim-system-design">
-<h1>BotSIM System Design<a class="headerlink" href="#botsim-system-design" title="Permalink to this heading"></a></h1>
-<a class="reference internal image-reference" href="_images/BotSIM_design.png"><img alt="_images/BotSIM_design.png" src="_images/BotSIM_design.png" style="width: 550px;" /></a>
-<p>The key design principles of BotSIM include modularity, extensibility and usability so that the framework can be easily adopted by both bot end users and developers.
-The framework comprises three layers, namely the infrastructure layer, the adaptor layer and the toolkit layer.</p>
-<section id="infrastructure-layer">
-<h2>Infrastructure layer<a class="headerlink" href="#infrastructure-layer" title="Permalink to this heading"></a></h2>
-<p>The infrastructure layer is designed to offer fundamental model support for the framework.
-It comprises two major categories: the natural language understanding (NLU), natural language generation (NLG) models
-and the key modules including the generator, the simulator and the remediator.</p>
+<p>BotSIM offers a streamlined “generation-simulation-remediation” process (shown above) for end-to-end bot evaluation and remediation. Each stage in the pipeline is supported by a system component
+as listed below:</p>
 <ul>
-<li><p><code class="docutils literal notranslate"><span class="pre">botsim.models</span></code> contains BotSIM’s  NLU and NLG models. From a dialogue system perspective, BotSIM can be viewed as a counterpart to a chatbot: it needs to “understand” chatbot messages (NLU) and “respond” in natural languages (NLG).
-Currently, fuzzy matching-based NLU and template-based NLG models are provided for efficiency reasons. Developers can also incorporate more advanced NLU and NLG models..</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">botsim.modules</span></code> consists of the three key  modules to power BotSIM’s “generation-simulation-remediation” pipeline.</p>
-<blockquote>
-<div><ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">botsim.modules.generator</span></code> supports two major functionalities: 1) <code class="docutils literal notranslate"><span class="pre">parser</span></code> to parse bot metadata to infer dialog acts and dialog-act maps (BotSIM’s NLU); 2) <code class="docutils literal notranslate"><span class="pre">paraphraser</span></code> to generate paraphrases of the input intent utterances to be used as intent queries in the simulation goals to probe bots’ intent model.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">botsim.modules.simulator</span></code> implements the dialog-act level agenda-based user simulation in <code class="docutils literal notranslate"><span class="pre">abus</span></code>. It also defines a simulation API client interface <code class="docutils literal notranslate"><span class="pre">simulation_client_base</span></code></p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">botsim.modules.remediator</span></code> analyzes the simulation dialogs and produces the performance metrics and conversational analytics to support the dashboard visualisation.</p></li>
-</ul>
-</div></blockquote>
+<li><p><strong>Generator</strong> takes raw bot designs metadata or APIs and intent utterances as input and produces the following outputs: 1) templates for NLU and NLG; 2) simulation goals for the Simulator.</p></li>
+<li><p><strong>Simulator</strong> performs agenda-based dialog simulation through bot APIs as depiected in the figure below.</p>
+<a class="reference internal image-reference" href="_images/BotSIM_simulation_loop.png"><img alt="_images/BotSIM_simulation_loop.png" src="_images/BotSIM_simulation_loop.png" style="width: 550px;" /></a>
 </li>
+<li><p><strong>Remediator</strong> generates health reports, performs analyses, and provides actionable suggestions to troubleshoot and improve dialog systems.</p></li>
 </ul>
-</section>
-<section id="adaptor-layer-accommodating-new-bot-platforms">
-<h2>Adaptor Layer: accommodating  new bot platforms<a class="headerlink" href="#adaptor-layer-accommodating-new-bot-platforms" title="Permalink to this heading"></a></h2>
-<p>Built on top of the infrastructure layer, the adaptor layer is designed for easy extension of BotSIM to new bot platforms. The two most important platform-specific components of the layer include</p>
-<ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">parser</span></code> acts as an “adaptor” to unify bot definitions (e.g. conversation flows, intents/tasks) from different platforms to a common representation of dialog act maps. The dialog act maps are used as BotSIM NLU to map  bot messages to dialog acts. Note the implementations of the parser are highly platform-dependent and require bot developers to have access to bot APIs and bot design documentations. We have provided the implementations of BotBuilder and DialogFlow CX parser as references.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">simulation_client</span></code> is the other platform-dependent component for BotSIM to exchange conversations  with bots via API calls. Similar to the parser, the implementation of the client depends on the design of the bot APIs and requires developers to choose appropriate APIs to implement the simulator client.</p></li>
-</ul>
-</section>
-<section id="application-layer">
-<h2>Application Layer<a class="headerlink" href="#application-layer" title="Permalink to this heading"></a></h2>
-<p>The application layer is designed to significantly flatten the learning curves of BotSIM for both bot developers/practitioners and end users.</p>
-<ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">botsim.cli</span></code> contains a set of command line tools for practitioners to learn more about the  major BotSIM components. The “generation-simulation-evaluation” pipeline has been split into multiple stages to expose the required inputs and expected outputs. They serve as basic building blocks for bot practitioners to build their customized pipelines.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">botsim.streamlit_app</span></code> is a multi-page easy-to-use Web app. The motivation is to offer  BotSIM not just as a framework for developers but also as an easy-to-use  app to end users such as bot admins without diving into  technical details. The app can be deployed as a docker container or to the Heroku platform. We use Streamlit for supporting the front-end pages. Flask is used to support the backend APIs for Streamlit to invoke BotSIM functionalities. The app is also equipped with a SQL database to store  simulation status and historical performance across multiple platforms.</p></li>
-</ul>
-</section>
 </section>
 <section id="getting-started">
 <h1>Getting Started<a class="headerlink" href="#getting-started" title="Permalink to this heading"></a></h1>
+<section id="prerequisite">
+<h2>Prerequisite<a class="headerlink" href="#prerequisite" title="Permalink to this heading"></a></h2>
+<p>To use BotSIM, users need to have API access to the supported bot platforms:</p>
+<ul class="simple">
+<li><p>Salesforce EinsteinBotBuilder LiveAgent API: <code class="docutils literal notranslate"><span class="pre">org</span> <span class="pre">ID</span></code>, <code class="docutils literal notranslate"><span class="pre">button</span> <span class="pre">ID</span></code>, <code class="docutils literal notranslate"><span class="pre">deployment</span> <span class="pre">Id</span></code>, <code class="docutils literal notranslate"><span class="pre">chat</span> <span class="pre">endpoint</span></code></p></li>
+<li><p>Google DialogFlow CX API: <code class="docutils literal notranslate"><span class="pre">location</span> <span class="pre">ID</span></code>, <code class="docutils literal notranslate"><span class="pre">project</span> <span class="pre">ID</span></code>, <code class="docutils literal notranslate"><span class="pre">agent</span> <span class="pre">ID</span></code> and JSON API token.</p></li>
+</ul>
+</section>
 <section id="installation">
 <h2>Installation<a class="headerlink" href="#installation" title="Permalink to this heading"></a></h2>
 <ol class="arabic simple">
@@ -221,7 +191,7 @@ pip install .
 <h2>Running Streamlit App<a class="headerlink" href="#running-streamlit-app" title="Permalink to this heading"></a></h2>
 <a class="reference internal image-reference" href="_images/BotSIM_App.png"><img alt="_images/BotSIM_App.png" src="_images/BotSIM_App.png" style="width: 550px;" /></a>
 <ol class="arabic simple">
-<li><p>Running Streamlit App locally</p></li>
+<li><p>Start Streamlit App locally （detailed instructions regarding App usage given in the <a class="reference external" href="https://opensource.salesforce.com/botsim//latest/tutorials.html##streamlit-web-app">tutorial</a>.)</p></li>
 </ol>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">export</span> <span class="nv">PYTHONPATH</span><span class="o">=</span>./:<span class="nv">$PYTHONPATH</span>
 <span class="nb">export</span> <span class="nv">DATABASE_URL</span><span class="o">=</span><span class="s2">&quot;db/botsim_sqlite_demo.db&quot;</span>
@@ -233,12 +203,17 @@ streamlit run botsim/streamlit_app/app.py
 </ol>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nv">device</span><span class="o">=</span>cpu <span class="c1"># change device to gpu to build a GPU docker image</span>
 docker build --build-arg <span class="nv">device</span><span class="o">=</span><span class="nv">$device</span> -t botsim-streamlit .
-docker build -t botsim-streamlit .
-docker run -p <span class="m">8501</span>:8501 botsim-streamlit
 </pre></div>
 </div>
-<p>Alternatively, users can also use the command line tools to gain more flexibility.
-More details of how to run the command line tools are given later in the tutorial section.</p>
+<ol class="arabic simple" start="3">
+<li><p>The App can also be deployed to GCP for access to GPU resources.
+Detailed deployment instructions are given in the <a class="reference external" href="https://opensource.salesforce.com/botsim//latest/advanced_usage.html#gcp-deployment">GCP Deployment</a> section of the documentation.</p></li>
+</ol>
+</section>
+<section id="command-line-tools">
+<h2>Command Line Tools<a class="headerlink" href="#command-line-tools" title="Permalink to this heading"></a></h2>
+<p>Alternatively, users can also deep-dive to learn more about BotSIM’s system components through the command line tools.
+Detailed steps are given in the <a class="reference external" href="https://opensource.salesforce.com/botsim//latest/tutorials.html#botsim-command-line-tools">tutorial section</a>.</p>
 </section>
 </section>
 

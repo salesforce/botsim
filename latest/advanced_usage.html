@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Extending BotSIM to New Bot Platforms &mdash; BotSIM  documentation</title>
+  <title>BotSIM System Design &mdash; BotSIM  documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
@@ -42,8 +42,7 @@
               <p class="caption" role="heading"><span class="caption-text">Introduction</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="intro.html">What is BotSIM?</a></li>
-<li class="toctree-l1"><a class="reference internal" href="intro.html#botsim-architecture">BotSIM  Architecture</a></li>
-<li class="toctree-l1"><a class="reference internal" href="intro.html#botsim-system-design">BotSIM System Design</a></li>
+<li class="toctree-l1"><a class="reference internal" href="intro.html#botsim-pipeline">BotSIM  Pipeline</a></li>
 <li class="toctree-l1"><a class="reference internal" href="intro.html#getting-started">Getting Started</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Deep-dive</span></p>
@@ -63,14 +62,27 @@
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Advanced Usage</span></p>
 <ul class="current">
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Extending BotSIM to New Bot Platforms</a><ul>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">BotSIM System Design</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#infrastructure-layer">Infrastructure Layer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#adaptor-layer">Adaptor Layer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#application-layer">Application Layer</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="#extending-botsim-to-new-bot-platforms">Extending BotSIM to New Bot Platforms</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#parser">Parser</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#bot-api-client">Bot API Client</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#adding-new-rules-to-botsim-policy">Adding New Rules to BotSIM Policy</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="#incorporating-advanced-models">Incorporating Advanced Models</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#natural-language-inference-nli-model-as-botsim-nlu">Natural Language Inference (NLI) model as BotSIM NLU</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#natural-language-inference-nli-model-as-botsim-nlu">Natural Language Inference (NLI) Model as BotSIM NLU</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#neural-based-nlg-model">Neural-based NLG Model</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="#finetune-t5-paraphrasing-model">Finetune T5 Paraphrasing Model</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#prepare-paraphrase-pairs">Prepare Paraphrase Pairs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#set-training-parameters">Set Training Parameters</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#customize-model-and-trainer">Customize Model and Trainer</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="#gcp-deployment">GCP Deployment</a></li>
@@ -90,7 +102,7 @@
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
       <li><a href="index.html" class="icon icon-home"></a></li>
-      <li class="breadcrumb-item active">Extending BotSIM to New Bot Platforms</li>
+      <li class="breadcrumb-item active">BotSIM System Design</li>
       <li class="wy-breadcrumbs-aside">
             <a href="_sources/advanced_usage.rst.txt" rel="nofollow"> View page source</a>
       </li>
@@ -124,21 +136,72 @@
     text-align: unset;
 }
 </style>
+<section id="botsim-system-design">
+<h1>BotSIM System Design<a class="headerlink" href="#botsim-system-design" title="Permalink to this heading"></a></h1>
+<p>The key design principles of BotSIM include modularity, extensibility and usability so that the toolkit can be easily adopted by both bot end users and developers.
+To achieve these, we adopt a layered design to decouple the development and the application.
+The toolkit comprises three layers, namely the infrastructure layer, the adaptor layer and the toolkit layer as shown in the figure below.</p>
+<a class="reference internal image-reference" href="_images/BotSIM_design.png"><img alt="_images/BotSIM_design.png" src="_images/BotSIM_design.png" style="width: 550px;" /></a>
+<section id="infrastructure-layer">
+<h2>Infrastructure Layer<a class="headerlink" href="#infrastructure-layer" title="Permalink to this heading"></a></h2>
+<p>The infrastructure layer is designed to offer fundamental functionalities for the framework.
+It comprises two major categories: the key models including natural language understanding (NLU), natural language generation (NLG)
+and the modules including the generator, the simulator and the remediator.</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">botsim.models</span></code> contains BotSIM’s  NLU and NLG models. From a dialogue system perspective, BotSIM can be viewed as a counterpart to a chatbot: it needs to “understand” chatbot messages (NLU) and “respond” in natural languages (NLG).
+Currently, fuzzy matching-based NLU and template-based NLG models are provided for efficiency reasons. Developers can also incorporate more advanced NLU and NLG models (see the <a class="reference external" href="https://opensource.salesforce.com/botsim//latest/advanced_usage.html">advanced usages</a> section).</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">botsim.modules</span></code> consists of the three key  modules to power BotSIM’s “generation-simulation-remediation” pipeline.</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">botsim.modules.generator</span></code> supports two major functionalities: 1) <code class="docutils literal notranslate"><span class="pre">parser</span></code> to parse bot metadata to infer dialog acts and dialog-act maps (BotSIM’s NLU); 2) <code class="docutils literal notranslate"><span class="pre">paraphraser</span></code> to generate paraphrases of the input intent utterances. The paraphrases are used as intent queries of the simulation goals to probe bots’ intent model.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">botsim.modules.simulator</span></code> implements the dialog-act level agenda-based user simulation in <code class="docutils literal notranslate"><span class="pre">abus</span></code>. It also defines a simulation API client interface in <code class="docutils literal notranslate"><span class="pre">simulation_client_base</span></code>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">botsim.modules.remediator</span></code> analyzes the simulation dialogs and produces the performance metrics and conversational analytics to support the dashboard visualisation.</p></li>
+</ul>
+</div></blockquote>
+</li>
+</ul>
+</section>
+<section id="adaptor-layer">
+<h2>Adaptor Layer<a class="headerlink" href="#adaptor-layer" title="Permalink to this heading"></a></h2>
+<p>Built on top of the infrastructure layer, the adaptor layer is designed for easy extension of BotSIM to new bot platforms.
+The two most important platform-specific components of the layer include:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">parser</span></code> acts as an “adaptor” to unify bot definitions (e.g. dialog flows, intents/tasks) from different platforms to a common representation of dialog act maps.
+The dialog act maps are used as BotSIM NLU to map  bot messages to dialog acts.
+Note the implementations of the parser are highly platform-dependent and require bot developers to have access to bot APIs and design documentations.
+We have provided our implementations of BotBuilder and DialogFlow CX parsers for reference.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">simulation_client</span></code> is the other platform-dependent component for BotSIM to exchange conversations  with bots via APIs.
+Similar to the <code class="docutils literal notranslate"><span class="pre">parser</span></code>, the client implementation depends on the API designs of underlying bot platforms.</p></li>
+</ul>
+</section>
+<section id="application-layer">
+<h2>Application Layer<a class="headerlink" href="#application-layer" title="Permalink to this heading"></a></h2>
+<p>The application layer is designed to significantly flatten the learning curves of applying BotSIM for both bot practitioners and end users.</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">botsim.cli</span></code> contains a set of command line tools for practitioners to deep-dive into major stages of the BotSIM’s  “generation-simulation-evaluation” pipeline.
+The command line tools expose the required inputs and expected outputs for each stage, which serve as basic building blocks for bot practitioners to build their customized pipelines.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">botsim.streamlit_app</span></code> is a multi-page easy-to-use Web app designed for direct application by bot end users such as bot admins without diving into technical details.
+The app can be deployed as a docker container to cloud platforms for access to more computation resources. We use Streamlit for the App front-ends. Flask backend APIs are implemented to encapsulate
+major BotSIM functionalities. The app is also equipped with a SQL database to store  simulation stages and keep track of simulation performance across multiple platforms.</p></li>
+</ul>
+</section>
+</section>
 <section id="extending-botsim-to-new-bot-platforms">
 <h1>Extending BotSIM to New Bot Platforms<a class="headerlink" href="#extending-botsim-to-new-bot-platforms" title="Permalink to this heading"></a></h1>
-<p>Bot developers can extend BotSIM to new platforms by implementing their platform-dependent parsers and API clients.
-They serve as the “adaptors” in order to apply BotSIM’s “generation-simulation-remediation” pipeline.</p>
+<p>Bot developers can extend BotSIM to new platforms by implementing their platform-dependent <code class="docutils literal notranslate"><span class="pre">adaptors</span></code> including parsers and API clients.</p>
 <section id="parser">
 <h2>Parser<a class="headerlink" href="#parser" title="Permalink to this heading"></a></h2>
-<p>The parser interface is defined in generator.parser and has the following important functions to implement.
-As these functions are highly platform dependent, the implementation might be non-trivial and require access to bot design documentation from the bot platform provider.
-We provide our initial parser implementations for the Einstein BotBuilder (<code class="docutils literal notranslate"><span class="pre">platform.botbuilder</span></code>) and Google DialogFlow CX (<code class="docutils literal notranslate"><span class="pre">platform.dialogflow_cx</span></code>) platforms.
-The utility functions supporting the parsers are under  <code class="docutils literal notranslate"><span class="pre">modules.generator.utils.&lt;platform-name&gt;/parser_utilities.py</span></code></p>
-<ol class="arabic">
-<li><p><code class="docutils literal notranslate"><span class="pre">extract_local_dialog_act_map</span></code> function generates a “local” dialog act map by ignoring incoming and output  transitions. In other words, the local map only considers the messages/actions explicitly defined within the dialog. These local dialog act maps are modelled as graph nodes during the subsequent conversation graph modelling. In particular, the messages for the two special dialog acts, namely “intent_success_message”and “dialog_success_message” are also generated here according to the following heuristics:   “intent_success_message” contains the first request message and all its previous normal messages    “dialog_success_message” contains the last messages.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">conversation_graph_modelling</span></code> models the entire bot design as a graph. Each individual dialog is represented by its local dialog act maps and modelled as the graph nodes. Transitions among the individual dialogs are modelled as the graph edges. The graph modelling is based on the <code class="docutils literal notranslate"><span class="pre">networkx</span></code> package. There are two outputs from the function: the final dialog act maps and the graph data for conversation path visualisation.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">parse</span></code> function defines a general parser pipeline for all platforms starting from parsed local dialog act maps.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">parse</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<p>The parser interface is defined in <code class="docutils literal notranslate"><span class="pre">generator.parser</span></code> and has the following important functions.</p>
+<p>1. <code class="docutils literal notranslate"><span class="pre">extract_local_dialog_act_map</span></code> function generates a “local” dialog act map by ignoring incoming and output  transitions.
+In other words, the local map only considers the messages/actions explicitly defined within the dialog. These local dialog act maps are modelled as graph nodes during
+the subsequent conversation graph modelling. In particular, the messages for the two special dialog acts,
+namely “intent_success_message”and “dialog_success_message” are also generated here according to heuristics discussed before.
+2. <code class="docutils literal notranslate"><span class="pre">conversation_graph_modelling</span></code> models the entire bot design as a graph. Each individual dialog is represented by its local dialog act maps and included as the graph nodes.
+Transitions among dialogs are modelled as the graph edges. The graph modelling is based on the <code class="docutils literal notranslate"><span class="pre">networkx</span></code> package.
+There are two outputs from the function: the final dialog act maps and the graph data for conversation path visualisation.
+3. <code class="docutils literal notranslate"><span class="pre">parse</span></code> function defines a general parser pipeline  starting from parsed local dialog act maps.</p>
+<blockquote>
+<div><div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">parse</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
   <span class="c1"># extract local dialog act maps which are later modelled as graph nodes</span>
   <span class="n">local_dialog_act_maps</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">extract_local_dialog_act_map</span><span class="p">()</span>
   <span class="bp">self</span><span class="o">.</span><span class="n">dialog_act_maps</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">conv_graph_visualisation_data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">conversation_graph_modelling</span><span class="p">(</span><span class="n">local_dialog_act_maps</span><span class="p">)</span>
@@ -146,40 +209,42 @@ The utility functions supporting the parsers are under  <code class="docutils li
   <span class="bp">self</span><span class="o">.</span><span class="n">dialog_ontology</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">customer_entities</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">extract_ontology</span><span class="p">()</span>
 </pre></div>
 </div>
-</li>
-</ol>
+</div></blockquote>
+<p>These parser functions are highly platform dependent and the implementations are non-trivial. It is recommended to refer to bot platform and design documentation during development.
+We provide our parser implementations for the Einstein BotBuilder (<code class="docutils literal notranslate"><span class="pre">platform.botbuilder</span></code>) and Google DialogFlow CX (<code class="docutils literal notranslate"><span class="pre">platform.dialogflow_cx</span></code>) platforms.
+The utility functions supporting various parser functions are under  <code class="docutils literal notranslate"><span class="pre">modules.generator.utils.&lt;platform-name&gt;/parser_utilities.py</span></code></p>
 <p>Given a new bot platform, developers can follow the following steps for implementing their new platform-specific parsers:</p>
 <ol class="arabic simple">
-<li><p>Refer to bot design documents or APIs of the platform to study how bot dialogs are designed. Useful information includes</p></li>
+<li><p>Refer to bot plaform or design documents or APIs of the platform to study how bot conversations are designed. Useful information includes</p></li>
 </ol>
 <blockquote>
-<div><ol class="arabic simple">
-<li><p>How user information is requested by bots</p></li>
-<li><p>Relationship between bot messages and  actions to associate bot messages to dialog actions (request/inform)</p></li>
-<li><p>What entities are requested in the bot messages. Together with the actions, a dialog act map entry can be inferred from the bot messages (e.g., request_Email)</p></li>
-</ol>
+<div><ul class="simple">
+<li><p>How user information is requested by bots in the bot design data</p></li>
+<li><p>Relationship between bot messages and  actions for associating bot messages with dialog actions (request/inform)</p></li>
+<li><p>What and how entities are requested in the bot messages. Together with the actions, a dialog act map entry can be inferred from the bot messages (e.g., request_Email)</p></li>
+</ul>
 </div></blockquote>
-<ol class="arabic simple" start="2">
+<ol class="arabic" start="2">
 <li><p>Study the bot dialogs to understand their intents and identify the candidate messages for  “intent_success_messages” and “dialog_success_messages”</p></li>
-<li><p>Inferring dialog acts: implement <code class="docutils literal notranslate"><span class="pre">modules.generator.utils.&lt;new-platform-name&gt;/parser_utilities.py</span></code> to parse dialog related bot design elements to extract only dialog/intent information such as messages, actions, transitions.</p></li>
-</ol>
-<p>The goal is to</p>
+<li><p>Start by implementing <code class="docutils literal notranslate"><span class="pre">modules.generator.utils.&lt;new-platform-name&gt;/parser_utilities.py</span></code> to parse basic bot design elements to extract only dialog/intent information such as messages, actions, transitions. The main purposes of the utility functions include</p>
 <blockquote>
-<div><ol class="arabic simple">
-<li><p>associate bot messages with  actions, entities, dialog transitions</p></li>
-<li><p>infer dialog acts for each dialog from the actions and entities. These utility functions are subsequently called by the <code class="docutils literal notranslate"><span class="pre">extract_local_dialog_act_map</span></code> function  to produce the local dialog act maps. They are also responsible for extracting intent training utterances either from metadata (Einstein Bots) or API (Google DialogFlow CX).</p></li>
-</ol>
+<div><ul class="simple">
+<li><p>associate bot messages with  actions, entities or dialog transitions</p></li>
+<li><p>infer dialog acts from the actions and entities.</p></li>
+</ul>
 </div></blockquote>
-<ol class="arabic simple" start="4">
-<li><p>Implement parser functions: start implementation for extracting the local dialog act maps, final dialog act maps and the ontologies.</p></li>
+<p>These utility functions are subsequently called by the <code class="docutils literal notranslate"><span class="pre">extract_local_dialog_act_map</span></code> function to produce the local dialog act maps. They are also responsible for extracting intent training utterances either from metadata (Einstein Bots) or API (Google DialogFlow CX).</p>
+</li>
+<li><p>Implement main parser functions.</p></li>
 <li><p>Depending on the availability or accessibility of bot design documents, there might be multiple rounds of development of step 3 and 4.</p></li>
 </ol>
 </section>
 <section id="bot-api-client">
 <h2>Bot API Client<a class="headerlink" href="#bot-api-client" title="Permalink to this heading"></a></h2>
-<p>The BotSIM Simulator performs dialog simulation by calling bot APIs. Similar to the parsers, developers need to implement the API clients for their bot platforms.
-The interface is defined in <code class="docutils literal notranslate"><span class="pre">modules.simulator.simulation_client_base</span></code>   with the most important function <code class="docutils literal notranslate"><span class="pre">perform_batch_simulation</span></code> which performs a batch of simulation episodes starting from <code class="docutils literal notranslate"><span class="pre">simulation_goals[start_episode]</span></code>.
-A code snippet of the dialog loop is given below. Note the functions <code class="docutils literal notranslate"><span class="pre">enqueue_bot_actions_from_bot_messages</span></code>, <code class="docutils literal notranslate"><span class="pre">policy</span></code>, <code class="docutils literal notranslate"><span class="pre">locate_simulation_errors</span></code>, <code class="docutils literal notranslate"><span class="pre">log_episode_simulation_results</span></code> of
+<p>Similar to parsers, developers need to implement the API clients for their bot platforms if they are not yet supported.
+The client interface is defined in <code class="docutils literal notranslate"><span class="pre">modules.simulator.simulation_client_base</span></code>   with the most important function <code class="docutils literal notranslate"><span class="pre">perform_batch_simulation</span></code> for permorning a batch of simulation
+episodes starting from <code class="docutils literal notranslate"><span class="pre">simulation_goals[start_episode]</span></code>.
+A code snippet of a dialog loop is given below. Note the functions <code class="docutils literal notranslate"><span class="pre">enqueue_bot_actions_from_bot_messages</span></code>, <code class="docutils literal notranslate"><span class="pre">policy</span></code>, <code class="docutils literal notranslate"><span class="pre">locate_simulation_errors</span></code>, <code class="docutils literal notranslate"><span class="pre">log_episode_simulation_results</span></code> of
 <code class="docutils literal notranslate"><span class="pre">user_simulator</span></code> are platform-agnostic and can be shared by all bot platforms.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">while</span> <span class="n">episode_index</span> <span class="o">&lt;</span> <span class="nb">len</span><span class="p">(</span><span class="n">simulation_goals</span><span class="p">):</span>
      <span class="n">user_simulator</span><span class="o">.</span><span class="n">reset</span><span class="p">(</span><span class="n">start_episode</span><span class="p">)</span>
@@ -232,27 +297,31 @@ A code snippet of the dialog loop is given below. Note the functions <code class
 </pre></div>
 </div>
 </section>
+<section id="adding-new-rules-to-botsim-policy">
+<h2>Adding New Rules to BotSIM Policy<a class="headerlink" href="#adding-new-rules-to-botsim-policy" title="Permalink to this heading"></a></h2>
+<p>The rules and the rule-based policy are defined in <code class="docutils literal notranslate"><span class="pre">botsim.modules.simulator.user_simulator</span></code>. A new rule to respond to new bot dialog act named “&lt;new-dialog-act&gt;”,
+can be added in the function <code class="docutils literal notranslate"><span class="pre">_response_to_&lt;new-dialog-act&gt;</span></code>. The policy <code class="docutils literal notranslate"><span class="pre">policy(bot_action)</span></code> can be updated by including the  new rule.</p>
+</section>
 </section>
 <section id="incorporating-advanced-models">
 <h1>Incorporating Advanced Models<a class="headerlink" href="#incorporating-advanced-models" title="Permalink to this heading"></a></h1>
-<p>For efficiency reasons, the dialog components of BotSIM are all based on templates (dialog act maps for NLU, response templates for NLG).
-To accommodate dialog act-level agenda-based dialog simulation, rule-based policy is adopted. Nevertheless, more advanced models can also be incorporated.</p>
 <section id="natural-language-inference-nli-model-as-botsim-nlu">
-<h2>Natural Language Inference (NLI) model as BotSIM NLU<a class="headerlink" href="#natural-language-inference-nli-model-as-botsim-nlu" title="Permalink to this heading"></a></h2>
+<h2>Natural Language Inference (NLI) Model as BotSIM NLU<a class="headerlink" href="#natural-language-inference-nli-model-as-botsim-nlu" title="Permalink to this heading"></a></h2>
 <p>The natural language understanding component of BotSIM relies on fuzzy matching to convert bot messages to dialog acts.
-To cope with bots that may be powered by a natural language generation model, the lexical-based fuzzy matching is not enough. The limitation can be circumvented by incorporating a semantic-based
-NLU. A good candidate is to use a Natural Language Inference (NLI) model to compute the matching scores of the bot messages with the ones in the dialog act maps.
-The NLI model can be added by  the following steps:</p>
+To handle bots that may be powered by a natural language generation model, the lexical-based fuzzy matching is not so reliable. The limitation can be circumvented by incorporating a semantic-based
+NLU. A good candidate is to use a Natural Language Inference (NLI) model to compute the semantic matching scores of the bot messages with the ones in the dialog act maps.
+The NLI model can be added as follows:</p>
 <ul class="simple">
 <li><p>Create a new subclass of <code class="docutils literal notranslate"><span class="pre">botsim.models.nlu.nlu_model</span></code></p></li>
 <li><p>Implement <code class="docutils literal notranslate"><span class="pre">predict(bot_message,</span> <span class="pre">intent_name)</span></code> function to map the <code class="docutils literal notranslate"><span class="pre">bot_message</span></code> to the best dialog act defined in the dialog named <code class="docutils literal notranslate"><span class="pre">intent_name</span></code></p></li>
-<li><p>Change the <code class="docutils literal notranslate"><span class="pre">nlu_model</span></code> in the user simulator <code class="docutils literal notranslate"><span class="pre">botsim.modules.simulator.abus</span></code> with the new NLU model</p></li>
+<li><p>Switch the <code class="docutils literal notranslate"><span class="pre">nlu_model</span></code> in the user simulator <code class="docutils literal notranslate"><span class="pre">botsim.modules.simulator.abus</span></code> to the new NLU model</p></li>
+<li><p>The NLI model scores can be interpolated with the fuzzy matching score to select the best dialog act</p></li>
 </ul>
 </section>
 <section id="neural-based-nlg-model">
 <h2>Neural-based NLG Model<a class="headerlink" href="#neural-based-nlg-model" title="Permalink to this heading"></a></h2>
-<p>To increase the naturalness of the template-based responses, a neural-based NLG model may be used to convert the template messages to be more natural.
-The model can be incorporated by following the steps below:</p>
+<p>To increase the naturalness and diversity of the template-based responses, a neural-based NLG model may be used to “paraphrase” the template messages.
+The model can be incorporated by following the following steps:</p>
 <ul class="simple">
 <li><p>Create a new NLG module under <code class="docutils literal notranslate"><span class="pre">botsim.models.nlg</span></code></p></li>
 <li><p>Implement <code class="docutils literal notranslate"><span class="pre">generate(dialog_state)</span></code> interface to take the semantic representation of dialog state and return a natural language response</p></li>
@@ -260,28 +329,84 @@ The model can be incorporated by following the steps below:</p>
 </ul>
 </section>
 </section>
+<section id="finetune-t5-paraphrasing-model">
+<h1>Finetune T5 Paraphrasing Model<a class="headerlink" href="#finetune-t5-paraphrasing-model" title="Permalink to this heading"></a></h1>
+<p>To finetune the T5 paraphrasing model on users’ in-domain data, please follow the following steps.</p>
+<section id="prepare-paraphrase-pairs">
+<h2>Prepare Paraphrase Pairs<a class="headerlink" href="#prepare-paraphrase-pairs" title="Permalink to this heading"></a></h2>
+<p>The training paraphrase pairs can be created by sampling real user queries with the same intents. The training data should be organized in the following json format:</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="w"></span>
+<span class="w">      </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="nt">&quot;text&quot;</span><span class="p">:</span><span class="s2">&quot;&lt;sos_s&gt; &lt;original text 1&gt; &lt;eos_s&gt;&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">        </span><span class="nt">&quot;paraphrase&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;&lt;sos_t&gt; &lt;paraphrased text 1&gt; &lt;eos_t&gt;&quot;</span><span class="w"></span>
+<span class="w">      </span><span class="p">},</span><span class="w"></span>
+<span class="w">      </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="nt">&quot;text&quot;</span><span class="p">:</span><span class="s2">&quot;&lt;sos_s&gt; &lt;original text 2&gt; &lt;eos_s&gt;&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">        </span><span class="nt">&quot;paraphrase&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;&lt;sos_t&gt; &lt;paraphrased text 2&gt; &lt;eos_t&gt;&quot;</span><span class="w"></span>
+<span class="w">      </span><span class="p">}</span><span class="w"></span>
+<span class="p">]</span><span class="w"></span>
+</pre></div>
+</div>
+<p>To benchmark with the state-of-the-art <a class="reference external" href="https://github.com/tomhosking/hrq-vae">HRQ-VAE</a> model, the dev and test data (in jsonl format) can be directly downloaded from the repo.</p>
+</section>
+<section id="set-training-parameters">
+<h2>Set Training Parameters<a class="headerlink" href="#set-training-parameters" title="Permalink to this heading"></a></h2>
+<p>The training parameters can be specified in the following <code class="docutils literal notranslate"><span class="pre">train.json</span></code> configuration file.</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;pretrained_path&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;pretrained-model-path&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;dropout&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.1</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;number_of_gpu&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">4</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;num_train_epochs&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">100</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;batch_size_per_gpu&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">32</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;test_batch_size_per_gpu&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">32</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;max_test_num_batches&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">256</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;alpha&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.6</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;test_path&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;dev.jsonl&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;save_path&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;chpt-path&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;train_path&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;train.json&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;optimizer&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="nt">&quot;optimizer_name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;adam&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">        </span><span class="nt">&quot;adam_epsilon&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">1e-8</span><span class="p">,</span><span class="w"></span>
+<span class="w">        </span><span class="nt">&quot;learning_rate&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">1e-4</span><span class="p">,</span><span class="w"></span>
+<span class="w">        </span><span class="nt">&quot;weight_decay&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.0</span><span class="p">,</span><span class="w"></span>
+<span class="w">        </span><span class="nt">&quot;max_grad_norm&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">1.0</span><span class="p">,</span><span class="w"></span>
+<span class="w">        </span><span class="nt">&quot;warmup_steps&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"></span>
+<span class="w">        </span><span class="nt">&quot;gradient_accumulation_steps&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+</pre></div>
+</div>
+</section>
+<section id="customize-model-and-trainer">
+<h2>Customize Model and Trainer<a class="headerlink" href="#customize-model-and-trainer" title="Permalink to this heading"></a></h2>
+<p>To make further changes to the T5 model and trainer, refer to the following files:</p>
+<ul class="simple">
+<li><p>Model definition: <code class="docutils literal notranslate"><span class="pre">botsim.generator.paraphraser.t5_model</span></code>.</p></li>
+<li><p>T5 paraphraser trainer <code class="docutils literal notranslate"><span class="pre">botsim.generator.paraphraser.train.py</span></code>.</p></li>
+</ul>
+</section>
+</section>
 <section id="gcp-deployment">
 <h1>GCP Deployment<a class="headerlink" href="#gcp-deployment" title="Permalink to this heading"></a></h1>
 <p>BotSIM Streamlit App can also be deployed to GCP for GPU access,  which will greatly accelerate the paraphrasing model inference process.
-The script for GCP deployment can be accessed at <code class="docutils literal notranslate"><span class="pre">botsim/deploy/gcp/deploy_gcp_botsim_streamlit.sh</span></code>. The parameters needed for the script are
-listed below:</p>
+The script for GCP deployment can be accessed at <code class="docutils literal notranslate"><span class="pre">botsim/deploy/gcp/deploy_gcp_botsim_streamlit.sh</span></code>. The parameters  are as follows:</p>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">cluster_name</span></code>: the name of users’ gcp clusters for deployment</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">project_name</span></code>: the project name</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">user_name_space</span></code>: the user name space assigned by the gcp admin</p></li>
 </ul>
-<p>The yaml configuration file for the deployment is <code class="docutils literal notranslate"><span class="pre">botsim/deploy/gcp/deploy_gpu_streamlit_botsim.yaml</span></code>.  Users need to complete the following placeholders
+<p>The yaml configuration file for the deployment is <code class="docutils literal notranslate"><span class="pre">botsim/deploy/gcp/deploy_gpu_streamlit_botsim.yaml</span></code>.  Users need to replace the following placeholders with their own values
 before use:</p>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">&lt;project-name&gt;</span></code>: same as before</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">&lt;deploy-name&gt;</span></code> and <code class="docutils literal notranslate"><span class="pre">&lt;service-name&gt;</span></code> denote the deployment and service names respectively</p></li>
 </ul>
 <p>The number of GPUs and CPUs of the container can be set in the <code class="docutils literal notranslate"><span class="pre">resources</span></code> and <code class="docutils literal notranslate"><span class="pre">tolerations</span></code> sections. After successful deployment, the
-IP address of the service is the <code class="docutils literal notranslate"><span class="pre">external</span> <span class="pre">IP</span></code> field of the result after issuing the following command:</p>
+IP address of the service can be obtained from the <code class="docutils literal notranslate"><span class="pre">external</span> <span class="pre">IP</span></code> field of the result after issuing the following command:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>kubectl -n <span class="nv">$user_name_space</span> get services
 </pre></div>
 </div>
-<p>The Streamlit App can now be accessed at <code class="docutils literal notranslate"><span class="pre">&lt;external-ip&gt;:8501</span></code></p>
+<p>The Streamlit App can now be accessed at <code class="docutils literal notranslate"><span class="pre">https://&lt;external-ip&gt;:8501</span></code></p>
 </section>
 
 

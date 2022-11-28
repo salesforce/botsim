@@ -1,7 +1,9 @@
+In this section, we deep-dive into major BotSIM components to understand their capabilties, required inputs and expected outputs.
+
 Configuration
 ###########################
-We use a customisable configuration file to control the stages of the BotSIM pipeline. The template configuration is provided in the 
-repo as ``botsim/conf/config.json``. An example template is given below. 
+We use a customisable configuration file to control the behaviours of the major components of the BotSIM pipeline. The template configuration is provided in the 
+repo as ``botsim/conf/config.json``. An example is given below. 
 
 .. code-block:: json
 
@@ -84,7 +86,7 @@ Generator
 ##################
 The generator takes bot designs and intent utterances as input and produces the required configuration files to serve as BotSIM's NLU and NLG models.
 The generator also applies paraphrasing models to the input intent utterances and use the paraphrases as intent queries in the simulation goals.
-The following code shows how different components of the generator work:
+The following code shows how the major functionalities of the generator:
 
 .. code-block:: python
 
@@ -143,14 +145,14 @@ The following code shows how different components of the generator work:
 
 Simulator
 #########################################################
-With the simulation goals, we can initialise a bot platform simulator client to perform agenda-based dialog user simulation via:
+With the simulation goals and the NLU, NLG models, we can initialise a bot platform simulator client to perform agenda-based dialog user simulation:
 
 .. code-block:: python
     
     mode = "dev" 
     goal_dir = "data/bots/{}/{}/goals_dir/".format(platform, test_id)
     num_t5_paraphrases = config["generator"]["paraphraser_config"]["num_t5_paraphrases"]
-    num_pegasus_paraphrases = =config["generator"]["paraphraser_config"]["num_pegasus_paraphrases"]
+    num_pegasus_paraphrases = config["generator"]["paraphraser_config"]["num_pegasus_paraphrases"]
     para_setting = "{}_{}".format(num_t5_paraphrases, num_pegasus_paraphrases)
     intent_name = "End_Chat"
     config["simulation"] = \
@@ -172,15 +174,15 @@ With the simulation goals, we can initialise a bot platform simulator client to 
         else:
             from botsim.platforms.botbuilder.simulation_client import LiveAgentClient  
             client = LiveAgentClient(config)
-        client.simulate_conversation(None)
+        client.simulate_conversation()
 
-This will start the dialog simulation for each intent/dialog and mode (dev/eval) included in the configuration file.
-Upon the completion of each simulation session, the following outputs will be generated  under ``data/bots/Einstein_Bot/4/simulation/<intent>/``:
+This will start the dialog simulation for each intent/dialog and mode (dev/eval) as specified in the configuration file ``simulator["dev_intents"]'' and ``simulator["eval_intents"]''.
+Upon the completion of the simulation session, the following outputs will be generated  under ``data/bots/Einstein_Bot/4/simulation/<intent>/``:
 
 - **simulation chat logs**: ``logs_<mode>_<para_setting>_<num_utterances>_utts_paraphrases_<num_simulations>_sessions.json``
 - **simulation error info**: ``errors_<mode>_<para_setting>_<num_utterances>_utts_paraphrases_<num_simulations>_sessions.json``
 
-These two files will be used as the inputs to the remediator.
+These two files will be used as the inputs to the remediator for further analysis.
 
 Remediator
 ######################################
