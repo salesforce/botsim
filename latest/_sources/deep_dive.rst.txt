@@ -1,9 +1,8 @@
-In this section, we deep-dive into major BotSIM components to understand their capabilties, required inputs and expected outputs.
+This deep-dive section presents  major BotSIM components in more details to help better understanding of their capabilties, required inputs and expected outputs.
 
 Configuration
 ###########################
-We use a customisable configuration file to control the behaviours of the major components of the BotSIM pipeline. The template configuration is provided in the 
-repo as ``botsim/conf/config.json``. An example is given below. 
+A customisable configuration file is used to control the behaviours of the BotSIM pipeline. The template configuration is located at ``botsim/conf/config.json``. An example is given below. 
 
 .. code-block:: json
 
@@ -130,8 +129,8 @@ The following code shows how the major functionalities of the generator:
         config["generator"]["paraphraser_config"]["num_utterances"])
 
     revised_dialog_map = "data/bots/{}/{}/conf/dialog_act_map.revised.json".format(config["platform"], config["id"])
-        if not os.path.exists(revised_dialog_map):
-            raise ValueError("Revise {} and save it to {}".format(revised_dialog_map.replace(".revised", ""),
+    if not os.path.exists(revised_dialog_map):
+        raise ValueError("Revise {} and save it to {}".format(revised_dialog_map.replace(".revised", ""),
                                                                 revised_dialog_map))
                                                                 
     # generate simulation goals    
@@ -168,16 +167,16 @@ With the simulation goals and the NLU, NLG models, we can initialise a bot platf
                 "num_utterances": config["generator"]["paraphraser_config"]["num_utterances"]
             }
 
-        if config["platform"] == "DialogFlow_CX":
-            from botsim.platforms.dialogflow_cx.simulation_client import DialogFlowCXClient  
-            client = DialogFlowCXClient(config)
-        else:
-            from botsim.platforms.botbuilder.simulation_client import LiveAgentClient  
-            client = LiveAgentClient(config)
-        client.simulate_conversation()
+    if config["platform"] == "DialogFlow_CX":
+        from botsim.platforms.dialogflow_cx.simulation_client import DialogFlowCXClient  
+        client = DialogFlowCXClient(config)
+    else:
+        from botsim.platforms.botbuilder.simulation_client import LiveAgentClient  
+        client = LiveAgentClient(config)
+    client.simulate_conversation()
 
-This will start the dialog simulation for each intent/dialog and mode (dev/eval) as specified in the configuration file ``simulator["dev_intents"]'' and ``simulator["eval_intents"]''.
-Upon the completion of the simulation session, the following outputs will be generated  under ``data/bots/Einstein_Bot/4/simulation/<intent>/``:
+This will start the dialog simulation for each intent/dialog and mode (dev/eval) as specified in the configuration file ``simulator["dev_intents"]`` and ``simulator["eval_intents"]``.
+After simulation, the following outputs will be generated  under ``data/bots/Einstein_Bot/4/simulation/<intent>/``:
 
 - **simulation chat logs**: ``logs_<mode>_<para_setting>_<num_utterances>_utts_paraphrases_<num_simulations>_sessions.json``
 - **simulation error info**: ``errors_<mode>_<para_setting>_<num_utterances>_utts_paraphrases_<num_simulations>_sessions.json``
@@ -219,11 +218,12 @@ remediation suggestions for bot troubleshooting and improvement. The code below 
     aggregated_report_path = path + "aggregated_report.json"
     dump_json_to_file(aggregated_report_path, report)
 
+
 The information of the aggregated report is used to support the bot health dashboard visualisation:
 
 - ``dataset_info`` contains the data distribution for each intent in terms of number of simulation episodes.
 - ``overall_performance`` contains the performance metrics such as NLU performance in terms of intent and NER accuracies, task-completion rates
-- ``intent_reports`` contains the bot health report for each dialog, including 
+- ``intent_reports`` contains the bot health report for each dialog intent, including the following information:
 
     - Simulation chat logs and associated error information for each episode
     - Detailed intent and NER errors and remediation suggestions

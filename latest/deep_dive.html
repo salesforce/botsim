@@ -43,7 +43,6 @@
               <p class="caption" role="heading"><span class="caption-text">Introduction</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="intro.html">What is BotSIM?</a></li>
-<li class="toctree-l1"><a class="reference internal" href="intro.html#botsim-pipeline">BotSIM  Pipeline</a></li>
 <li class="toctree-l1"><a class="reference internal" href="intro.html#getting-started">Getting Started</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Deep-dive</span></p>
@@ -58,8 +57,9 @@
 <li class="toctree-l1"><a class="reference internal" href="tutorials.html">Retrieve Einstein BotBuilder Bot Metadata</a></li>
 <li class="toctree-l1"><a class="reference internal" href="tutorials.html#streamlit-web-app">Streamlit Web App</a></li>
 <li class="toctree-l1"><a class="reference internal" href="tutorials.html#command-line-tools">Command Line Tools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorials.html#id1">Dialog Act Maps Revision Guideline</a></li>
 <li class="toctree-l1"><a class="reference internal" href="dashboard.html">Remediator Dashboard Navigation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="dashboard.html#apply-intent-model-remediation-suggestions">Apply intent model remediation suggestions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dashboard.html#apply-intent-model-remediation-suggestions">Apply Intent Model Remediation Suggestions</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Advanced Usage</span></p>
 <ul>
@@ -118,11 +118,10 @@
     text-align: unset;
 }
 </style>
-<p>In this section, we deep-dive into major BotSIM components to understand their capabilties, required inputs and expected outputs.</p>
+<p>This deep-dive section presents  major BotSIM components in more details to help better understanding of their capabilties, required inputs and expected outputs.</p>
 <section id="configuration">
 <h1>Configuration<a class="headerlink" href="#configuration" title="Permalink to this heading"></a></h1>
-<p>We use a customisable configuration file to control the behaviours of the major components of the BotSIM pipeline. The template configuration is provided in the
-repo as <code class="docutils literal notranslate"><span class="pre">botsim/conf/config.json</span></code>. An example is given below.</p>
+<p>A customisable configuration file is used to control the behaviours of the BotSIM pipeline. The template configuration is located at <code class="docutils literal notranslate"><span class="pre">botsim/conf/config.json</span></code>. An example is given below.</p>
 <div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span><span class="w"></span>
 <span class="w">    </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;4&quot;</span><span class="p">,</span><span class="w"></span>
 <span class="w">    </span><span class="nt">&quot;platform&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Einstein_Bot&quot;</span><span class="p">,</span><span class="w"></span>
@@ -245,8 +244,8 @@ The following code shows how the major functionalities of the generator:</p>
     <span class="n">config</span><span class="p">[</span><span class="s2">&quot;generator&quot;</span><span class="p">][</span><span class="s2">&quot;paraphraser_config&quot;</span><span class="p">][</span><span class="s2">&quot;num_utterances&quot;</span><span class="p">])</span>
 
 <span class="n">revised_dialog_map</span> <span class="o">=</span> <span class="s2">&quot;data/bots/</span><span class="si">{}</span><span class="s2">/</span><span class="si">{}</span><span class="s2">/conf/dialog_act_map.revised.json&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">config</span><span class="p">[</span><span class="s2">&quot;platform&quot;</span><span class="p">],</span> <span class="n">config</span><span class="p">[</span><span class="s2">&quot;id&quot;</span><span class="p">])</span>
-    <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">revised_dialog_map</span><span class="p">):</span>
-        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Revise </span><span class="si">{}</span><span class="s2"> and save it to </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">revised_dialog_map</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;.revised&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">),</span>
+<span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">revised_dialog_map</span><span class="p">):</span>
+    <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Revise </span><span class="si">{}</span><span class="s2"> and save it to </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">revised_dialog_map</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;.revised&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">),</span>
                                                             <span class="n">revised_dialog_map</span><span class="p">))</span>
 
 <span class="c1"># generate simulation goals</span>
@@ -281,17 +280,17 @@ The following code shows how the major functionalities of the generator:</p>
             <span class="s2">&quot;num_utterances&quot;</span><span class="p">:</span> <span class="n">config</span><span class="p">[</span><span class="s2">&quot;generator&quot;</span><span class="p">][</span><span class="s2">&quot;paraphraser_config&quot;</span><span class="p">][</span><span class="s2">&quot;num_utterances&quot;</span><span class="p">]</span>
         <span class="p">}</span>
 
-    <span class="k">if</span> <span class="n">config</span><span class="p">[</span><span class="s2">&quot;platform&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;DialogFlow_CX&quot;</span><span class="p">:</span>
-        <span class="kn">from</span> <span class="nn">botsim.platforms.dialogflow_cx.simulation_client</span> <span class="kn">import</span> <span class="n">DialogFlowCXClient</span>
-        <span class="n">client</span> <span class="o">=</span> <span class="n">DialogFlowCXClient</span><span class="p">(</span><span class="n">config</span><span class="p">)</span>
-    <span class="k">else</span><span class="p">:</span>
-        <span class="kn">from</span> <span class="nn">botsim.platforms.botbuilder.simulation_client</span> <span class="kn">import</span> <span class="n">LiveAgentClient</span>
-        <span class="n">client</span> <span class="o">=</span> <span class="n">LiveAgentClient</span><span class="p">(</span><span class="n">config</span><span class="p">)</span>
-    <span class="n">client</span><span class="o">.</span><span class="n">simulate_conversation</span><span class="p">()</span>
+<span class="k">if</span> <span class="n">config</span><span class="p">[</span><span class="s2">&quot;platform&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;DialogFlow_CX&quot;</span><span class="p">:</span>
+    <span class="kn">from</span> <span class="nn">botsim.platforms.dialogflow_cx.simulation_client</span> <span class="kn">import</span> <span class="n">DialogFlowCXClient</span>
+    <span class="n">client</span> <span class="o">=</span> <span class="n">DialogFlowCXClient</span><span class="p">(</span><span class="n">config</span><span class="p">)</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="kn">from</span> <span class="nn">botsim.platforms.botbuilder.simulation_client</span> <span class="kn">import</span> <span class="n">LiveAgentClient</span>
+    <span class="n">client</span> <span class="o">=</span> <span class="n">LiveAgentClient</span><span class="p">(</span><span class="n">config</span><span class="p">)</span>
+<span class="n">client</span><span class="o">.</span><span class="n">simulate_conversation</span><span class="p">()</span>
 </pre></div>
 </div>
-<p>This will start the dialog simulation for each intent/dialog and mode (dev/eval) as specified in the configuration file <code class="docutils literal notranslate"><span class="pre">simulator[&quot;dev_intents&quot;]''</span> <span class="pre">and</span> <span class="pre">``simulator[&quot;eval_intents&quot;]''.</span>
-<span class="pre">Upon</span> <span class="pre">the</span> <span class="pre">completion</span> <span class="pre">of</span> <span class="pre">the</span> <span class="pre">simulation</span> <span class="pre">session,</span> <span class="pre">the</span> <span class="pre">following</span> <span class="pre">outputs</span> <span class="pre">will</span> <span class="pre">be</span> <span class="pre">generated</span>&#160; <span class="pre">under</span> <span class="pre">``data/bots/Einstein_Bot/4/simulation/&lt;intent&gt;/</span></code>:</p>
+<p>This will start the dialog simulation for each intent/dialog and mode (dev/eval) as specified in the configuration file <code class="docutils literal notranslate"><span class="pre">simulator[&quot;dev_intents&quot;]</span></code> and <code class="docutils literal notranslate"><span class="pre">simulator[&quot;eval_intents&quot;]</span></code>.
+After simulation, the following outputs will be generated  under <code class="docutils literal notranslate"><span class="pre">data/bots/Einstein_Bot/4/simulation/&lt;intent&gt;/</span></code>:</p>
 <ul class="simple">
 <li><p><strong>simulation chat logs</strong>: <code class="docutils literal notranslate"><span class="pre">logs_&lt;mode&gt;_&lt;para_setting&gt;_&lt;num_utterances&gt;_utts_paraphrases_&lt;num_simulations&gt;_sessions.json</span></code></p></li>
 <li><p><strong>simulation error info</strong>: <code class="docutils literal notranslate"><span class="pre">errors_&lt;mode&gt;_&lt;para_setting&gt;_&lt;num_utterances&gt;_utts_paraphrases_&lt;num_simulations&gt;_sessions.json</span></code></p></li>
@@ -335,7 +334,7 @@ remediation suggestions for bot troubleshooting and improvement. The code below 
 <ul>
 <li><p><code class="docutils literal notranslate"><span class="pre">dataset_info</span></code> contains the data distribution for each intent in terms of number of simulation episodes.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">overall_performance</span></code> contains the performance metrics such as NLU performance in terms of intent and NER accuracies, task-completion rates</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">intent_reports</span></code> contains the bot health report for each dialog, including</p>
+<li><p><code class="docutils literal notranslate"><span class="pre">intent_reports</span></code> contains the bot health report for each dialog intent, including the following information:</p>
 <blockquote>
 <div><ul class="simple">
 <li><p>Simulation chat logs and associated error information for each episode</p></li>

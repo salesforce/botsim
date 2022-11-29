@@ -42,7 +42,6 @@
               <p class="caption" role="heading"><span class="caption-text">Introduction</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="intro.html">What is BotSIM?</a></li>
-<li class="toctree-l1"><a class="reference internal" href="intro.html#botsim-pipeline">BotSIM  Pipeline</a></li>
 <li class="toctree-l1"><a class="reference internal" href="intro.html#getting-started">Getting Started</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Deep-dive</span></p>
@@ -57,8 +56,9 @@
 <li class="toctree-l1"><a class="reference internal" href="tutorials.html">Retrieve Einstein BotBuilder Bot Metadata</a></li>
 <li class="toctree-l1"><a class="reference internal" href="tutorials.html#streamlit-web-app">Streamlit Web App</a></li>
 <li class="toctree-l1"><a class="reference internal" href="tutorials.html#command-line-tools">Command Line Tools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorials.html#id1">Dialog Act Maps Revision Guideline</a></li>
 <li class="toctree-l1"><a class="reference internal" href="dashboard.html">Remediator Dashboard Navigation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="dashboard.html#apply-intent-model-remediation-suggestions">Apply intent model remediation suggestions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dashboard.html#apply-intent-model-remediation-suggestions">Apply Intent Model Remediation Suggestions</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Advanced Usage</span></p>
 <ul class="current">
@@ -138,22 +138,19 @@
 </style>
 <section id="botsim-system-design">
 <h1>BotSIM System Design<a class="headerlink" href="#botsim-system-design" title="Permalink to this heading"></a></h1>
-<p>The key design principles of BotSIM include modularity, extensibility and usability so that the toolkit can be easily adopted by both bot end users and developers.
-To achieve these, we adopt a layered design to decouple the development and the application.
-The toolkit comprises three layers, namely the infrastructure layer, the adaptor layer and the toolkit layer as shown in the figure below.</p>
+<p>The key design principles of BotSIM include modularity, extensibility and usability. These principles allow BotSIM to be adopted both by developers as a framework and bot end-users as  an easy-to-use application.
+To achieve these, BotSIM adopts a layered design comprising the infrastructure layer, the adaptor layer and the application layer as shown in the figure below.</p>
 <a class="reference internal image-reference" href="_images/BotSIM_design.png"><img alt="_images/BotSIM_design.png" src="_images/BotSIM_design.png" style="width: 550px;" /></a>
 <section id="infrastructure-layer">
 <h2>Infrastructure Layer<a class="headerlink" href="#infrastructure-layer" title="Permalink to this heading"></a></h2>
-<p>The infrastructure layer is designed to offer fundamental functionalities for the framework.
-It comprises two major categories: the key models including natural language understanding (NLU), natural language generation (NLG)
-and the modules including the generator, the simulator and the remediator.</p>
+<p>The infrastructure layer is designed to offer fundamental model support for the framework. BotSIM’s <code class="docutils literal notranslate"><span class="pre">generation-simulation-remediation</span></code> pipeline is powered by the models and components that reside in this layer.</p>
 <ul>
 <li><p><code class="docutils literal notranslate"><span class="pre">botsim.models</span></code> contains BotSIM’s  NLU and NLG models. From a dialogue system perspective, BotSIM can be viewed as a counterpart to a chatbot: it needs to “understand” chatbot messages (NLU) and “respond” in natural languages (NLG).
 Currently, fuzzy matching-based NLU and template-based NLG models are provided for efficiency reasons. Developers can also incorporate more advanced NLU and NLG models (see the <a class="reference external" href="https://opensource.salesforce.com/botsim//latest/advanced_usage.html">advanced usages</a> section).</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">botsim.modules</span></code> consists of the three key  modules to power BotSIM’s “generation-simulation-remediation” pipeline.</p>
 <blockquote>
 <div><ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">botsim.modules.generator</span></code> supports two major functionalities: 1) <code class="docutils literal notranslate"><span class="pre">parser</span></code> to parse bot metadata to infer dialog acts and dialog-act maps (BotSIM’s NLU); 2) <code class="docutils literal notranslate"><span class="pre">paraphraser</span></code> to generate paraphrases of the input intent utterances. The paraphrases are used as intent queries of the simulation goals to probe bots’ intent model.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">botsim.modules.generator</span></code>  provides two major functionalities: 1) the <code class="docutils literal notranslate"><span class="pre">parser</span></code> parses the input bot designs in the form of either metadata (Einstein BotBuilder) or API (DialogFlow CX) to infer the dialog-act maps (BotSIM’s NLU); 2) the large pre-trained language model based <code class="docutils literal notranslate"><span class="pre">paraphraser</span></code> generates paraphrases from the input intent utterances. These paraphrases are used as intent queries in the simulation goals to probe bots’ intent models, which allows BotSIM to perform large-scale data-efficient bot evaluation even before bots are deployed.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">botsim.modules.simulator</span></code> implements the dialog-act level agenda-based user simulation in <code class="docutils literal notranslate"><span class="pre">abus</span></code>. It also defines a simulation API client interface in <code class="docutils literal notranslate"><span class="pre">simulation_client_base</span></code>.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">botsim.modules.remediator</span></code> analyzes the simulation dialogs and produces the performance metrics and conversational analytics to support the dashboard visualisation.</p></li>
 </ul>
@@ -163,23 +160,20 @@ Currently, fuzzy matching-based NLU and template-based NLG models are provided f
 </section>
 <section id="adaptor-layer">
 <h2>Adaptor Layer<a class="headerlink" href="#adaptor-layer" title="Permalink to this heading"></a></h2>
-<p>Built on top of the infrastructure layer, the adaptor layer is designed for easy extension of BotSIM to new bot platforms.
-The two most important platform-specific components of the layer include:</p>
+<p>The adaptor layer is designed for bot developers to extend BotSIM to new bot platforms. To cover new bot platforms, the following two most important platform-specific modules of the layer must be implemented.
+Note the implementations of these functions are highly platform-dependent. They require the developers to have access to bot platform, design and API documents to understand how bots are designed and how user inputs are elicited by the bots. There is also need to constantly revisit the implementations to incorporate new features that might be missed in the current implementations.
+We have provided some recipes in the <a class="reference external" href="https://opensource.salesforce.com/botsim/latest/advanced_usage.html#extending-botsim-to-new-bot-platforms">advanced usage</a> section.</p>
 <ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">parser</span></code> acts as an “adaptor” to unify bot definitions (e.g. dialog flows, intents/tasks) from different platforms to a common representation of dialog act maps.
-The dialog act maps are used as BotSIM NLU to map  bot messages to dialog acts.
-Note the implementations of the parser are highly platform-dependent and require bot developers to have access to bot APIs and design documentations.
-We have provided our implementations of BotBuilder and DialogFlow CX parsers for reference.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">parser</span></code> acts as an “adaptor” to unify bot definitions (e.g. dialog flows, intents/tasks) from different platforms to a common representation of dialog act maps.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">simulation_client</span></code> is the other platform-dependent component for BotSIM to exchange conversations  with bots via APIs.
-Similar to the <code class="docutils literal notranslate"><span class="pre">parser</span></code>, the client implementation depends on the API designs of underlying bot platforms.</p></li>
+Similar to the <code class="docutils literal notranslate"><span class="pre">parser</span></code>, the client implementation heavily depends on the API designs of underlying bot platforms.</p></li>
 </ul>
 </section>
 <section id="application-layer">
 <h2>Application Layer<a class="headerlink" href="#application-layer" title="Permalink to this heading"></a></h2>
-<p>The application layer is designed to significantly flatten the learning curves of applying BotSIM for both bot practitioners and end users.</p>
+<p>The application layer is designed to significantly flatten the learning curves of BotSIM for both bot developers/practitioners and end-users.</p>
 <ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">botsim.cli</span></code> contains a set of command line tools for practitioners to deep-dive into major stages of the BotSIM’s  “generation-simulation-evaluation” pipeline.
-The command line tools expose the required inputs and expected outputs for each stage, which serve as basic building blocks for bot practitioners to build their customized pipelines.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">botsim.cli</span></code> contains a set of command line tools for practitioners to learn more about the  major BotSIM components. The <code class="docutils literal notranslate"><span class="pre">generation-simulation-evaluation</span></code> pipeline has been split into multiple stages to expose the required inputs and expected outputs for each stage. They serve as basic building blocks for bot practitioners to build their customized pipelines or apply only certain tasks rather than the whole BotSIM pipeline.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">botsim.streamlit_app</span></code> is a multi-page easy-to-use Web app designed for direct application by bot end users such as bot admins without diving into technical details.
 The app can be deployed as a docker container to cloud platforms for access to more computation resources. We use Streamlit for the App front-ends. Flask backend APIs are implemented to encapsulate
 major BotSIM functionalities. The app is also equipped with a SQL database to store  simulation stages and keep track of simulation performance across multiple platforms.</p></li>
@@ -219,7 +213,7 @@ The utility functions supporting various parser functions are under  <code class
 </ol>
 <blockquote>
 <div><ul class="simple">
-<li><p>How user information is requested by bots in the bot design data</p></li>
+<li><p>How user information is elicited by bots in the bot design data</p></li>
 <li><p>Relationship between bot messages and  actions for associating bot messages with dialog actions (request/inform)</p></li>
 <li><p>What and how entities are requested in the bot messages. Together with the actions, a dialog act map entry can be inferred from the bot messages (e.g., request_Email)</p></li>
 </ul>
@@ -230,22 +224,21 @@ The utility functions supporting various parser functions are under  <code class
 <blockquote>
 <div><ul class="simple">
 <li><p>associate bot messages with  actions, entities or dialog transitions</p></li>
-<li><p>infer dialog acts from the actions and entities.</p></li>
+<li><p>infer dialog acts from bot messages.</p></li>
 </ul>
 </div></blockquote>
 <p>These utility functions are subsequently called by the <code class="docutils literal notranslate"><span class="pre">extract_local_dialog_act_map</span></code> function to produce the local dialog act maps. They are also responsible for extracting intent training utterances either from metadata (Einstein Bots) or API (Google DialogFlow CX).</p>
 </li>
-<li><p>Implement main parser functions.</p></li>
-<li><p>Depending on the availability or accessibility of bot design documents, there might be multiple rounds of development of step 3 and 4.</p></li>
+<li><p>Implement main parser functions to aggregate the dialog act maps and conversation graph modelling.</p></li>
+<li><p>Depending on the availability or accessibility of bot design documents, step 3 and 4 may need to be iteracted multiple times.</p></li>
 </ol>
 </section>
 <section id="bot-api-client">
 <h2>Bot API Client<a class="headerlink" href="#bot-api-client" title="Permalink to this heading"></a></h2>
-<p>Similar to parsers, developers need to implement the API clients for their bot platforms if they are not yet supported.
-The client interface is defined in <code class="docutils literal notranslate"><span class="pre">modules.simulator.simulation_client_base</span></code>   with the most important function <code class="docutils literal notranslate"><span class="pre">perform_batch_simulation</span></code> for permorning a batch of simulation
-episodes starting from <code class="docutils literal notranslate"><span class="pre">simulation_goals[start_episode]</span></code>.
-A code snippet of a dialog loop is given below. Note the functions <code class="docutils literal notranslate"><span class="pre">enqueue_bot_actions_from_bot_messages</span></code>, <code class="docutils literal notranslate"><span class="pre">policy</span></code>, <code class="docutils literal notranslate"><span class="pre">locate_simulation_errors</span></code>, <code class="docutils literal notranslate"><span class="pre">log_episode_simulation_results</span></code> of
-<code class="docutils literal notranslate"><span class="pre">user_simulator</span></code> are platform-agnostic and can be shared by all bot platforms.</p>
+<p>The client interface is defined in <code class="docutils literal notranslate"><span class="pre">modules.simulator.simulation_client_base</span></code>. The  most important function is <code class="docutils literal notranslate"><span class="pre">perform_batch_simulation</span></code> for performing a batch of simulation
+episodes starting from <code class="docutils literal notranslate"><span class="pre">simulation_goals[start_episode]</span></code>.</p>
+<p>A code snippet of a dialog loop is given below. Note the functions <code class="docutils literal notranslate"><span class="pre">enqueue_bot_actions_from_bot_messages</span></code>, <code class="docutils literal notranslate"><span class="pre">policy</span></code>, <code class="docutils literal notranslate"><span class="pre">locate_simulation_errors</span></code>, <code class="docutils literal notranslate"><span class="pre">log_episode_simulation_results</span></code> of the
+<code class="docutils literal notranslate"><span class="pre">user_simulator</span></code> class are platform-agnostic and can be shared by all bot platforms.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">while</span> <span class="n">episode_index</span> <span class="o">&lt;</span> <span class="nb">len</span><span class="p">(</span><span class="n">simulation_goals</span><span class="p">):</span>
      <span class="n">user_simulator</span><span class="o">.</span><span class="n">reset</span><span class="p">(</span><span class="n">start_episode</span><span class="p">)</span>
      <span class="n">session_finished</span> <span class="o">=</span> <span class="kc">False</span>
@@ -260,7 +253,7 @@ A code snippet of a dialog loop is given below. Note the functions <code class="
              <span class="n">bot_action_frame</span><span class="p">,</span> <span class="c1"># current dialog state</span>
              <span class="n">start_episode</span><span class="p">,</span>
              <span class="bp">self</span><span class="o">.</span><span class="n">dialog_logs</span><span class="p">)</span>
-     <span class="c1"># Response to all bot_actions one by one</span>
+         <span class="c1"># Response to all bot_actions one by one</span>
          <span class="k">for</span> <span class="n">bot_action</span> <span class="ow">in</span> <span class="n">user_simulator</span><span class="o">.</span><span class="n">state</span><span class="p">[</span><span class="s2">&quot;bot_action_queue&quot;</span><span class="p">]:</span>
              <span class="k">if</span> <span class="n">user_simulator</span><span class="o">.</span><span class="n">state</span><span class="p">[</span><span class="s2">&quot;action&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;fail&quot;</span><span class="p">:</span>
                  <span class="bp">self</span><span class="o">.</span><span class="n">dialog_logs</span><span class="p">[</span><span class="n">start_episode</span><span class="p">][</span><span class="s2">&quot;chat_log&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">bot_messages</span><span class="p">)</span>
@@ -299,34 +292,47 @@ A code snippet of a dialog loop is given below. Note the functions <code class="
 </section>
 <section id="adding-new-rules-to-botsim-policy">
 <h2>Adding New Rules to BotSIM Policy<a class="headerlink" href="#adding-new-rules-to-botsim-policy" title="Permalink to this heading"></a></h2>
-<p>The rules and the rule-based policy are defined in <code class="docutils literal notranslate"><span class="pre">botsim.modules.simulator.user_simulator</span></code>. A new rule to respond to new bot dialog act named “&lt;new-dialog-act&gt;”,
-can be added in the function <code class="docutils literal notranslate"><span class="pre">_response_to_&lt;new-dialog-act&gt;</span></code>. The policy <code class="docutils literal notranslate"><span class="pre">policy(bot_action)</span></code> can be updated by including the  new rule.</p>
+<p>BotSIM’s rule-based policy is defined in the <code class="docutils literal notranslate"><span class="pre">policy</span></code> functiion of <code class="docutils literal notranslate"><span class="pre">botsim.modules.simulator.user_simulator</span></code>.
+The policy takes as input a semantic frame <code class="docutils literal notranslate"><span class="pre">bot_action</span></code> representing the bot dialog actions with the following info:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">action</span></code> denotes the type of action mapped from bot messages via dialog act maps, such as <code class="docutils literal notranslate"><span class="pre">request</span></code>, <code class="docutils literal notranslate"><span class="pre">inform</span></code> etc.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">inform_slots</span></code> contains the entitities and values to inform to BotSIM</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">request_slots</span></code> contains the entities requested from BotSIM</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">round</span></code> denotes the dialog turn index of the current bot message</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">message</span></code> is the raw bot message</p></li>
+</ul>
+<p>The policy updates the dialog states and take the next BotSIM action according to the rule. The BotSIM action is then converted to natural languages by the template NLG and returned.
+In principle, a response rule shouold be defined for each bot <code class="docutils literal notranslate"><span class="pre">action</span></code> type, e.g., <code class="docutils literal notranslate"><span class="pre">_response_to_request</span></code>. In other words, if a new  bot dialog act named “&lt;new-dialog-act&gt;”  is included in
+the dialog act maps, a corresponding function named   <code class="docutils literal notranslate"><span class="pre">_response_to_&lt;new-dialog-act&gt;</span></code> should be implemented and added to the policy in order for BotSIM to respond to the bot dialog act properly.</p>
 </section>
 </section>
 <section id="incorporating-advanced-models">
 <h1>Incorporating Advanced Models<a class="headerlink" href="#incorporating-advanced-models" title="Permalink to this heading"></a></h1>
 <section id="natural-language-inference-nli-model-as-botsim-nlu">
 <h2>Natural Language Inference (NLI) Model as BotSIM NLU<a class="headerlink" href="#natural-language-inference-nli-model-as-botsim-nlu" title="Permalink to this heading"></a></h2>
-<p>The natural language understanding component of BotSIM relies on fuzzy matching to convert bot messages to dialog acts.
-To handle bots that may be powered by a natural language generation model, the lexical-based fuzzy matching is not so reliable. The limitation can be circumvented by incorporating a semantic-based
-NLU. A good candidate is to use a Natural Language Inference (NLI) model to compute the semantic matching scores of the bot messages with the ones in the dialog act maps.
+<p>To handle bots that may be powered by a natural language generation model, the lexical-based fuzzy matching NLU is not reliable enough. The limitation can be circumvented by incorporating a semantic-based
+NLU. A good candidate is a Natural Language Inference (NLI) model to compute the semantic matching scores of the bot messages with the ones in the dialog act maps.
 The NLI model can be added as follows:</p>
 <ul class="simple">
 <li><p>Create a new subclass of <code class="docutils literal notranslate"><span class="pre">botsim.models.nlu.nlu_model</span></code></p></li>
-<li><p>Implement <code class="docutils literal notranslate"><span class="pre">predict(bot_message,</span> <span class="pre">intent_name)</span></code> function to map the <code class="docutils literal notranslate"><span class="pre">bot_message</span></code> to the best dialog act defined in the dialog named <code class="docutils literal notranslate"><span class="pre">intent_name</span></code></p></li>
+<li><p>Implement <code class="docutils literal notranslate"><span class="pre">predict(bot_message,</span> <span class="pre">intent_name)</span></code> function to map the <code class="docutils literal notranslate"><span class="pre">bot_message</span></code> to the best dialog act of the <code class="docutils literal notranslate"><span class="pre">intent_name</span></code> dialog</p></li>
 <li><p>Switch the <code class="docutils literal notranslate"><span class="pre">nlu_model</span></code> in the user simulator <code class="docutils literal notranslate"><span class="pre">botsim.modules.simulator.abus</span></code> to the new NLU model</p></li>
-<li><p>The NLI model scores can be interpolated with the fuzzy matching score to select the best dialog act</p></li>
+<li><p>The NLI model scores can also be potentially interpolated with the fuzzy matching score for more robust matching performance</p></li>
 </ul>
 </section>
 <section id="neural-based-nlg-model">
 <h2>Neural-based NLG Model<a class="headerlink" href="#neural-based-nlg-model" title="Permalink to this heading"></a></h2>
-<p>To increase the naturalness and diversity of the template-based responses, a neural-based NLG model may be used to “paraphrase” the template messages.
+<p>To increase the naturalness and diversity of the template-based responses, a neural-based NLG model may be adopted to “paraphrase” the template messages. One important requirement is that
+the NLG model must keep the entity values unchanged in their outputs (i.e., template-guided model).
 The model can be incorporated by following the following steps:</p>
 <ul class="simple">
 <li><p>Create a new NLG module under <code class="docutils literal notranslate"><span class="pre">botsim.models.nlg</span></code></p></li>
 <li><p>Implement <code class="docutils literal notranslate"><span class="pre">generate(dialog_state)</span></code> interface to take the semantic representation of dialog state and return a natural language response</p></li>
 <li><p>Change the <code class="docutils literal notranslate"><span class="pre">nlg_model</span></code> in the user simulator <code class="docutils literal notranslate"><span class="pre">botsim.modules.simulator.abus</span></code> with the new NLU model</p></li>
 </ul>
+<p>Alternatively, a retrieval-based NLG model can be used to select appropriate responses from the past chat logs.
+Lastly, instead of paraphrasing BotSIM messages, models with natural language prototype/template generation capabilities can be used to produce more templates from the product chat logs. These new
+templates can be added directly to the NLG templates.</p>
 </section>
 </section>
 <section id="finetune-t5-paraphrasing-model">
@@ -334,7 +340,7 @@ The model can be incorporated by following the following steps:</p>
 <p>To finetune the T5 paraphrasing model on users’ in-domain data, please follow the following steps.</p>
 <section id="prepare-paraphrase-pairs">
 <h2>Prepare Paraphrase Pairs<a class="headerlink" href="#prepare-paraphrase-pairs" title="Permalink to this heading"></a></h2>
-<p>The training paraphrase pairs can be created by sampling real user queries with the same intents. The training data should be organized in the following json format:</p>
+<p>The training paraphrase pairs can be created by sampling real user queries with the same intents. The training data should be organized in the following JSON format:</p>
 <div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="w"></span>
 <span class="w">      </span><span class="p">{</span><span class="w"></span>
 <span class="w">        </span><span class="nt">&quot;text&quot;</span><span class="p">:</span><span class="s2">&quot;&lt;sos_s&gt; &lt;original text 1&gt; &lt;eos_s&gt;&quot;</span><span class="p">,</span><span class="w"></span>
@@ -388,7 +394,7 @@ The model can be incorporated by following the following steps:</p>
 </section>
 <section id="gcp-deployment">
 <h1>GCP Deployment<a class="headerlink" href="#gcp-deployment" title="Permalink to this heading"></a></h1>
-<p>BotSIM Streamlit App can also be deployed to GCP for GPU access,  which will greatly accelerate the paraphrasing model inference process.
+<p>BotSIM Streamlit App can be deployed to GCP for GPU access,  which will greatly accelerate the paraphrasing model inference process.
 The script for GCP deployment can be accessed at <code class="docutils literal notranslate"><span class="pre">botsim/deploy/gcp/deploy_gcp_botsim_streamlit.sh</span></code>. The parameters  are as follows:</p>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">cluster_name</span></code>: the name of users’ gcp clusters for deployment</p></li>

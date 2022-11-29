@@ -42,8 +42,10 @@
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <p class="caption" role="heading"><span class="caption-text">Introduction</span></p>
 <ul class="current">
-<li class="toctree-l1 current"><a class="current reference internal" href="#">What is BotSIM?</a></li>
-<li class="toctree-l1"><a class="reference internal" href="#botsim-pipeline">BotSIM  Pipeline</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">What is BotSIM?</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#botsim-pipeline">BotSIM  Pipeline</a></li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="#getting-started">Getting Started</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#prerequisite">Prerequisite</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#installation">Installation</a></li>
@@ -64,8 +66,9 @@
 <li class="toctree-l1"><a class="reference internal" href="tutorials.html">Retrieve Einstein BotBuilder Bot Metadata</a></li>
 <li class="toctree-l1"><a class="reference internal" href="tutorials.html#streamlit-web-app">Streamlit Web App</a></li>
 <li class="toctree-l1"><a class="reference internal" href="tutorials.html#command-line-tools">Command Line Tools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorials.html#id1">Dialog Act Maps Revision Guideline</a></li>
 <li class="toctree-l1"><a class="reference internal" href="dashboard.html">Remediator Dashboard Navigation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="dashboard.html#apply-intent-model-remediation-suggestions">Apply intent model remediation suggestions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dashboard.html#apply-intent-model-remediation-suggestions">Apply Intent Model Remediation Suggestions</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Advanced Usage</span></p>
 <ul>
@@ -141,9 +144,8 @@ by bot admins or practitioners to their bots.</p>
 <p>BotSIM can significantly accelerate commercial bot development and evaluation, reduce cost and time-to-market by: 1) reducing manual efforts for test dialog creation and human-bot
 conversation; 2) reducing fast bot evaluation and diagnosis via  large-scale end-to-end dialog simulation;
 3) improving bot troubleshooting process with actionable suggestions from simulation results analysis.</p>
-</section>
 <section id="botsim-pipeline">
-<h1>BotSIM  Pipeline<a class="headerlink" href="#botsim-pipeline" title="Permalink to this heading"></a></h1>
+<h2>BotSIM  Pipeline<a class="headerlink" href="#botsim-pipeline" title="Permalink to this heading"></a></h2>
 <a class="reference internal image-reference" href="_images/BotSIM_Arch.png"><img alt="_images/BotSIM_Arch.png" src="_images/BotSIM_Arch.png" style="width: 550px;" /></a>
 <p>BotSIM offers a streamlined “generation-simulation-remediation” process (shown above) for end-to-end bot evaluation and remediation. Each stage in the pipeline is supported by a system component
 as listed below:</p>
@@ -154,6 +156,7 @@ as listed below:</p>
 </li>
 <li><p><strong>Remediator</strong> generates health reports, performs analyses, and provides actionable suggestions to troubleshoot and improve dialog systems.</p></li>
 </ul>
+</section>
 </section>
 <section id="getting-started">
 <h1>Getting Started<a class="headerlink" href="#getting-started" title="Permalink to this heading"></a></h1>
@@ -191,29 +194,33 @@ pip install .
 <h2>Running Streamlit App<a class="headerlink" href="#running-streamlit-app" title="Permalink to this heading"></a></h2>
 <a class="reference internal image-reference" href="_images/BotSIM_App.png"><img alt="_images/BotSIM_App.png" src="_images/BotSIM_App.png" style="width: 550px;" /></a>
 <ol class="arabic simple">
-<li><p>Start Streamlit App locally （detailed instructions regarding App usage given in the <a class="reference external" href="https://opensource.salesforce.com/botsim//latest/tutorials.html##streamlit-web-app">tutorial</a>.)</p></li>
+<li><p>Start Streamlit App locally （detailed instructions given in the <a class="reference external" href="https://opensource.salesforce.com/botsim//latest/tutorials.html##streamlit-web-app">Streamlit tutorial</a> section.)</p></li>
 </ol>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">export</span> <span class="nv">PYTHONPATH</span><span class="o">=</span>./:<span class="nv">$PYTHONPATH</span>
+<blockquote>
+<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">export</span> <span class="nv">PYTHONPATH</span><span class="o">=</span>./:<span class="nv">$PYTHONPATH</span>
 <span class="nb">export</span> <span class="nv">DATABASE_URL</span><span class="o">=</span><span class="s2">&quot;db/botsim_sqlite_demo.db&quot;</span>
 streamlit run botsim/streamlit_app/app.py
 </pre></div>
 </div>
+</div></blockquote>
 <ol class="arabic simple" start="2">
-<li><p>Optionally, the app can also be deployed as a docker container</p></li>
+<li><p>Optionally, the app can also be built as a docker image.</p></li>
 </ol>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nv">device</span><span class="o">=</span>cpu <span class="c1"># change device to gpu to build a GPU docker image</span>
+<blockquote>
+<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nv">device</span><span class="o">=</span>cpu <span class="c1"># change device to gpu to build a GPU docker image</span>
 docker build --build-arg <span class="nv">device</span><span class="o">=</span><span class="nv">$device</span> -t botsim-streamlit .
 </pre></div>
 </div>
+</div></blockquote>
 <ol class="arabic simple" start="3">
 <li><p>The App can also be deployed to GCP for access to GPU resources.
-Detailed deployment instructions are given in the <a class="reference external" href="https://opensource.salesforce.com/botsim//latest/advanced_usage.html#gcp-deployment">GCP Deployment</a> section of the documentation.</p></li>
+Detailed deployment instructions are given in the <a class="reference external" href="https://opensource.salesforce.com/botsim//latest/advanced_usage.html#gcp-deployment">GCP deployment</a> section.</p></li>
 </ol>
 </section>
 <section id="command-line-tools">
 <h2>Command Line Tools<a class="headerlink" href="#command-line-tools" title="Permalink to this heading"></a></h2>
-<p>Alternatively, users can also deep-dive to learn more about BotSIM’s system components through the command line tools.
-Detailed steps are given in the <a class="reference external" href="https://opensource.salesforce.com/botsim//latest/tutorials.html#botsim-command-line-tools">tutorial section</a>.</p>
+<p>Alternatively, users can also deep-dive into BotSIM’s pipeline through the command line tools.
+Detailed steps are given in the <a class="reference external" href="https://opensource.salesforce.com/botsim//latest/tutorials.html#botsim-command-line-tools">command line tools tutorial</a>.</p>
 </section>
 </section>
 
