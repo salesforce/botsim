@@ -46,7 +46,7 @@ it also offers a controllable approach to troubleshooting dialog design related 
   :width: 550
 
 
-Apply intent model remediation suggestions
+Apply Intent Model Remediation Suggestions
 ###########################################
 
 The most straightforward approach of applying remediation suggestions is to augment the the recommended misclassified paraphrases  to the original

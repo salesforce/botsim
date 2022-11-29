@@ -21,7 +21,7 @@ conversation; 2) reducing fast bot evaluation and diagnosis via  large-scale end
 
 
 BotSIM  Pipeline
-####################################
+*********************
 
 .. image:: _static/BotSIM_Arch.png
   :width: 550
@@ -71,25 +71,25 @@ Running Streamlit App
 .. image:: _static/BotSIM_App.png
   :width: 550
 
-1. Start Streamlit App locally （detailed instructions regarding App usage given in the `tutorial <https://opensource.salesforce.com/botsim//latest/tutorials.html##streamlit-web-app>`_.)
+1. Start Streamlit App locally （detailed instructions given in the `Streamlit tutorial <https://opensource.salesforce.com/botsim//latest/tutorials.html##streamlit-web-app>`_ section.)
 
-.. code-block:: bash
+  .. code-block:: bash
 
-  export PYTHONPATH=./:$PYTHONPATH
-  export DATABASE_URL="db/botsim_sqlite_demo.db"
-  streamlit run botsim/streamlit_app/app.py
+    export PYTHONPATH=./:$PYTHONPATH
+    export DATABASE_URL="db/botsim_sqlite_demo.db"
+    streamlit run botsim/streamlit_app/app.py
 
-2. Optionally, the app can also be deployed as a docker container
+2. Optionally, the app can also be built as a docker image.
 
-.. code-block:: bash
-  
-  device=cpu # change device to gpu to build a GPU docker image
-  docker build --build-arg device=$device -t botsim-streamlit .
+  .. code-block:: bash
+    
+    device=cpu # change device to gpu to build a GPU docker image
+    docker build --build-arg device=$device -t botsim-streamlit .
 
 3. The App can also be deployed to GCP for access to GPU resources. 
-   Detailed deployment instructions are given in the `GCP Deployment <https://opensource.salesforce.com/botsim//latest/advanced_usage.html#gcp-deployment>`_ section of the documentation.
+   Detailed deployment instructions are given in the `GCP deployment <https://opensource.salesforce.com/botsim//latest/advanced_usage.html#gcp-deployment>`_ section.
 
 Command Line Tools
 ***********************
-Alternatively, users can also deep-dive to learn more about BotSIM's system components through the command line tools. 
-Detailed steps are given in the `tutorial section <https://opensource.salesforce.com/botsim//latest/tutorials.html#botsim-command-line-tools>`_.
+Alternatively, users can also deep-dive into BotSIM's pipeline through the command line tools. 
+Detailed steps are given in the `command line tools tutorial <https://opensource.salesforce.com/botsim//latest/tutorials.html#botsim-command-line-tools>`_.

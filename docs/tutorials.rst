@@ -2,9 +2,9 @@ Retrieve Einstein BotBuilder Bot Metadata
 ##############################################################################
 There are two inputs required by BotSIM for dialog simulation with the Einstein BotBuilder platform: 
 
-1. ``botVersions`` metadata contains dialog flows, bot messages,  entities, etc. It may also include  intent training utterances (e.g., if intent sets are not used). 
-If intent sets are used, the ``botVersions`` metadata will link each dialog intent to its intent sets that contain the intent utterances.
-The utterances in the intent sets are to be extracted from MlDomains metadata.
+1. ``botVersions`` metadata contains bot design related data such as dialog flows, bot messages,  entities, etc. It may also include  intent training utterances (e.g., if intent sets are not used). 
+If intent sets are used, the ``botVersions`` metadata will connect each dialog intent to the intent sets used to train the intent.
+The utterances in the intent sets are extracted from MlDomains metadata.
     
     .. code-block:: xml
 
@@ -17,32 +17,33 @@ The utterances in the intent sets are to be extracted from MlDomains metadata.
         <version>51.0</version>
       </Package>
 
-An example ``package.xml`` for extracting  the botversions metadata of a bot named “Your-Bot-API-Name” is given above. 
+An example ``package.xml`` for extracting  the ``botVersions`` metadata of a bot named “Your-Bot-API-Name” is given above. 
 The bot API name can be found under the bot “Overview” page. 
 Replace “Your-Bot-API-Name” with the test bot API name and login to `Salesforce Workbench <https://workbench.developerforce.com/login.php>`_ 
 to "retrieve" the “botVersions” metadata.
-By default, the “botversion” metadata is extracted as unpackaged/bot/<Your-Bot-API-Name>.bot. 
-The raw metadata is a XML file. It is subsequently parsed to extract the dialog designs/flows, intents, entities for BotSIM to use.
+By default, the raw “botversion” XML metadata is downloaded and extracted as unpackaged/bot/<Your-Bot-API-Name>.bot. 
+It is subsequently parsed to infer the dialog act maps to be used as BotSIM NLU model.
 
-2. ``MlDomain`` metadata contains all intent sets. Each intent set contains a set of training utterances that can be used to train (if NLP bot is enabled) certain intents. 
-Like the previous metadata, a “package.xml” is needed to retrieve the ``MlDomain`` metadata.
+2. ``MlDomain`` metadata contains all intent sets. Each intent set comprises a set of training utterances that can be used to train (if NLP bot is enabled) certain intents. 
+Like the previous metadata, a “package.xml” is needed to retrieve the metadata.
 
     .. code-block:: xml
 
        <?xml version="1.0" encoding="UTF-8"?>
        <Package xmlns="http://soap.sforce.com/2006/04/metadata">
         <types>
-            <members>Your-Intent-Set_Name</members>
+            <members>Your-Intent-Set-API-Name</members>
             <name>MlDomain</name>
         </types>
         <version>51.0</version>
       </Package>
 
-The ``MLDomain`` metadata is extracted under  "unpackaged/mlDomains" after unzipping. The mlDomain xml files will be parsed to get the training utterances for all intents. 
+The ``MLDomain`` metadata is extracted under  "unpackaged/mlDomains". The XML mlDomain metadata will be parsed to extract the training utterances for all intents. 
 
-3. **[Optional] Preparing evaluation intent utterances.** By default, the evaluation set is created automatically by sampling a subset of the paraphrases from the intent training utterances. 
+3. **[Optional] Preparing evaluation intent utterances.** The purpose of the evaluation set is to benchmark the bot performance after each bot update via  dialog simulation. By default, the evaluation set is created automatically by sampling a subset of the paraphrases from the intent training utterances. 
+This is to enable BotSIM for pre-deployment evaluation without any customer data.
 To test and monitor the intent model performance from real traffic,  an evaluation set can be created from production chat logs.  
-The purpose of the evaluation set is to benchmark the intent model performance after each bot update via  dialog simulation.
+
 
 
 Streamlit Web App
@@ -52,7 +53,7 @@ by the Python Flask API server running the following services:
 
 - ``botsim_generation`` is the generation service to parse bot data, apply paraphrasing models and generate dialog goals
 - ``botsim_simulation`` is the simulation service to perform agenda-based user simulation 
-- ``botsim_remediation`` is the remediation service to perform analysis and aggregate dashboard reports.
+- ``botsim_remediation`` is the remediation service to perform analysis and aggregate dashboard reports
 
 Next we will provide detailed instructions for using the App.
 
@@ -67,9 +68,7 @@ The input fields from the side panel include:
 
 - ``Bot Platform`` allows users to choose their bot platform type, currently supporting ``Einstein_Bot`` and ``DialogFlow_CX``
 - ``Bot Name`` is the name of their bot, e.g., ``travel agent bot``
-- ``Text Description`` allows users to write "commit messages" of the simulation. This is to keep track of the bot testing sessions to better compare the historical performance. 
-
-For example, "adding 100 more intent training utterances to Report_an_Issue intent".
+- ``Text Description`` allows users to write "commit messages" for the simulation session. This is to keep track of the bot testing sessions to better compare the historical performance. For example, "adding 100 more intent training utterances to Report_an_Issue intent".
 
 The ``Dialog Generation & Simulation Configuration`` inputs on the main page include:
 
@@ -77,7 +76,7 @@ The ``Dialog Generation & Simulation Configuration`` inputs on the main page inc
   "-1" means to use all intent utterances.
 - ``No. of paraphrases`` is the number of paraphrases to be generated for each intent utterance.
 - ``No. of dialog simulations`` is the number of simulation episodes allowed for each intent. Default value "-1" means using all the goals.
-- ``Maximum No. of dialog turns`` is the simulation runtime parameter to limit the maximum number of dialog turns for each episode. When exceedied, the episode is considered a failed conversation.
+- ``Maximum No. of dialog turns`` is the simulation runtime parameter to limit the maximum number of dialog turns for each episode. When exceeded, the episode is considered a failed conversation.
 
 Lastly, the API credentials must be uploaded to BotSIM for it to perform dialog user simulation via API calls.
 
@@ -89,7 +88,13 @@ Lastly, the API credentials must be uploaded to BotSIM for it to perform dialog 
 For ``Einstein_Bot``, users need to upload the ``botversions`` and ``mldomains`` metadata. Upon uploading, the metadata is parsed to generate the dialog act maps file 
 and the ontology file. For ``DialogFlow_CX``, the BotSIM parser input is retrieved by calling content APIs related to bot intents, entities, flows.
 
-After initial parsing, the page subsequently requires users to upload their revised dialog act maps and ontology files.
+After initial parsing, the following files will be generated 
+
+- ``bots/<platform>/<test-id>/conf/dialog_act_maps.json``
+- ``bots/<platform>/<test-id>/conf/ontology.json``
+
+Users are thus required to manually review the dialog act maps and optionally the ontology file.
+The page subsequently prompts users to upload their revised dialog act maps and ontology files.
 
 3. Dialog Generation and Simulation
 ************************************
@@ -107,7 +112,7 @@ The two datasets are created and used as follows:
 4. After applying remediation suggestions based on the simulated conversations on the ``dev`` goal set, the ``eval`` goals are used to compare the bot performances and verify the efficacy of the remediation. 
 
 
-The simulation is started in the background by clicking the ``Start Dialog Simulation`` button. 
+The simulation will be started in the background by clicking the ``Start Dialog Simulation`` button. 
 
 4. Health Reports and Analytics
 ************************************
@@ -128,9 +133,9 @@ This is a tutorial for applying BotSIM's generation-simulation-remediation pipel
 
 Step 1: Prepare BotSIM Configuration
 **************************************************************
-The config file is used by the command line tools to save users troubles in setting these parameters.
-A template ``config.json`` has been provided in the repo and presented in the previous section. It includes all the necessary info needed for each component (generator, simulator and remediator). 
-Users can also change the config to customise BotSIM, such as the dev/eval intents, paraphrasing settings, simulation run-time settings, etc. 
+The config file is used by the command line tools as detailed in `Configuration <https://opensource.salesforce.com/botsim/latest/deep_dive.html>`_.
+It includes all the necessary info needed for each component (generator, simulator and remediator). 
+Users can change the config to customise BotSIM, such as the dev/eval intents, paraphrasing settings, simulation run-time settings, etc. 
 One mandatory setting is the API credentials (the ``api`` slot). They are used by BotSIM to communicate with bot APIs. 
 
 - For ``Einstein BotBuilder``, the required API information includes ``end_point``, ``org_Id``, ``deployment_Id`` and ``button_Id``. 
@@ -138,7 +143,7 @@ One mandatory setting is the API credentials (the ``api`` slot). They are used b
 - For ``DialogFlow CX``, the required fields include ``location_id``, ``agent_id``, ``project_id`` and ``cx_credential``. They can be obtained from 
   users' Google Cloud Platform console. The ``cx_credential`` is the local path to the Google API token.
 
-Given a new test (test_id), the configuration file can be set by the command below:
+Given a new test (test_id), the configuration file can be customised from the template configuration by the command below:
 
 .. code-block:: bash
 
@@ -171,6 +176,7 @@ Stage 2: Generation
 **************************************************************
 
 1. Parsing metadata
+
    Based on the setups in ``config.json``, the metadata can be parsed using
 
    .. code-block:: bash
@@ -194,47 +200,9 @@ Stage 2: Generation
       In particular, there are two special templates, namely “dialog_success_message” and “intent_success_message”, which are used to determine whether the task has been successfully completed or the correct 
       intent has been successfully detected. In other words, they serve as ground truth messages and directly affect the performance metrics such as task-completion rates and intent accuracies.  The messages 
       are created according to some heuristics: treating the first message with “request” action as the intent success message  and last message as the dialog success message. Therefore, users are required 
-      to review these messages and ensure their correctness. For example, they can revise them or add additional messages.
+      to review these messages and ensure their correctness. For example, they can revise them or add additional messages. A detailed guideline is given in the 
+      `Dialog Act Maps Revision Guideline <https://opensource.salesforce.com/botsim/latest/tutorials.html#dialog-act-maps-revision-guideline>`_ section.
    
-    - **Human-in-the-loop revision of dialog act maps**
-
-      To save significant manual efforts, BotSIM parser adopts a conversation graph modelling approach to automatically generate the dialog act maps, which would be prohibitively demanding 
-      if not possible for bot admins to craft from their bot designs. As the dialog act maps are inferred from the bot designs, 
-      users are  required to carefully review them to ensure their correctness.  The is the only human-in-the-loop step in the BotSIM pipeline.
-
-        - **intent_success_messages**: The candidates of the intent_success_message correspond to bot messages signalling a successful intent classification. 
-          It is by default the first “request” message as generated by the parser.  Some revision guidelines are listed below:
-
-                1. It is important to guarantee that no two intents/dialogs have the same ``intent_success_message``. If  two intents have the same first “request” messages, 
-                try to differentiate them by appending subsequent messages into “intent_success_message”. For example, although the “Check the status of an order” and “Check the status of an issue” intents 
-                both have the entry message of “I can help with that.”,  they differ in their next messages: the former asks for 
-                an order number “Do you have your order number?” and the latter asks for an issue number “Do you have your case number?”.  
-                We can thus use these two messages as their intent_success_message entries respectively.
-                2. Multiple consecutive messages can be combined as one entry. For the previous example, we can also combine the entry message and the question message and use “I can help with that. Do you have your order number?” as one of the candidate messages for “intent_success_message” 
-                3. Adding more candidates is sometimes helpful. BotSIM users are advised to include more (intent-specific) messages to make the intent fuzzy matching more robust. Such messages may include
-
-                    1. Some messages from the intermediate steps that the conversation must go through. For example, the message corresponding to “request_Email” for “Check the status of an existing issue” can also be used as a candidate for “intent_success_message” since it is a mandatory step for the dialog.
-                    2. Messages under the “small_talk” section, which are specific to this particular intent
-
-                4. It is advisable to revise other  dialog acts as well.
-                5. Bot conversation designers are of great help for the process. 
-
-        - **dialog_success_messages**: 
-            The candidate messages of dialog_success_message include bot messages that can be viewed as the successful completion of a dialog. Good candidates are the messages 
-            at the end of a dialog. Such messages are usually used to inform users of the final outcomes of the conversation. Note for some dialogs, there are multiple outcomes 
-            with contrasting messages, we treat all these outcomes as “successful” messages. For example, for “Check the status of an existing issue” intent, if users have their case numbers 
-            and successfully authenticate themselves, the dialog produces the first success message, otherwise the second message is displayed indicating a human agent will take over the case. 
-
-            .. code-block:: json
-
-               {
-                    "dialog_success_message": [
-                        "Thank you. One moment while I look up your case...",
-                        "Oh, alright. Let\u2019s connect you to a service agent who can help look up your case"
-                    ]
-               }
-        - **small_talks**: For messages that do not have any associated actions (request/inform etc.), we put them under the small_talks act. BotSIM will ignore them during dialog simulation. Examples include “I can help you with that”, “Got it”.  
-        - **request_intent**: The bot messages of request_intent usually are the welcome messages if available (e.g., Einstein BotBuilder). BotSIM responds the dialog act by informing the intent queries.
     - **[NLG] BotSIM natural language response templates** 
       
       BotSIM adopts a dialog-act-level agenda-based user simulator for dialog simulation. BotSIM needs to convert the dialog acts to natural language 
@@ -351,7 +319,7 @@ Based on the dialog acts matched by the NLU, the state manager applies the corre
 They are then converted to natural language responses by the NLG and sent back to the bot. The conversation ends when the task has been successfully finished or an error has been captured.
 The simulation can be configured as follows:
 
-- By default, all intents will be included for simulation and this can be customised in the config file ``config['simulator'][dev_intents]`` and ``config['simulator'][eval_intents]``.
+- By default, all intents will be included for simulation and this can be customised in the config file ``config['simulator']['dev_intents']`` and ``config['simulator']['eval_intents']``.
 - Other simulation run-time parameters such as 
 
   - the maximum number of conversation turns allowed per simulated conversation, 
@@ -366,6 +334,7 @@ The simulation can be configured as follows:
 Stage 4: Analyse and Remediate
 ********************************************************************************
 The remediator module analyses the simulated conversations and 
+
 - aggregates bot health reports
 - performs conversation analytics (intent model confusion matrix analysis and tSNE visualisation of intent utterances)
 - provides actionable suggestions to help diagnose, troubleshoot and improve the current bot systems. 
@@ -383,7 +352,40 @@ For each intent/dialog and mode (dev/eval), the following outputs will be produc
 3. ``intent_remediation`` are rule-based remediation suggestions to help users further examine and fix some intent errors. 
 4. ``ner_errors`` is used to collect the identified NER errors, including the dialog turns, slots, wrongly extracted or missed values. Furthermore, based on the extraction type of the entity, it also provides remediation suggestions.
 
-All the outputs are in JSON format so that they can be easily consumed by bot practitioners to take further actions. Note the suggestions are meant to be used as guidelines rather than strictly followed. 
+All the outputs are in JSON format for easy consumption by bot practitioners. Note the suggestions are meant to be used as guidelines rather than strictly followed. 
 More importantly, they can always be extended to include domain expertise in troubleshooting bots related to their products/services.
 
-The remediator also aggregates all the previous outputs into one single “aggregated_report.json” for presenting them in the bot health report dashboard. We will present the dashboard in more detail later.
+Lastly, the remediator aggregates all the previous outputs into one single “aggregated_report.json” for presenting them in the bot health report dashboard. We will present the dashboard in more detail later.
+
+Dialog Act Maps Revision Guideline
+#############################################
+As the dialog act maps are inferred from the bot designs, users are  required to carefully review them to ensure their correctness.  The is the only human-in-the-loop step in the BotSIM pipeline.
+The most important dialog act message to be reviewed are listed below although  it is advisable to revise other  dialog acts as well.
+
+- **intent_success_messages**: The candidates of the intent_success_message correspond to bot messages signalling a successful intent classification. 
+  It is by default the first “request” message as generated by the parser.  Some revision guidelines are listed below:
+
+  1. It is important to guarantee that no two intents/dialogs have the same ``intent_success_message``. If  two intents have the same first “request” messages, try to differentiate them by appending subsequent messages into “intent_success_message”. For example, although the “Check the status of an order” and “Check the status of an issue” intents both have the entry message of “I can help with that.”,  they differ in their next messages: the former asks for an order number “Do you have your order number?” and the latter asks for an issue number “Do you have your case number?”.  We can thus use these two messages as their intent_success_message entries respectively.
+  2. Multiple consecutive messages can be combined as one entry. For the previous example, we can also combine the entry message and the question message and use “I can help with that. Do you have your order number?” as one of the candidate messages for “intent_success_message” 
+  3. Adding more candidates is sometimes helpful. BotSIM users are advised to include more (intent-specific) messages to make the intent fuzzy matching more robust. Such messages may include
+
+    - Some messages from the intermediate steps that the conversation must go through. For example, the message corresponding to “request_Email” for “Check the status of an existing issue” can also be used as a candidate for “intent_success_message” since it is a mandatory step for the dialog.
+    - Messages under the “small_talk” section, which are specific to this particular intent
+
+  4. When in doublts, consult the bot conversation designers. 
+
+- **dialog_success_messages**: The candidate messages of dialog_success_message include bot messages that can be viewed as the successful completion of a dialog. Good candidates are the messages 
+  at the end of a dialog. Such messages are usually used to inform users of the final outcomes of the conversation. Note for some dialogs, there are multiple outcomes 
+  with contrasting messages, we treat all these outcomes as “successful” messages. For example, for “Check the status of an existing issue” intent, if users have their case numbers 
+  and successfully authenticate themselves, the dialog produces the first success message, otherwise the second message is displayed indicating a human agent will take over the case. 
+
+    .. code-block:: json
+
+        {
+            "dialog_success_message": [
+                "Thank you. One moment while I look up your case...",
+                "Oh, alright. Let\u2019s connect you to a service agent who can help look up your case"
+            ]
+        }
+- **small_talks**: For messages that do not have any associated actions (request/inform etc.), we put them under the small_talks act. BotSIM will ignore them during dialog simulation. Examples include “I can help you with that”, “Got it”.  
+- **request_intent**: The bot messages of request_intent usually are the welcome messages if available (e.g., Einstein BotBuilder). BotSIM responds the dialog act by informing the intent queries.

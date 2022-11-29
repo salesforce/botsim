@@ -1,45 +1,39 @@
 BotSIM System Design
 ####################################
-The key design principles of BotSIM include modularity, extensibility and usability so that the toolkit can be easily adopted by both bot end users and developers. 
-To achieve these, we adopt a layered design to decouple the development and the application. 
-The toolkit comprises three layers, namely the infrastructure layer, the adaptor layer and the toolkit layer as shown in the figure below.
+The key design principles of BotSIM include modularity, extensibility and usability. These principles allow BotSIM to be adopted both by developers as a framework and bot end-users as  an easy-to-use application. 
+To achieve these, BotSIM adopts a layered design comprising the infrastructure layer, the adaptor layer and the application layer as shown in the figure below.
 
 .. image:: _static/BotSIM_design.png
   :width: 550
 
 Infrastructure Layer
 **************************************************
-The infrastructure layer is designed to offer fundamental functionalities for the framework. 
-It comprises two major categories: the key models including natural language understanding (NLU), natural language generation (NLG) 
-and the modules including the generator, the simulator and the remediator.
+The infrastructure layer is designed to offer fundamental model support for the framework. BotSIM's ``generation-simulation-remediation`` pipeline is powered by the models and components that reside in this layer. 
 
 - ``botsim.models`` contains BotSIM's  NLU and NLG models. From a dialogue system perspective, BotSIM can be viewed as a counterpart to a chatbot: it needs to "understand" chatbot messages (NLU) and "respond" in natural languages (NLG). 
   Currently, fuzzy matching-based NLU and template-based NLG models are provided for efficiency reasons. Developers can also incorporate more advanced NLU and NLG models (see the `advanced usages <https://opensource.salesforce.com/botsim//latest/advanced_usage.html>`_ section). 
 - ``botsim.modules`` consists of the three key  modules to power BotSIM's "generation-simulation-remediation" pipeline. 
 
-    - ``botsim.modules.generator`` supports two major functionalities: 1) ``parser`` to parse bot metadata to infer dialog acts and dialog-act maps (BotSIM's NLU); 2) ``paraphraser`` to generate paraphrases of the input intent utterances. The paraphrases are used as intent queries of the simulation goals to probe bots' intent model.
+    - ``botsim.modules.generator``  provides two major functionalities: 1) the ``parser`` parses the input bot designs in the form of either metadata (Einstein BotBuilder) or API (DialogFlow CX) to infer the dialog-act maps (BotSIM's NLU); 2) the large pre-trained language model based ``paraphraser`` generates paraphrases from the input intent utterances. These paraphrases are used as intent queries in the simulation goals to probe bots' intent models, which allows BotSIM to perform large-scale data-efficient bot evaluation even before bots are deployed.
     - ``botsim.modules.simulator`` implements the dialog-act level agenda-based user simulation in ``abus``. It also defines a simulation API client interface in ``simulation_client_base``. 
     - ``botsim.modules.remediator`` analyzes the simulation dialogs and produces the performance metrics and conversational analytics to support the dashboard visualisation. 
 
 Adaptor Layer
 **************************************************
-Built on top of the infrastructure layer, the adaptor layer is designed for easy extension of BotSIM to new bot platforms. 
-The two most important platform-specific components of the layer include:
+The adaptor layer is designed for bot developers to extend BotSIM to new bot platforms. To cover new bot platforms, the following two most important platform-specific modules of the layer must be implemented.
+Note the implementations of these functions are highly platform-dependent. They require the developers to have access to bot platform, design and API documents to understand how bots are designed and how user inputs are elicited by the bots. There is also need to constantly revisit the implementations to incorporate new features that might be missed in the current implementations.
+We have provided some recipes in the `advanced usage <https://opensource.salesforce.com/botsim/latest/advanced_usage.html#extending-botsim-to-new-bot-platforms>`_ section.
 
 - ``parser`` acts as an "adaptor" to unify bot definitions (e.g. dialog flows, intents/tasks) from different platforms to a common representation of dialog act maps. 
-  The dialog act maps are used as BotSIM NLU to map  bot messages to dialog acts. 
-  Note the implementations of the parser are highly platform-dependent and require bot developers to have access to bot APIs and design documentations. 
-  We have provided our implementations of BotBuilder and DialogFlow CX parsers for reference.
 - ``simulation_client`` is the other platform-dependent component for BotSIM to exchange conversations  with bots via APIs. 
-  Similar to the ``parser``, the client implementation depends on the API designs of underlying bot platforms. 
+  Similar to the ``parser``, the client implementation heavily depends on the API designs of underlying bot platforms. 
 
 
 Application Layer
 **************************************************
-The application layer is designed to significantly flatten the learning curves of applying BotSIM for both bot practitioners and end users. 
+The application layer is designed to significantly flatten the learning curves of BotSIM for both bot developers/practitioners and end-users. 
 
-- ``botsim.cli`` contains a set of command line tools for practitioners to deep-dive into major stages of the BotSIM's  "generation-simulation-evaluation" pipeline. 
-  The command line tools expose the required inputs and expected outputs for each stage, which serve as basic building blocks for bot practitioners to build their customized pipelines.
+- ``botsim.cli`` contains a set of command line tools for practitioners to learn more about the  major BotSIM components. The ``generation-simulation-evaluation`` pipeline has been split into multiple stages to expose the required inputs and expected outputs for each stage. They serve as basic building blocks for bot practitioners to build their customized pipelines or apply only certain tasks rather than the whole BotSIM pipeline.
 - ``botsim.streamlit_app`` is a multi-page easy-to-use Web app designed for direct application by bot end users such as bot admins without diving into technical details. 
   The app can be deployed as a docker container to cloud platforms for access to more computation resources. We use Streamlit for the App front-ends. Flask backend APIs are implemented to encapsulate
   major BotSIM functionalities. The app is also equipped with a SQL database to store  simulation stages and keep track of simulation performance across multiple platforms. 
@@ -80,7 +74,7 @@ Given a new bot platform, developers can follow the following steps for implemen
 
 1. Refer to bot plaform or design documents or APIs of the platform to study how bot conversations are designed. Useful information includes
 
-  - How user information is requested by bots in the bot design data
+  - How user information is elicited by bots in the bot design data
   - Relationship between bot messages and  actions for associating bot messages with dialog actions (request/inform)
   - What and how entities are requested in the bot messages. Together with the actions, a dialog act map entry can be inferred from the bot messages (e.g., request_Email)
 
@@ -88,20 +82,20 @@ Given a new bot platform, developers can follow the following steps for implemen
 3. Start by implementing ``modules.generator.utils.<new-platform-name>/parser_utilities.py`` to parse basic bot design elements to extract only dialog/intent information such as messages, actions, transitions. The main purposes of the utility functions include
 
     - associate bot messages with  actions, entities or dialog transitions
-    - infer dialog acts from the actions and entities. 
+    - infer dialog acts from bot messages. 
    
    These utility functions are subsequently called by the ``extract_local_dialog_act_map`` function to produce the local dialog act maps. They are also responsible for extracting intent training utterances either from metadata (Einstein Bots) or API (Google DialogFlow CX).
 
-4. Implement main parser functions.
-5. Depending on the availability or accessibility of bot design documents, there might be multiple rounds of development of step 3 and 4.
+4. Implement main parser functions to aggregate the dialog act maps and conversation graph modelling.
+5. Depending on the availability or accessibility of bot design documents, step 3 and 4 may need to be iteracted multiple times.
 
 Bot API Client 
 **************************************************************
-Similar to parsers, developers need to implement the API clients for their bot platforms if they are not yet supported.  
-The client interface is defined in ``modules.simulator.simulation_client_base``   with the most important function ``perform_batch_simulation`` for permorning a batch of simulation 
-episodes starting from ``simulation_goals[start_episode]``.  
-A code snippet of a dialog loop is given below. Note the functions ``enqueue_bot_actions_from_bot_messages``, ``policy``, ``locate_simulation_errors``, ``log_episode_simulation_results`` of 
-``user_simulator`` are platform-agnostic and can be shared by all bot platforms.
+The client interface is defined in ``modules.simulator.simulation_client_base``. The  most important function is ``perform_batch_simulation`` for performing a batch of simulation 
+episodes starting from ``simulation_goals[start_episode]``. 
+
+A code snippet of a dialog loop is given below. Note the functions ``enqueue_bot_actions_from_bot_messages``, ``policy``, ``locate_simulation_errors``, ``log_episode_simulation_results`` of the  
+``user_simulator`` class are platform-agnostic and can be shared by all bot platforms.
 
 .. code-block:: python
     
@@ -119,7 +113,7 @@ A code snippet of a dialog loop is given below. Note the functions ``enqueue_bot
                 bot_action_frame, # current dialog state 
                 start_episode, 
                 self.dialog_logs)
-        # Response to all bot_actions one by one
+            # Response to all bot_actions one by one
             for bot_action in user_simulator.state["bot_action_queue"]:
                 if user_simulator.state["action"] == "fail":
                     self.dialog_logs[start_episode]["chat_log"].append(bot_messages)
@@ -155,9 +149,19 @@ A code snippet of a dialog loop is given below. Note the functions ``enqueue_bot
             episode_index += 1
 
 Adding New Rules to BotSIM Policy 
-**************************************************************
-The rules and the rule-based policy are defined in ``botsim.modules.simulator.user_simulator``. A new rule to respond to new bot dialog act named "<new-dialog-act>", 
-can be added in the function ``_response_to_<new-dialog-act>``. The policy ``policy(bot_action)`` can be updated by including the  new rule.
+**************************************************
+BotSIM's rule-based policy is defined in the ``policy`` functiion of ``botsim.modules.simulator.user_simulator``. 
+The policy takes as input a semantic frame ``bot_action`` representing the bot dialog actions with the following info:
+
+- ``action`` denotes the type of action mapped from bot messages via dialog act maps, such as ``request``, ``inform`` etc.
+- ``inform_slots`` contains the entitities and values to inform to BotSIM
+- ``request_slots`` contains the entities requested from BotSIM
+- ``round`` denotes the dialog turn index of the current bot message
+- ``message`` is the raw bot message
+
+The policy updates the dialog states and take the next BotSIM action according to the rule. The BotSIM action is then converted to natural languages by the template NLG and returned.
+In principle, a response rule shouold be defined for each bot ``action`` type, e.g., ``_response_to_request``. In other words, if a new  bot dialog act named "<new-dialog-act>"  is included in
+the dialog act maps, a corresponding function named   ``_response_to_<new-dialog-act>`` should be implemented and added to the policy in order for BotSIM to respond to the bot dialog act properly.
 
 Incorporating Advanced Models
 #######################################
@@ -165,24 +169,28 @@ Incorporating Advanced Models
 
 Natural Language Inference (NLI) Model as BotSIM NLU 
 ******************************************************
-The natural language understanding component of BotSIM relies on fuzzy matching to convert bot messages to dialog acts. 
-To handle bots that may be powered by a natural language generation model, the lexical-based fuzzy matching is not so reliable. The limitation can be circumvented by incorporating a semantic-based
-NLU. A good candidate is to use a Natural Language Inference (NLI) model to compute the semantic matching scores of the bot messages with the ones in the dialog act maps.
+To handle bots that may be powered by a natural language generation model, the lexical-based fuzzy matching NLU is not reliable enough. The limitation can be circumvented by incorporating a semantic-based
+NLU. A good candidate is a Natural Language Inference (NLI) model to compute the semantic matching scores of the bot messages with the ones in the dialog act maps.
 The NLI model can be added as follows:
 
 - Create a new subclass of ``botsim.models.nlu.nlu_model``
-- Implement ``predict(bot_message, intent_name)`` function to map the ``bot_message`` to the best dialog act defined in the dialog named ``intent_name``
+- Implement ``predict(bot_message, intent_name)`` function to map the ``bot_message`` to the best dialog act of the ``intent_name`` dialog
 - Switch the ``nlu_model`` in the user simulator ``botsim.modules.simulator.abus`` to the new NLU model
-- The NLI model scores can be interpolated with the fuzzy matching score to select the best dialog act
+- The NLI model scores can also be potentially interpolated with the fuzzy matching score for more robust matching performance 
 
 Neural-based NLG Model
 ************************************
-To increase the naturalness and diversity of the template-based responses, a neural-based NLG model may be used to "paraphrase" the template messages. 
+To increase the naturalness and diversity of the template-based responses, a neural-based NLG model may be adopted to "paraphrase" the template messages. One important requirement is that
+the NLG model must keep the entity values unchanged in their outputs (i.e., template-guided model). 
 The model can be incorporated by following the following steps:
 
 - Create a new NLG module under ``botsim.models.nlg``
 - Implement ``generate(dialog_state)`` interface to take the semantic representation of dialog state and return a natural language response
 - Change the ``nlg_model`` in the user simulator ``botsim.modules.simulator.abus`` with the new NLU model
+
+Alternatively, a retrieval-based NLG model can be used to select appropriate responses from the past chat logs. 
+Lastly, instead of paraphrasing BotSIM messages, models with natural language prototype/template generation capabilities can be used to produce more templates from the product chat logs. These new
+templates can be added directly to the NLG templates.
 
 Finetune T5 Paraphrasing Model
 #######################################
@@ -190,7 +198,7 @@ To finetune the T5 paraphrasing model on users' in-domain data, please follow th
 
 Prepare Paraphrase Pairs
 *****************************
-The training paraphrase pairs can be created by sampling real user queries with the same intents. The training data should be organized in the following json format: 
+The training paraphrase pairs can be created by sampling real user queries with the same intents. The training data should be organized in the following JSON format: 
 
 .. code-block:: json
 
@@ -245,7 +253,7 @@ To make further changes to the T5 model and trainer, refer to the following file
 
 GCP Deployment
 ###################
-BotSIM Streamlit App can also be deployed to GCP for GPU access,  which will greatly accelerate the paraphrasing model inference process. 
+BotSIM Streamlit App can be deployed to GCP for GPU access,  which will greatly accelerate the paraphrasing model inference process. 
 The script for GCP deployment can be accessed at ``botsim/deploy/gcp/deploy_gcp_botsim_streamlit.sh``. The parameters  are as follows:
 
 - ``cluster_name``: the name of users' gcp clusters for deployment
