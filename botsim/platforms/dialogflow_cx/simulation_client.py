@@ -45,7 +45,7 @@ class DialogFlowCXClient(UserSimulatorClientInterface):
             user_simulator.reset(start_episode)
             self.dialog_logs[start_episode] = {"goal": user_simulator.goal, "chat_log": []}
 
-            bot_action_frame = {"inform_slots": {}, "request_slots": {}, "round": 1, "action": "", "question": ""}
+            bot_action_frame = {"inform_slots": {}, "request_slots": {}, "round": 1, "action": "", "message": ""}
             session_finished = False
             session_path, session_client = parser_utils.create_session(google_cloud_agent_path)
             session_id = google_cloud_agent_path + "/sessions/" + str(uuid.uuid4())

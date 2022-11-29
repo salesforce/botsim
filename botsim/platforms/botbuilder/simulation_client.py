@@ -73,7 +73,7 @@ class LiveAgentClient(UserSimulatorClientInterface):
             user_simulator.reset(start_episode)
             self.dialog_logs[start_episode] = {"goal": user_simulator.goal, "chat_log": []}
             bot_action_frame = {"inform_slots": {}, "request_slots": {}, "round": 1,
-                                "action": "", "question": ""}
+                                "action": "", "message": ""}
             # The following message loop between BotSIM and bot follows LiveAgent API document at
             # https://developer.salesforce.com/docs/atlas.en-us.live_agent_rest.meta/live_agent_rest/live_agent_rest_API_requests.htm
             async with httpx.AsyncClient(verify=False) as client:

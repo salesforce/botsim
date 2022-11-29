@@ -68,7 +68,7 @@ class UserSimulator(UserSimulatorInterface):
             2. "inform_slots" slots to be informed to the user
             3. "request_slots" slots to be requested from the user
             4. "round" is the number of dialog turns so far
-            5. "question" is the current agent message
+            5. "message" is the current agent message
         bot_action is obtained from the dialog act map NLU which maps from bot messages to dialog acts via fuzzy matching.
         :return:
             botsim_state for keeping track of the dialog states
@@ -78,7 +78,8 @@ class UserSimulator(UserSimulatorInterface):
         self.state["inform_slots"].clear()
         self.state["action"] = ""
 
-        if bot_action["round"] > self.max_round: return {}, "", ""
+        if bot_action["round"] > self.max_round:
+            return {}, "", ""
         if bot_action["action"] == "request":
             self._response_to_request(bot_action)
         elif bot_action["action"] == "inform":
@@ -91,8 +92,7 @@ class UserSimulator(UserSimulatorInterface):
         elif bot_action["action"] == "greeting":
             self._response_to_greeting()
         else:
-            raise Exception("No rule defined "
-                            "for agent action type " + bot_action["action"] + " yet")
+            raise Exception("No rule defined for bot action type " + bot_action["action"] + " yet")
         self._dialog_state_sanity_check()
         botsim_state = {"action": self.state["action"],
                         "request_slots": copy.deepcopy(self.state["request_slots"]),
@@ -114,7 +114,7 @@ class UserSimulator(UserSimulatorInterface):
         :return: updated bot_action
         """
         bot_action = {"inform_slots": {}, "request_slots": {}, "action": "",
-                      "question": bot_message, "round": turn_index}
+                      "message": bot_message, "round": turn_index}
         bot_action["request_slots"].clear()
         bot_action["inform_slots"].clear()
 
@@ -123,7 +123,7 @@ class UserSimulator(UserSimulatorInterface):
         elif matched_bot_dialog_act == "dialog_success_message":
             bot_action["action"] = "match_found"
             bot_action["inform_slots"]["check_answer"] = bot_message
-            bot_action["question"] = matched_message
+            bot_action["message"] = matched_message
         elif matched_bot_dialog_act == "request_confirm":
             bot_action["action"] = "confirm"
             bot_action["inform_slots"]["check_answer"] = bot_message
