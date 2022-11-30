@@ -14,11 +14,11 @@
 </div>
 
 <div align="center">
-<a href="https://arxiv.org/abs/2211.11982">System Demo Paper</a>,
-<a href="https://arxiv.org/abs/2211.11982">Technical Report</a>,
+<a href="https://arxiv.org/abs/2211.11982">System Description</a>,
+<a href="https://arxiv.org/abs/2211.15916">Technical Report</a>,
 <a href="https://salesforce-botsim.herokuapp.com/">Demo</a>,
 <a href="https://opensource.salesforce.com/botsim//latest/index.html">Documentation</a>,
-<a href="https://">Blog</a>
+<a href="https://blog.salesforceairesearch.com/botsim/">Blog</a>
 </div>
 
 
@@ -107,8 +107,7 @@ You can find more details regarding BotSIM designs in our technical report:
   author    = {Guangsen Wang and Junnan Li and Shafiq Joty and Steven Hoi},
   title     = {BotSIM: An End-to-End Bot Simulation Toolkit for Commercial Task-Oriented Dialog Systems},
   year      = {2022},
-  doi       = {},
-  url       = {},
+  url       = {https://arxiv.org/abs/2211.15916},
   archivePrefix = {arXiv},
 }
 ```
