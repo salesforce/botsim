@@ -46,11 +46,6 @@ def app(database):
         settings["bot_type"] = bot_platform
         settings["bot_Id"] = ""
         settings["status"] = "new"
-        st.sidebar.info("Due to security and privacy reasons, the demo does not accept any uploads, thus users cannot "
-                        "try the demo on their own bots yet. We will open-source the fully functional app after "
-                        "these issues are cleared. For this demo, users can try the dashboard and dialog path "
-                        "generation "
-                        " with the provided simulation data.")
     st.markdown("**Dialog Generation & Simulation Configuration**")
 
     if check_unfinished_simulations(database):
