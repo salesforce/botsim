@@ -35,7 +35,7 @@
 
 
 ## Introduction
-BotSIM is an open-source Bot SIMulation toolkit for large-scale data-efficient end-to-end evaluation, diagnosis and remediation of commercial task-oriented dialog systems (chatbots) across muliple bot platforms. 
+BotSIM is an open-source Bot SIMulation toolkit for large-scale data-efficient end-to-end evaluation, diagnosis and remediation of commercial task-oriented dialog systems (chatbots) across multiple bot platforms. 
 This toolkit aims to provide bot developers and practitioners with a one-stop solution to accelerate bot development and evaluation, reduce cost and time-to-market.
 As a modular framework, BotSIM can be extended by bot developers to support new bot platforms. As a toolkit, BotSIM offers an easy-to-use App and a suite of command line tools for bot practitioners to readily apply BotSIM's "generation-simulation-remediation" pipeline. 
 

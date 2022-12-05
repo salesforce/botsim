@@ -30,7 +30,7 @@ BotSIM offers a streamlined "generation-simulation-remediation" process (shown a
 as listed below:
 
 - **Generator** takes raw bot designs metadata or APIs and intent utterances as input and produces the following outputs: 1) templates for NLU and NLG; 2) simulation goals for the Simulator.
-- **Simulator** performs agenda-based dialog simulation through bot APIs as depiected in the figure below.
+- **Simulator** performs agenda-based dialog simulation through bot APIs as depicted in the figure below.
 
   .. image:: _static/BotSIM_simulation_loop.png
     :width: 550
