@@ -62,7 +62,7 @@ Installation
 
     git clone https://github.com/salesforce/botsim.git
     cd botsim
-    pip install .
+    pip install -r requirements.txt
 
 
 
