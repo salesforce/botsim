@@ -64,7 +64,7 @@ To use BotSIM, users need to have API access to the following supported bot plat
 ``` bash
    git clone https://github.com/salesforce/botsim.git
    cd botsim
-   pip install .
+   pip install -r requirements.txt
 ```
 
 ## Getting Started
