@@ -1,37 +1,74 @@
+
+
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+  <meta charset="utf-8" />
+  <meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
   <title>Retrieve Einstein BotBuilder Bot Metadata &mdash; BotSIM  documentation</title>
-      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
   <!--[if lt IE 9]>
     <script src="_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
         <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
-        <script src="_static/jquery.js"></script>
-        <script src="_static/underscore.js"></script>
-        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="_static/doctools.js"></script>
         <script src="_static/sphinx_highlight.js"></script>
         <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
-    <script src="_static/js/theme.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Remediator Dashboard Navigation" href="dashboard.html" />
     <link rel="prev" title="Configuration" href="deep_dive.html" /> 
 </head>
 
-<body class="wy-body-for-nav"> 
+<body class="wy-body-for-nav">
+
+   
   <div class="wy-grid-for-nav">
+    
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
+          
+
+          
             <a href="index.html" class="icon icon-home"> BotSIM
+          
+
+          
           </a>
+
+          
+            
+            
+          
+
+          
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
     <input type="text" name="q" placeholder="Search docs" />
@@ -39,7 +76,18 @@
     <input type="hidden" name="area" value="default" />
   </form>
 </div>
-        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
               <p class="caption" role="heading"><span class="caption-text">Introduction</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="intro.html">What is BotSIM?</a></li>
@@ -82,30 +130,71 @@
 <li class="toctree-l1"><a class="reference internal" href="advanced_usage.html#gcp-deployment">GCP Deployment</a></li>
 </ul>
 
+            
+          
         </div>
+        
       </div>
     </nav>
 
-    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
           <a href="index.html">BotSIM</a>
+        
       </nav>
 
+
       <div class="wy-nav-content">
+        
         <div class="rst-content">
-          <div role="navigation" aria-label="Page navigation">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
   <ul class="wy-breadcrumbs">
-      <li><a href="index.html" class="icon icon-home"></a></li>
-      <li class="breadcrumb-item active">Retrieve Einstein BotBuilder Bot Metadata</li>
+    
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+        
+      <li>Retrieve Einstein BotBuilder Bot Metadata</li>
+    
+    
       <li class="wy-breadcrumbs-aside">
+        
+          
             <a href="_sources/tutorials.rst.txt" rel="nofollow"> View page source</a>
+          
+        
       </li>
+    
   </ul>
+
+  
   <hr/>
 </div>
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
-             
+            
   
 <style>
 /* CSS overrides for sphinx_rtd_theme */
@@ -131,19 +220,19 @@
 }
 </style>
 <section id="retrieve-einstein-botbuilder-bot-metadata">
-<h1>Retrieve Einstein BotBuilder Bot Metadata<a class="headerlink" href="#retrieve-einstein-botbuilder-bot-metadata" title="Permalink to this heading"></a></h1>
+<h1>Retrieve Einstein BotBuilder Bot Metadata<a class="headerlink" href="#retrieve-einstein-botbuilder-bot-metadata" title="Permalink to this heading">¶</a></h1>
 <p>There are two inputs required by BotSIM for dialog simulation with the Einstein BotBuilder platform:</p>
 <p>1. <code class="docutils literal notranslate"><span class="pre">botVersions</span></code> metadata contains bot design related data such as dialog flows, bot messages,  entities, etc. It may also include  intent training utterances (e.g., if intent sets are not used).
 If intent sets are used, the <code class="docutils literal notranslate"><span class="pre">botVersions</span></code> metadata will connect each dialog intent to the intent sets used to train the intent.
 The utterances in the intent sets are extracted from MlDomains metadata.</p>
 <blockquote>
-<div><div class="highlight-xml notranslate"><div class="highlight"><pre><span></span> <span class="cp">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span>
- <span class="nt">&lt;Package</span> <span class="na">xmlns=</span><span class="s">&quot;http://soap.sforce.com/2006/04/metadata&quot;</span><span class="nt">&gt;</span>
-  <span class="nt">&lt;types&gt;</span>
-      <span class="nt">&lt;members&gt;</span>Your-Bot-API-Name<span class="nt">&lt;/members&gt;</span>
-      <span class="nt">&lt;name&gt;</span>Bot<span class="nt">&lt;/name&gt;</span>
-  <span class="nt">&lt;/types&gt;</span>
-  <span class="nt">&lt;version&gt;</span>51.0<span class="nt">&lt;/version&gt;</span>
+<div><div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="w"> </span><span class="cp">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span>
+<span class="w"> </span><span class="nt">&lt;Package</span><span class="w"> </span><span class="na">xmlns=</span><span class="s">&quot;http://soap.sforce.com/2006/04/metadata&quot;</span><span class="nt">&gt;</span>
+<span class="w">  </span><span class="nt">&lt;types&gt;</span>
+<span class="w">      </span><span class="nt">&lt;members&gt;</span>Your-Bot-API-Name<span class="nt">&lt;/members&gt;</span>
+<span class="w">      </span><span class="nt">&lt;name&gt;</span>Bot<span class="nt">&lt;/name&gt;</span>
+<span class="w">  </span><span class="nt">&lt;/types&gt;</span>
+<span class="w">  </span><span class="nt">&lt;version&gt;</span>51.0<span class="nt">&lt;/version&gt;</span>
 <span class="nt">&lt;/Package&gt;</span>
 </pre></div>
 </div>
@@ -157,13 +246,13 @@ It is subsequently parsed to infer the dialog act maps to be used as BotSIM NLU 
 <p>2. <code class="docutils literal notranslate"><span class="pre">MlDomain</span></code> metadata contains all intent sets. Each intent set comprises a set of training utterances that can be used to train (if NLP bot is enabled) certain intents.
 Like the previous metadata, a “package.xml” is needed to retrieve the metadata.</p>
 <blockquote>
-<div><div class="highlight-xml notranslate"><div class="highlight"><pre><span></span> <span class="cp">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span>
- <span class="nt">&lt;Package</span> <span class="na">xmlns=</span><span class="s">&quot;http://soap.sforce.com/2006/04/metadata&quot;</span><span class="nt">&gt;</span>
-  <span class="nt">&lt;types&gt;</span>
-      <span class="nt">&lt;members&gt;</span>Your-Intent-Set-API-Name<span class="nt">&lt;/members&gt;</span>
-      <span class="nt">&lt;name&gt;</span>MlDomain<span class="nt">&lt;/name&gt;</span>
-  <span class="nt">&lt;/types&gt;</span>
-  <span class="nt">&lt;version&gt;</span>51.0<span class="nt">&lt;/version&gt;</span>
+<div><div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="w"> </span><span class="cp">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span>
+<span class="w"> </span><span class="nt">&lt;Package</span><span class="w"> </span><span class="na">xmlns=</span><span class="s">&quot;http://soap.sforce.com/2006/04/metadata&quot;</span><span class="nt">&gt;</span>
+<span class="w">  </span><span class="nt">&lt;types&gt;</span>
+<span class="w">      </span><span class="nt">&lt;members&gt;</span>Your-Intent-Set-API-Name<span class="nt">&lt;/members&gt;</span>
+<span class="w">      </span><span class="nt">&lt;name&gt;</span>MlDomain<span class="nt">&lt;/name&gt;</span>
+<span class="w">  </span><span class="nt">&lt;/types&gt;</span>
+<span class="w">  </span><span class="nt">&lt;version&gt;</span>51.0<span class="nt">&lt;/version&gt;</span>
 <span class="nt">&lt;/Package&gt;</span>
 </pre></div>
 </div>
@@ -174,7 +263,7 @@ This is to enable BotSIM for pre-deployment evaluation without any customer data
 To test and monitor the intent model performance from real traffic,  an evaluation set can be created from production chat logs.</p>
 </section>
 <section id="streamlit-web-app">
-<h1>Streamlit Web App<a class="headerlink" href="#streamlit-web-app" title="Permalink to this heading"></a></h1>
+<h1>Streamlit Web App<a class="headerlink" href="#streamlit-web-app" title="Permalink to this heading">¶</a></h1>
 <p>BotSIM Streamlit App is a multi-page app developed to lower the entry barrier for applying BotSIM to bot evaluation and remediation. The Streamlit App frontend is supported
 by the Python Flask API server running the following services:</p>
 <ul class="simple">
@@ -184,7 +273,7 @@ by the Python Flask API server running the following services:</p>
 </ul>
 <p>Next we will provide detailed instructions for using the App.</p>
 <section id="simulation-setup">
-<h2>1. Simulation Setup<a class="headerlink" href="#simulation-setup" title="Permalink to this heading"></a></h2>
+<h2>1. Simulation Setup<a class="headerlink" href="#simulation-setup" title="Permalink to this heading">¶</a></h2>
 <a class="reference internal image-reference" href="_images/simulation_setup.png"><img alt="_images/simulation_setup.png" src="_images/simulation_setup.png" style="width: 550px;" /></a>
 <p>This page is to collect the simulation configuration parameters from users.</p>
 <p>The input fields from the side panel include:</p>
@@ -204,7 +293,7 @@ by the Python Flask API server running the following services:</p>
 <p>Lastly, the API credentials must be uploaded to BotSIM for it to perform dialog user simulation via API calls.</p>
 </section>
 <section id="upload-inputs">
-<h2>2. Upload Inputs<a class="headerlink" href="#upload-inputs" title="Permalink to this heading"></a></h2>
+<h2>2. Upload Inputs<a class="headerlink" href="#upload-inputs" title="Permalink to this heading">¶</a></h2>
 <a class="reference internal image-reference" href="_images/simulation_inputs.png"><img alt="_images/simulation_inputs.png" src="_images/simulation_inputs.png" style="width: 550px;" /></a>
 <p>For <code class="docutils literal notranslate"><span class="pre">Einstein_Bot</span></code>, users need to upload the <code class="docutils literal notranslate"><span class="pre">botversions</span></code> and <code class="docutils literal notranslate"><span class="pre">mldomains</span></code> metadata. Upon uploading, the metadata is parsed to generate the dialog act maps file
 and the ontology file. For <code class="docutils literal notranslate"><span class="pre">DialogFlow_CX</span></code>, the BotSIM parser input is retrieved by calling content APIs related to bot intents, entities, flows.</p>
@@ -217,7 +306,7 @@ and the ontology file. For <code class="docutils literal notranslate"><span clas
 The page subsequently prompts users to upload their revised dialog act maps and ontology files.</p>
 </section>
 <section id="dialog-generation-and-simulation">
-<h2>3. Dialog Generation and Simulation<a class="headerlink" href="#dialog-generation-and-simulation" title="Permalink to this heading"></a></h2>
+<h2>3. Dialog Generation and Simulation<a class="headerlink" href="#dialog-generation-and-simulation" title="Permalink to this heading">¶</a></h2>
 <a class="reference internal image-reference" href="_images/simulation.png"><img alt="_images/simulation.png" src="_images/simulation.png" style="width: 550px;" /></a>
 <p>On this page, users can select interested intents for evaluation from the multi-selection list. They can also select which dataset to perform
 the dialog simulation by checking: <code class="docutils literal notranslate"><span class="pre">Simulation</span> <span class="pre">on</span> <span class="pre">held-out</span> <span class="pre">evaluation</span> <span class="pre">set</span></code> (evaluation set) and/or <code class="docutils literal notranslate"><span class="pre">Simulation</span> <span class="pre">on</span> <span class="pre">dev</span> <span class="pre">set</span></code> (development set).</p>
@@ -231,7 +320,7 @@ the dialog simulation by checking: <code class="docutils literal notranslate"><s
 <p>The simulation will be started in the background by clicking the <code class="docutils literal notranslate"><span class="pre">Start</span> <span class="pre">Dialog</span> <span class="pre">Simulation</span></code> button.</p>
 </section>
 <section id="health-reports-and-analytics">
-<h2>4. Health Reports and Analytics<a class="headerlink" href="#health-reports-and-analytics" title="Permalink to this heading"></a></h2>
+<h2>4. Health Reports and Analytics<a class="headerlink" href="#health-reports-and-analytics" title="Permalink to this heading">¶</a></h2>
 <p>The simulation performance will be presented in the bot health dashboard after the dialog simulation.
 The left panel allows users to select a particular test session (<code class="docutils literal notranslate"><span class="pre">Choose</span> <span class="pre">Test</span> <span class="pre">ID</span></code>) from all previous simulation sessions. The dashboard can be navigated by choosing the following actions:</p>
 <ul class="simple">
@@ -244,10 +333,10 @@ The left panel allows users to select a particular test session (<code class="do
 </section>
 </section>
 <section id="command-line-tools">
-<h1>Command Line Tools<a class="headerlink" href="#command-line-tools" title="Permalink to this heading"></a></h1>
+<h1>Command Line Tools<a class="headerlink" href="#command-line-tools" title="Permalink to this heading">¶</a></h1>
 <p>This is a tutorial for applying BotSIM’s generation-simulation-remediation pipeline with command line tools.</p>
 <section id="step-1-prepare-botsim-configuration">
-<h2>Step 1: Prepare BotSIM Configuration<a class="headerlink" href="#step-1-prepare-botsim-configuration" title="Permalink to this heading"></a></h2>
+<h2>Step 1: Prepare BotSIM Configuration<a class="headerlink" href="#step-1-prepare-botsim-configuration" title="Permalink to this heading">¶</a></h2>
 <p>The config file is used by the command line tools as detailed in <a class="reference external" href="https://opensource.salesforce.com/botsim/latest/deep_dive.html">Configuration</a>.
 It includes all the necessary info needed for each component (generator, simulator and remediator).
 Users can change the config to customise BotSIM, such as the dev/eval intents, paraphrasing settings, simulation run-time settings, etc.
@@ -259,17 +348,17 @@ They are  available in the <code class="docutils literal notranslate"><span clas
 users’ Google Cloud Platform console. The <code class="docutils literal notranslate"><span class="pre">cx_credential</span></code> is the local path to the Google API token.</p></li>
 </ul>
 <p>Given a new test (test_id), the configuration file can be customised from the template configuration by the command below:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python botsim/cli/prepare_botsim.py <span class="se">\</span>
-    --platform <span class="nv">$platform</span> <span class="se">\</span>
-    --api_credential <span class="nv">$api</span> <span class="se">\</span>
-    --test_name <span class="nv">$test_id</span> <span class="se">\</span>
-    --num_seed_utterances <span class="nv">$num_seed_utterances</span> <span class="se">\</span>
-    --num_t5_paraphrases <span class="nv">$num_t5_paraphrases</span> <span class="se">\</span>
-    --num_pegasus_paraphrases <span class="nv">$num_pegasus_paraphrases</span> <span class="se">\</span>
-    --max_num_simulations <span class="nv">$max_num_simulations</span> <span class="se">\</span>
-    --max_num_dialog_turns <span class="nv">$max_num_dialog_turns</span> <span class="se">\</span>
-    --metadata_botversions <span class="nv">$bot_version_path</span><span class="se">\</span>
-    --metadata_intent_utterances <span class="nv">$mlDomain_path</span>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>botsim/cli/prepare_botsim.py<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--platform<span class="w"> </span><span class="nv">$platform</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--api_credential<span class="w"> </span><span class="nv">$api</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--test_name<span class="w"> </span><span class="nv">$test_id</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--num_seed_utterances<span class="w"> </span><span class="nv">$num_seed_utterances</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--num_t5_paraphrases<span class="w"> </span><span class="nv">$num_t5_paraphrases</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--num_pegasus_paraphrases<span class="w"> </span><span class="nv">$num_pegasus_paraphrases</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--max_num_simulations<span class="w"> </span><span class="nv">$max_num_simulations</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--max_num_dialog_turns<span class="w"> </span><span class="nv">$max_num_dialog_turns</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--metadata_botversions<span class="w"> </span><span class="nv">$bot_version_path</span><span class="se">\</span>
+<span class="w">    </span>--metadata_intent_utterances<span class="w"> </span><span class="nv">$mlDomain_path</span>
 </pre></div>
 </div>
 <p>The command line options include:</p>
@@ -287,13 +376,13 @@ retrieved metadata.</p></li>
 </ul>
 </section>
 <section id="stage-2-generation">
-<h2>Stage 2: Generation<a class="headerlink" href="#stage-2-generation" title="Permalink to this heading"></a></h2>
+<h2>Stage 2: Generation<a class="headerlink" href="#stage-2-generation" title="Permalink to this heading">¶</a></h2>
 <ol class="arabic">
 <li><p>Parsing metadata</p>
 <p>Based on the setups in <code class="docutils literal notranslate"><span class="pre">config.json</span></code>, the metadata can be parsed using</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python botsim/cli/run_generator_parser.py <span class="se">\</span>
-  --platform <span class="nv">$platform</span> <span class="se">\</span>
-  --test_name <span class="nv">$test_id</span>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>botsim/cli/run_generator_parser.py<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--platform<span class="w"> </span><span class="nv">$platform</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--test_name<span class="w"> </span><span class="nv">$test_id</span>
 </pre></div>
 </div>
 <p>This will parse the raw metadata inputs (for <code class="docutils literal notranslate"><span class="pre">Einstein_Bot</span></code>) or call APIs (for <code class="docutils literal notranslate"><span class="pre">DialogFlow_CX</span></code>) to generate the following template files for BotSIM to simulate conversations.</p>
@@ -315,25 +404,25 @@ to review these messages and ensure their correctness. For example, they can rev
 <p>BotSIM adopts a dialog-act-level agenda-based user simulator for dialog simulation. BotSIM needs to convert the dialog acts to natural language
 messages and send them back to the bot via API. For efficiency reasons,
 template-based NLG templates are used to map BotSIM dialog acts to natural language templates with entity slots. An example is given below:</p>
-<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span><span class="w"></span>
-<span class="w"> </span><span class="nt">&quot;dia_act&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">     </span><span class="nt">&quot;inform&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w"></span>
-<span class="w">             </span><span class="p">{</span><span class="w"></span>
-<span class="w">                 </span><span class="nt">&quot;request_slots&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[],</span><span class="w"></span>
-<span class="w">                 </span><span class="nt">&quot;inform_slots&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w"></span>
-<span class="w">                     </span><span class="s2">&quot;email&quot;</span><span class="w"></span>
-<span class="w">                 </span><span class="p">],</span><span class="w"></span>
-<span class="w">                 </span><span class="nt">&quot;response&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">                     </span><span class="nt">&quot;agent&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[],</span><span class="w"></span>
-<span class="w">                     </span><span class="nt">&quot;user&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w"></span>
-<span class="w">                         </span><span class="s2">&quot;$email$.&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w">                         </span><span class="s2">&quot;It&#39;s $email$.&quot;</span><span class="w"></span>
-<span class="w">                     </span><span class="p">]</span><span class="w"></span>
-<span class="w">                 </span><span class="p">}</span><span class="w"></span>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+<span class="w"> </span><span class="nt">&quot;dia_act&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">     </span><span class="nt">&quot;inform&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">             </span><span class="p">{</span>
+<span class="w">                 </span><span class="nt">&quot;request_slots&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[],</span>
+<span class="w">                 </span><span class="nt">&quot;inform_slots&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">                     </span><span class="s2">&quot;email&quot;</span>
+<span class="w">                 </span><span class="p">],</span>
+<span class="w">                 </span><span class="nt">&quot;response&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                     </span><span class="nt">&quot;agent&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[],</span>
+<span class="w">                     </span><span class="nt">&quot;user&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">                         </span><span class="s2">&quot;$email$.&quot;</span><span class="p">,</span>
+<span class="w">                         </span><span class="s2">&quot;It&#39;s $email$.&quot;</span>
+<span class="w">                     </span><span class="p">]</span>
+<span class="w">                 </span><span class="p">}</span>
 
-<span class="w">             </span><span class="p">}</span><span class="w"></span>
-<span class="w">         </span><span class="p">]</span><span class="w"></span>
-<span class="w">     </span><span class="p">}</span><span class="w"></span>
+<span class="w">             </span><span class="p">}</span>
+<span class="w">         </span><span class="p">]</span>
+<span class="w">     </span><span class="p">}</span>
 </pre></div>
 </div>
 <p>Given a dialog act, e.g., “request_email”, a response is randomly chosen from a set of pre-defined templates (“response”) with an “email” slot, which is replaced by the value in the goal during
@@ -342,22 +431,22 @@ use more advanced natural language generation model as suggested in the <a class
 </li>
 <li><p><strong>[Entity] ontology</strong>
 The ontology file is another parser output containing the set of entities used by each dialog/intent. A snippet of the file is given below for the entities of dialog “Check the status of an existing issue”.</p>
-<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="nt">&quot;Check_the_status_of_an_existing_issue&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">        </span><span class="nt">&quot;Case_Comments&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w"></span>
-<span class="w">        </span><span class="s2">&quot;BJFHB3&quot;</span><span class="w"></span>
-<span class="w">        </span><span class="p">],</span><span class="w"></span>
-<span class="w">        </span><span class="nt">&quot;Case_Number&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w"></span>
-<span class="w">        </span><span class="s2">&quot;CV85HX&quot;</span><span class="w"></span>
-<span class="w">        </span><span class="p">],</span><span class="w"></span>
-<span class="w">        </span><span class="nt">&quot;Email_for_Look_Up&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w"></span>
-<span class="w">        </span><span class="s2">&quot;reginalyons@reed.net&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w">        </span><span class="s2">&quot;haynesjohn@wood.com&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w">        </span><span class="s2">&quot;melaniejones@juarez-alexander.com&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w">        </span><span class="s2">&quot;kristen02@gmail.com&quot;</span><span class="w"></span>
-<span class="w">        </span><span class="p">]</span><span class="w"></span>
-<span class="w">    </span><span class="p">}</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;Check_the_status_of_an_existing_issue&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">&quot;Case_Comments&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">        </span><span class="s2">&quot;BJFHB3&quot;</span>
+<span class="w">        </span><span class="p">],</span>
+<span class="w">        </span><span class="nt">&quot;Case_Number&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">        </span><span class="s2">&quot;CV85HX&quot;</span>
+<span class="w">        </span><span class="p">],</span>
+<span class="w">        </span><span class="nt">&quot;Email_for_Look_Up&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">        </span><span class="s2">&quot;reginalyons@reed.net&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="s2">&quot;haynesjohn@wood.com&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="s2">&quot;melaniejones@juarez-alexander.com&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="s2">&quot;kristen02@gmail.com&quot;</span>
+<span class="w">        </span><span class="p">]</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
 </pre></div>
 </div>
 <p>Note these values will be used to replace the slots in the previously discussed template NLG. They are mostly related to BotSIM users’ customer or product info and BotSIM does not have access to
@@ -369,29 +458,29 @@ such values. Therefore, the slots are initialised by randomly generated  fake va
 <li><p>Applying paraphrasing and generating simulation goals
 Another major function of the generator is to prepare the simulation goals. These are analogous to “bot testing data”.
 The goal defines a set of dialog act and slot-value pairs needed to complete a certain task.  An example goal of the “check the status of an existing issue” intent is given below:</p>
-<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span><span class="w"></span>
-<span class="w">  </span><span class="nt">&quot;Goal&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">      </span><span class="nt">&quot;Check_the_status_of_an_existing_issue_0&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">          </span><span class="nt">&quot;inform_slots&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">              </span><span class="nt">&quot;Has_case_number@_Boolean&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;no&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w">              </span><span class="nt">&quot;Case_Number@Case_Number_Entity&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;P3V4S6&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w">              </span><span class="nt">&quot;Email_for_Look_Up@Email_Address_Entity&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;andrewadams@example.org&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w">              </span><span class="nt">&quot;intent&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;I would like to know more about my issue.&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w">              </span><span class="nt">&quot;Needs_transfer_to_agent@_Boolean&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;no&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w">              </span><span class="nt">&quot;Needs_something_else@_Boolean&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;no&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w">              </span><span class="nt">&quot;Goodbye@Goodbye_Entity&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;goodbye&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w">              </span><span class="nt">&quot;Needs_to_add_case_comment@_Boolean&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;no&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w">              </span><span class="nt">&quot;Case_Comments@_Text&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;P94RMU&quot;</span><span class="w"></span>
-<span class="w">          </span><span class="p">},</span><span class="w"></span>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;Goal&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;Check_the_status_of_an_existing_issue_0&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">          </span><span class="nt">&quot;inform_slots&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">              </span><span class="nt">&quot;Has_case_number@_Boolean&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;no&quot;</span><span class="p">,</span>
+<span class="w">              </span><span class="nt">&quot;Case_Number@Case_Number_Entity&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;P3V4S6&quot;</span><span class="p">,</span>
+<span class="w">              </span><span class="nt">&quot;Email_for_Look_Up@Email_Address_Entity&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;andrewadams@example.org&quot;</span><span class="p">,</span>
+<span class="w">              </span><span class="nt">&quot;intent&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;I would like to know more about my issue.&quot;</span><span class="p">,</span>
+<span class="w">              </span><span class="nt">&quot;Needs_transfer_to_agent@_Boolean&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;no&quot;</span><span class="p">,</span>
+<span class="w">              </span><span class="nt">&quot;Needs_something_else@_Boolean&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;no&quot;</span><span class="p">,</span>
+<span class="w">              </span><span class="nt">&quot;Goodbye@Goodbye_Entity&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;goodbye&quot;</span><span class="p">,</span>
+<span class="w">              </span><span class="nt">&quot;Needs_to_add_case_comment@_Boolean&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;no&quot;</span><span class="p">,</span>
+<span class="w">              </span><span class="nt">&quot;Case_Comments@_Text&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;P94RMU&quot;</span>
+<span class="w">          </span><span class="p">},</span>
 
-<span class="w">          </span><span class="nt">&quot;request_slots&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">              </span><span class="nt">&quot;Check_the_status_of_an_existing_issue&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;UNK&quot;</span><span class="w"></span>
-<span class="w">          </span><span class="p">},</span><span class="w"></span>
+<span class="w">          </span><span class="nt">&quot;request_slots&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">              </span><span class="nt">&quot;Check_the_status_of_an_existing_issue&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;UNK&quot;</span>
+<span class="w">          </span><span class="p">},</span>
 
-<span class="w">          </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Check_the_status_of_an_existing_issue&quot;</span><span class="w"></span>
-<span class="w">      </span><span class="p">}</span><span class="w"></span>
-<span class="w">  </span><span class="p">}</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<span class="w">          </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Check_the_status_of_an_existing_issue&quot;</span>
+<span class="w">      </span><span class="p">}</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
 </pre></div>
 </div>
 </li>
@@ -403,19 +492,19 @@ To save human efforts in crafting such intent queries and to enable deployment t
 the input intent utterances to simulate the language variations in real user intent queries. The test scale can be controlled by setting  the number of paraphrases generated for each intent utterance
 and number of goals to be sampled.
 In addition, it is important to ensure the dialog act maps and ontology files must have been revised before generating simulation  goals.</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python botsim/cli/run_generator_paraphraser.py <span class="se">\</span>
-    --platform <span class="nv">$platform</span> <span class="se">\</span>
-    --test_name <span class="nv">$test_id</span>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>botsim/cli/run_generator_paraphraser.py<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--platform<span class="w"> </span><span class="nv">$platform</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--test_name<span class="w"> </span><span class="nv">$test_id</span>
 
-python botsim/cli/run_generator_goal_generation.py <span class="se">\</span>
-    --platform <span class="nv">$platform</span> <span class="se">\</span>
-    --test_name <span class="nv">$test_id</span>
+python<span class="w"> </span>botsim/cli/run_generator_goal_generation.py<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--platform<span class="w"> </span><span class="nv">$platform</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--test_name<span class="w"> </span><span class="nv">$test_id</span>
 </pre></div>
 </div>
 </div></blockquote>
 </section>
 <section id="step-3-dialog-simulation">
-<h2>Step 3: Dialog Simulation<a class="headerlink" href="#step-3-dialog-simulation" title="Permalink to this heading"></a></h2>
+<h2>Step 3: Dialog Simulation<a class="headerlink" href="#step-3-dialog-simulation" title="Permalink to this heading">¶</a></h2>
 <p>After preparing the goals (bot test data), the NLU (dialog act maps) and NLG (response templates) models, the simulator performs dialog simulation via API calls to complete the tasks defined in the goals.
 An illustration of the exchange of conversations between BotSIM and the bot is given below:</p>
 <a class="reference internal image-reference" href="_images/BotSIM_simulation_loop.png"><img alt="_images/BotSIM_simulation_loop.png" src="_images/BotSIM_simulation_loop.png" style="width: 550px;" /></a>
@@ -431,22 +520,22 @@ The simulation can be configured as follows:</p>
 </ul>
 </li>
 </ul>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python botsim/cli/run_simulator.py <span class="se">\</span>
-    --platform <span class="nv">$platform</span> <span class="se">\</span>
-    --test_name <span class="nv">$test_id</span>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>botsim/cli/run_simulator.py<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--platform<span class="w"> </span><span class="nv">$platform</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--test_name<span class="w"> </span><span class="nv">$test_id</span>
 </pre></div>
 </div>
 </section>
 <section id="stage-4-analyse-and-remediate">
-<h2>Stage 4: Analyse and Remediate<a class="headerlink" href="#stage-4-analyse-and-remediate" title="Permalink to this heading"></a></h2>
+<h2>Stage 4: Analyse and Remediate<a class="headerlink" href="#stage-4-analyse-and-remediate" title="Permalink to this heading">¶</a></h2>
 <p>The remediator module analyses the simulated conversations and</p>
 <ul>
 <li><p>aggregates bot health reports</p></li>
 <li><p>performs conversation analytics (intent model confusion matrix analysis and tSNE visualisation of intent utterances)</p></li>
 <li><p>provides actionable suggestions to help diagnose, troubleshoot and improve the current bot systems.</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python botsim/cli/run_remediator.py <span class="se">\</span>
-  --platform <span class="nv">$platform</span> <span class="se">\</span>
-  --test_name <span class="nv">$test_id</span>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>botsim/cli/run_remediator.py<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--platform<span class="w"> </span><span class="nv">$platform</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--test_name<span class="w"> </span><span class="nv">$test_id</span>
 </pre></div>
 </div>
 </li>
@@ -464,7 +553,7 @@ More importantly, they can always be extended to include domain expertise in tro
 </section>
 </section>
 <section id="id1">
-<h1>Dialog Act Maps Revision Guideline<a class="headerlink" href="#id1" title="Permalink to this heading"></a></h1>
+<h1>Dialog Act Maps Revision Guideline<a class="headerlink" href="#id1" title="Permalink to this heading">¶</a></h1>
 <p>As the dialog act maps are inferred from the bot designs, users are  required to carefully review them to ensure their correctness.  The is the only human-in-the-loop step in the BotSIM pipeline.
 The most important dialog act message to be reviewed are listed below although  it is advisable to revise other  dialog acts as well.</p>
 <ul>
@@ -490,12 +579,12 @@ at the end of a dialog. Such messages are usually used to inform users of the fi
 with contrasting messages, we treat all these outcomes as “successful” messages. For example, for “Check the status of an existing issue” intent, if users have their case numbers
 and successfully authenticate themselves, the dialog produces the first success message, otherwise the second message is displayed indicating a human agent will take over the case.</p>
 <blockquote>
-<div><div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="nt">&quot;dialog_success_message&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w"></span>
-<span class="w">        </span><span class="s2">&quot;Thank you. One moment while I look up your case...&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w">        </span><span class="s2">&quot;Oh, alright. Let\u2019s connect you to a service agent who can help look up your case&quot;</span><span class="w"></span>
-<span class="w">    </span><span class="p">]</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<div><div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;dialog_success_message&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">        </span><span class="s2">&quot;Thank you. One moment while I look up your case...&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="s2">&quot;Oh, alright. Let\u2019s connect you to a service agent who can help look up your case&quot;</span>
+<span class="w">    </span><span class="p">]</span>
+<span class="p">}</span>
 </pre></div>
 </div>
 </div></blockquote>
@@ -507,33 +596,50 @@ and successfully authenticate themselves, the dialog produces the first success 
 
 
            </div>
+           
           </div>
-          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="deep_dive.html" class="btn btn-neutral float-left" title="Configuration" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+          <footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
         <a href="dashboard.html" class="btn btn-neutral float-right" title="Remediator Dashboard Navigation" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="deep_dive.html" class="btn btn-neutral float-left" title="Configuration" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
     </div>
 
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2022, salesforce.com inc..</p>
-  </div>
+    <p>
+        &#169; Copyright 2022, salesforce.com inc..
 
-  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
     <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
-    provided by <a href="https://readthedocs.org">Read the Docs</a>.
-   
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
 
 </footer>
         </div>
       </div>
+
     </section>
+
   </div>
-  <script>
+  
+
+  <script type="text/javascript">
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(true);
       });
-  </script> 
+  </script>
+
+  
+  
+    
+   
 
 </body>
 </html>

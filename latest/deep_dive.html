@@ -1,37 +1,74 @@
+
+
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+  <meta charset="utf-8" />
+  <meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
   <title>Configuration &mdash; BotSIM  documentation</title>
-      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
   <!--[if lt IE 9]>
     <script src="_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
         <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
-        <script src="_static/jquery.js"></script>
-        <script src="_static/underscore.js"></script>
-        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="_static/doctools.js"></script>
         <script src="_static/sphinx_highlight.js"></script>
         <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
-    <script src="_static/js/theme.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Retrieve Einstein BotBuilder Bot Metadata" href="tutorials.html" />
     <link rel="prev" title="What is BotSIM?" href="intro.html" /> 
 </head>
 
-<body class="wy-body-for-nav"> 
+<body class="wy-body-for-nav">
+
+   
   <div class="wy-grid-for-nav">
+    
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
+          
+
+          
             <a href="index.html" class="icon icon-home"> BotSIM
+          
+
+          
           </a>
+
+          
+            
+            
+          
+
+          
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
     <input type="text" name="q" placeholder="Search docs" />
@@ -39,7 +76,18 @@
     <input type="hidden" name="area" value="default" />
   </form>
 </div>
-        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
               <p class="caption" role="heading"><span class="caption-text">Introduction</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="intro.html">What is BotSIM?</a></li>
@@ -70,30 +118,71 @@
 <li class="toctree-l1"><a class="reference internal" href="advanced_usage.html#gcp-deployment">GCP Deployment</a></li>
 </ul>
 
+            
+          
         </div>
+        
       </div>
     </nav>
 
-    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
           <a href="index.html">BotSIM</a>
+        
       </nav>
 
+
       <div class="wy-nav-content">
+        
         <div class="rst-content">
-          <div role="navigation" aria-label="Page navigation">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
   <ul class="wy-breadcrumbs">
-      <li><a href="index.html" class="icon icon-home"></a></li>
-      <li class="breadcrumb-item active">Configuration</li>
+    
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+        
+      <li>Configuration</li>
+    
+    
       <li class="wy-breadcrumbs-aside">
+        
+          
             <a href="_sources/deep_dive.rst.txt" rel="nofollow"> View page source</a>
+          
+        
       </li>
+    
   </ul>
+
+  
   <hr/>
 </div>
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
-             
+            
   
 <style>
 /* CSS overrides for sphinx_rtd_theme */
@@ -120,87 +209,87 @@
 </style>
 <p>This deep-dive section presents  major BotSIM components in more details to help better understanding of their capabilties, required inputs and expected outputs.</p>
 <section id="configuration">
-<h1>Configuration<a class="headerlink" href="#configuration" title="Permalink to this heading"></a></h1>
+<h1>Configuration<a class="headerlink" href="#configuration" title="Permalink to this heading">¶</a></h1>
 <p>A customisable configuration file is used to control the behaviours of the BotSIM pipeline. The template configuration is located at <code class="docutils literal notranslate"><span class="pre">botsim/conf/config.json</span></code>. An example is given below.</p>
-<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;4&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w">    </span><span class="nt">&quot;platform&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Einstein_Bot&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w">    </span><span class="nt">&quot;generator&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;4&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;platform&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Einstein_Bot&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;generator&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
 
-<span class="w">        </span><span class="nt">&quot;paraphraser_config&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">            </span><span class="nt">&quot;num_t5_paraphrases&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">20</span><span class="p">,</span><span class="w"></span>
-<span class="w">            </span><span class="nt">&quot;num_pegasus_paraphrases&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">20</span><span class="p">,</span><span class="w"></span>
-<span class="w">            </span><span class="nt">&quot;num_utterances&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">-1</span><span class="p">,</span><span class="w"></span>
-<span class="w">            </span><span class="nt">&quot;num_simulations&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">-1</span><span class="w"></span>
-<span class="w">            </span><span class="p">},</span><span class="w"></span>
+<span class="w">        </span><span class="nt">&quot;paraphraser_config&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="nt">&quot;num_t5_paraphrases&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">20</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">&quot;num_pegasus_paraphrases&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">20</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">&quot;num_utterances&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">-1</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">&quot;num_simulations&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">-1</span>
+<span class="w">            </span><span class="p">},</span>
 
-<span class="w">        </span><span class="nt">&quot;dev_intents&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[],</span><span class="w"></span>
-<span class="w">        </span><span class="nt">&quot;eval_intents&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[],</span><span class="w"></span>
+<span class="w">        </span><span class="nt">&quot;dev_intents&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[],</span>
+<span class="w">        </span><span class="nt">&quot;eval_intents&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[],</span>
 
-<span class="w">        </span><span class="nt">&quot;parser_config&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">            </span><span class="nt">&quot;botversion&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;1&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w">            </span><span class="nt">&quot;botversion_xml&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;path-to-botversions-metadata&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w">            </span><span class="nt">&quot;MIUtterances_xml&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;path-to-intent-uttrances-metadata&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w">            </span><span class="nt">&quot;beginning_dialogs&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[],</span><span class="w"></span>
-<span class="w">            </span><span class="nt">&quot;excluded_dialogs&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[],</span><span class="w"></span>
-<span class="w">            </span><span class="nt">&quot;failure_ending_dialogs&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[]</span><span class="w"></span>
-<span class="w">            </span><span class="p">},</span><span class="w"></span>
+<span class="w">        </span><span class="nt">&quot;parser_config&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="nt">&quot;botversion&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;1&quot;</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">&quot;botversion_xml&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;path-to-botversions-metadata&quot;</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">&quot;MIUtterances_xml&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;path-to-intent-uttrances-metadata&quot;</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">&quot;beginning_dialogs&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[],</span>
+<span class="w">            </span><span class="nt">&quot;excluded_dialogs&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[],</span>
+<span class="w">            </span><span class="nt">&quot;failure_ending_dialogs&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[]</span>
+<span class="w">            </span><span class="p">},</span>
 
-<span class="w">        </span><span class="nt">&quot;file_paths&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">            </span><span class="nt">&quot;customer_entities&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;data/bots/Einstein_Bot/4/goals_dir/entities.json&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w">            </span><span class="nt">&quot;response_template&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;data/bots/Einstein_Bot/4/conf/template.json&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w">            </span><span class="nt">&quot;dialog_act_map&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;data/bots/Einstein_Bot/4/conf/dialog_act_map.json&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w">            </span><span class="nt">&quot;ontology&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;data/bots/Einstein_Bot/4/conf/ontology.json&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w">            </span><span class="nt">&quot;revised_dialog_act_map&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;data/bots/Einstein_Bot/4/conf/dialog_act_map.revised.json&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w">            </span><span class="nt">&quot;revised_ontology&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;data/bots/Einstein_Bot/4/conf/ontology.revised.json&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w">            </span><span class="nt">&quot;goals_dir&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;data/bots/Einstein_Bot/4/goals_dir&quot;</span><span class="w"></span>
-<span class="w">            </span><span class="p">}</span><span class="w"></span>
-<span class="w">        </span><span class="p">},</span><span class="w"></span>
+<span class="w">        </span><span class="nt">&quot;file_paths&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="nt">&quot;customer_entities&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;data/bots/Einstein_Bot/4/goals_dir/entities.json&quot;</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">&quot;response_template&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;data/bots/Einstein_Bot/4/conf/template.json&quot;</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">&quot;dialog_act_map&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;data/bots/Einstein_Bot/4/conf/dialog_act_map.json&quot;</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">&quot;ontology&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;data/bots/Einstein_Bot/4/conf/ontology.json&quot;</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">&quot;revised_dialog_act_map&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;data/bots/Einstein_Bot/4/conf/dialog_act_map.revised.json&quot;</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">&quot;revised_ontology&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;data/bots/Einstein_Bot/4/conf/ontology.revised.json&quot;</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">&quot;goals_dir&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;data/bots/Einstein_Bot/4/goals_dir&quot;</span>
+<span class="w">            </span><span class="p">}</span>
+<span class="w">        </span><span class="p">},</span>
 
-<span class="w">    </span><span class="nt">&quot;simulator&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;simulator&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
 
-<span class="w">        </span><span class="nt">&quot;run_time&quot;</span><span class="p">:</span><span class="w"></span>
-<span class="w">            </span><span class="p">{</span><span class="w"></span>
-<span class="w">            </span><span class="nt">&quot;max_round_num&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">15</span><span class="p">,</span><span class="w"></span>
-<span class="w">            </span><span class="nt">&quot;intent_check_turn_index&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="w"></span>
-<span class="w">            </span><span class="p">},</span><span class="w"></span>
+<span class="w">        </span><span class="nt">&quot;run_time&quot;</span><span class="p">:</span>
+<span class="w">            </span><span class="p">{</span>
+<span class="w">            </span><span class="nt">&quot;max_round_num&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">15</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">&quot;intent_check_turn_index&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span>
+<span class="w">            </span><span class="p">},</span>
 
-<span class="w">        </span><span class="nt">&quot;dev_intents&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[],</span><span class="w"></span>
-<span class="w">        </span><span class="nt">&quot;eval_intents&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[]</span><span class="w"></span>
-<span class="w">    </span><span class="p">},</span><span class="w"></span>
+<span class="w">        </span><span class="nt">&quot;dev_intents&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[],</span>
+<span class="w">        </span><span class="nt">&quot;eval_intents&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[]</span>
+<span class="w">    </span><span class="p">},</span>
 
-<span class="w">    </span><span class="nt">&quot;remediator&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;remediator&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
 
-<span class="w">        </span><span class="nt">&quot;file_paths&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">            </span><span class="nt">&quot;paraphrases&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;data/bots/Einstein_Bot/4/goals_dir/&lt;intent&gt;_&lt;para_setting&gt;_&lt;num_utterances&gt;_utts.paraphrases.json&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w">            </span><span class="nt">&quot;simulated_dialogs&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;data/bots/Einstein_Bot/4/remediation/&lt;intent&gt;/simulation_dialogs_&lt;mode&gt;_&lt;para_setting&gt;_&lt;num_utterances&gt;_utts_&lt;num_simulations&gt;_sessions.json&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w">            </span><span class="nt">&quot;intent_predictions&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;data/bots/Einstein_Bot/4/remediation/&lt;intent&gt;/intent_predictions_&lt;mode&gt;_&lt;para_setting&gt;_&lt;num_utterances&gt;_utts_&lt;num_simulations&gt;_sessions.json&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w">            </span><span class="nt">&quot;simulation_log&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;data/bots/Einstein_Bot/4/simulation/&lt;intent&gt;/logs_&lt;mode&gt;_&lt;para_setting&gt;_&lt;num_utterances&gt;_utts_paraphrases_&lt;num_simulations&gt;_sessions.json&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w">            </span><span class="nt">&quot;simulation_error_info&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;data/bots/Einstein_Bot/4/simulation/&lt;intent&gt;/errors_&lt;mode&gt;_&lt;para_setting&gt;_&lt;num_utterances&gt;_utts_paraphrases_&lt;num_simulations&gt;_sessions.json&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w">            </span><span class="nt">&quot;ner_error_json&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;data/bots/Einstein_Bot/4/remediation/&lt;intent&gt;/ner_errors_&lt;mode&gt;_&lt;para_setting&gt;_&lt;num_utterances&gt;_utts_&lt;num_simulations&gt;_sessions.json&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w">            </span><span class="nt">&quot;intent_remediation&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;data/bots/Einstein_Bot/4/remediation/&lt;intent&gt;/intent_remediation_&lt;mode&gt;_&lt;para_setting&gt;_&lt;num_utterances&gt;_utts_&lt;num_simulations&gt;_sessions.json&quot;</span><span class="w"></span>
-<span class="w">        </span><span class="p">},</span><span class="w"></span>
+<span class="w">        </span><span class="nt">&quot;file_paths&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="nt">&quot;paraphrases&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;data/bots/Einstein_Bot/4/goals_dir/&lt;intent&gt;_&lt;para_setting&gt;_&lt;num_utterances&gt;_utts.paraphrases.json&quot;</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">&quot;simulated_dialogs&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;data/bots/Einstein_Bot/4/remediation/&lt;intent&gt;/simulation_dialogs_&lt;mode&gt;_&lt;para_setting&gt;_&lt;num_utterances&gt;_utts_&lt;num_simulations&gt;_sessions.json&quot;</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">&quot;intent_predictions&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;data/bots/Einstein_Bot/4/remediation/&lt;intent&gt;/intent_predictions_&lt;mode&gt;_&lt;para_setting&gt;_&lt;num_utterances&gt;_utts_&lt;num_simulations&gt;_sessions.json&quot;</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">&quot;simulation_log&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;data/bots/Einstein_Bot/4/simulation/&lt;intent&gt;/logs_&lt;mode&gt;_&lt;para_setting&gt;_&lt;num_utterances&gt;_utts_paraphrases_&lt;num_simulations&gt;_sessions.json&quot;</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">&quot;simulation_error_info&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;data/bots/Einstein_Bot/4/simulation/&lt;intent&gt;/errors_&lt;mode&gt;_&lt;para_setting&gt;_&lt;num_utterances&gt;_utts_paraphrases_&lt;num_simulations&gt;_sessions.json&quot;</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">&quot;ner_error_json&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;data/bots/Einstein_Bot/4/remediation/&lt;intent&gt;/ner_errors_&lt;mode&gt;_&lt;para_setting&gt;_&lt;num_utterances&gt;_utts_&lt;num_simulations&gt;_sessions.json&quot;</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">&quot;intent_remediation&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;data/bots/Einstein_Bot/4/remediation/&lt;intent&gt;/intent_remediation_&lt;mode&gt;_&lt;para_setting&gt;_&lt;num_utterances&gt;_utts_&lt;num_simulations&gt;_sessions.json&quot;</span>
+<span class="w">        </span><span class="p">},</span>
 
-<span class="w">        </span><span class="nt">&quot;dev_intents&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[],</span><span class="w"></span>
-<span class="w">        </span><span class="nt">&quot;eval_intents&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[]</span><span class="w"></span>
-<span class="w">    </span><span class="p">},</span><span class="w"></span>
+<span class="w">        </span><span class="nt">&quot;dev_intents&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[],</span>
+<span class="w">        </span><span class="nt">&quot;eval_intents&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[]</span>
+<span class="w">    </span><span class="p">},</span>
 
-<span class="w">    </span><span class="nt">&quot;api&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">        </span><span class="nt">&quot;end_point&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;your-salesorce-bot-endpoint-url&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w">        </span><span class="nt">&quot;org_Id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;your-org-id&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w">        </span><span class="nt">&quot;deployment_Id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;bot-deployment-id&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w">        </span><span class="nt">&quot;button_Id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;bot-button-id&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w">        </span><span class="nt">&quot;location_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;google-api-location-id&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w">        </span><span class="nt">&quot;agent_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;dialogflow-agent-id&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w">        </span><span class="nt">&quot;project_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;google-project-id&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w">        </span><span class="nt">&quot;cx_credential&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;botsim/clients/dialogflow_cx/cx.json&quot;</span><span class="w"></span>
-<span class="w">    </span><span class="p">}</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;api&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">&quot;end_point&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;your-salesorce-bot-endpoint-url&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;org_Id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;your-org-id&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;deployment_Id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;bot-deployment-id&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;button_Id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;bot-button-id&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;location_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;google-api-location-id&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;agent_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;dialogflow-agent-id&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;project_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;google-project-id&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;cx_credential&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;botsim/clients/dialogflow_cx/cx.json&quot;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
 </pre></div>
 </div>
 </section>
 <section id="generator">
-<h1>Generator<a class="headerlink" href="#generator" title="Permalink to this heading"></a></h1>
+<h1>Generator<a class="headerlink" href="#generator" title="Permalink to this heading">¶</a></h1>
 <p>The generator takes bot designs and intent utterances as input and produces the required configuration files to serve as BotSIM’s NLU and NLG models.
 The generator also applies paraphrasing models to the input intent utterances and use the paraphrases as intent queries in the simulation goals.
 The following code shows how the major functionalities of the generator:</p>
@@ -259,7 +348,7 @@ The following code shows how the major functionalities of the generator:</p>
 </div>
 </section>
 <section id="simulator">
-<h1>Simulator<a class="headerlink" href="#simulator" title="Permalink to this heading"></a></h1>
+<h1>Simulator<a class="headerlink" href="#simulator" title="Permalink to this heading">¶</a></h1>
 <p>With the simulation goals and the NLU, NLG models, we can initialise a bot platform simulator client to perform agenda-based dialog user simulation:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">mode</span> <span class="o">=</span> <span class="s2">&quot;dev&quot;</span>
 <span class="n">goal_dir</span> <span class="o">=</span> <span class="s2">&quot;data/bots/</span><span class="si">{}</span><span class="s2">/</span><span class="si">{}</span><span class="s2">/goals_dir/&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">platform</span><span class="p">,</span> <span class="n">test_id</span><span class="p">)</span>
@@ -298,7 +387,7 @@ After simulation, the following outputs will be generated  under <code class="do
 <p>These two files will be used as the inputs to the remediator for further analysis.</p>
 </section>
 <section id="remediator">
-<h1>Remediator<a class="headerlink" href="#remediator" title="Permalink to this heading"></a></h1>
+<h1>Remediator<a class="headerlink" href="#remediator" title="Permalink to this heading">¶</a></h1>
 <p>The Remediator analyzes the simulated conversations (chat logs and error info), visualizes the bot health reports and provides actionable
 remediation suggestions for bot troubleshooting and improvement. The code below shows how the aggregated bot reports are generated.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">botsim.modules.remediator.Remediator</span> <span class="kn">import</span> <span class="n">Remediator</span>
@@ -343,37 +432,55 @@ remediation suggestions for bot troubleshooting and improvement. The code below 
 </div></blockquote>
 </li>
 </ul>
+<p>We have prepared a <a class="reference external" href="https://github.com/salesforce/botsim/blob/main/Einstein_BotBuilder_template_bot.ipynb">notebook</a> to demostrate how to run the BotSIM pipeline using the Template Bot from the Salesforce Einstein BotBuilder platform.</p>
 </section>
 
 
            </div>
+           
           </div>
-          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="intro.html" class="btn btn-neutral float-left" title="What is BotSIM?" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+          <footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
         <a href="tutorials.html" class="btn btn-neutral float-right" title="Retrieve Einstein BotBuilder Bot Metadata" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="intro.html" class="btn btn-neutral float-left" title="What is BotSIM?" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
     </div>
 
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2022, salesforce.com inc..</p>
-  </div>
+    <p>
+        &#169; Copyright 2022, salesforce.com inc..
 
-  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
     <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
-    provided by <a href="https://readthedocs.org">Read the Docs</a>.
-   
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
 
 </footer>
         </div>
       </div>
+
     </section>
+
   </div>
-  <script>
+  
+
+  <script type="text/javascript">
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(true);
       });
-  </script> 
+  </script>
+
+  
+  
+    
+   
 
 </body>
 </html>

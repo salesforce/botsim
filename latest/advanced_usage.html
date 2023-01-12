@@ -1,36 +1,73 @@
+
+
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+  <meta charset="utf-8" />
+  <meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
   <title>BotSIM System Design &mdash; BotSIM  documentation</title>
-      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
   <!--[if lt IE 9]>
     <script src="_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
         <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
-        <script src="_static/jquery.js"></script>
-        <script src="_static/underscore.js"></script>
-        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="_static/doctools.js"></script>
         <script src="_static/sphinx_highlight.js"></script>
         <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
-    <script src="_static/js/theme.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="prev" title="Remediator Dashboard Navigation" href="dashboard.html" /> 
 </head>
 
-<body class="wy-body-for-nav"> 
+<body class="wy-body-for-nav">
+
+   
   <div class="wy-grid-for-nav">
+    
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
+          
+
+          
             <a href="index.html" class="icon icon-home"> BotSIM
+          
+
+          
           </a>
+
+          
+            
+            
+          
+
+          
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
     <input type="text" name="q" placeholder="Search docs" />
@@ -38,7 +75,18 @@
     <input type="hidden" name="area" value="default" />
   </form>
 </div>
-        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
               <p class="caption" role="heading"><span class="caption-text">Introduction</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="intro.html">What is BotSIM?</a></li>
@@ -88,30 +136,71 @@
 <li class="toctree-l1"><a class="reference internal" href="#gcp-deployment">GCP Deployment</a></li>
 </ul>
 
+            
+          
         </div>
+        
       </div>
     </nav>
 
-    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
           <a href="index.html">BotSIM</a>
+        
       </nav>
 
+
       <div class="wy-nav-content">
+        
         <div class="rst-content">
-          <div role="navigation" aria-label="Page navigation">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
   <ul class="wy-breadcrumbs">
-      <li><a href="index.html" class="icon icon-home"></a></li>
-      <li class="breadcrumb-item active">BotSIM System Design</li>
+    
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+        
+      <li>BotSIM System Design</li>
+    
+    
       <li class="wy-breadcrumbs-aside">
+        
+          
             <a href="_sources/advanced_usage.rst.txt" rel="nofollow"> View page source</a>
+          
+        
       </li>
+    
   </ul>
+
+  
   <hr/>
 </div>
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
-             
+            
   
 <style>
 /* CSS overrides for sphinx_rtd_theme */
@@ -137,12 +226,12 @@
 }
 </style>
 <section id="botsim-system-design">
-<h1>BotSIM System Design<a class="headerlink" href="#botsim-system-design" title="Permalink to this heading"></a></h1>
+<h1>BotSIM System Design<a class="headerlink" href="#botsim-system-design" title="Permalink to this heading">¶</a></h1>
 <p>The key design principles of BotSIM include modularity, extensibility and usability. These principles allow BotSIM to be adopted both by developers as a framework and bot end-users as  an easy-to-use application.
 To achieve these, BotSIM adopts a layered design comprising the infrastructure layer, the adaptor layer and the application layer as shown in the figure below.</p>
 <a class="reference internal image-reference" href="_images/BotSIM_design.png"><img alt="_images/BotSIM_design.png" src="_images/BotSIM_design.png" style="width: 550px;" /></a>
 <section id="infrastructure-layer">
-<h2>Infrastructure Layer<a class="headerlink" href="#infrastructure-layer" title="Permalink to this heading"></a></h2>
+<h2>Infrastructure Layer<a class="headerlink" href="#infrastructure-layer" title="Permalink to this heading">¶</a></h2>
 <p>The infrastructure layer is designed to offer fundamental model support for the framework. BotSIM’s <code class="docutils literal notranslate"><span class="pre">generation-simulation-remediation</span></code> pipeline is powered by the models and components that reside in this layer.</p>
 <ul>
 <li><p><code class="docutils literal notranslate"><span class="pre">botsim.models</span></code> contains BotSIM’s  NLU and NLG models. From a dialogue system perspective, BotSIM can be viewed as a counterpart to a chatbot: it needs to “understand” chatbot messages (NLU) and “respond” in natural languages (NLG).
@@ -159,7 +248,7 @@ Currently, fuzzy matching-based NLU and template-based NLG models are provided f
 </ul>
 </section>
 <section id="adaptor-layer">
-<h2>Adaptor Layer<a class="headerlink" href="#adaptor-layer" title="Permalink to this heading"></a></h2>
+<h2>Adaptor Layer<a class="headerlink" href="#adaptor-layer" title="Permalink to this heading">¶</a></h2>
 <p>The adaptor layer is designed for bot developers to extend BotSIM to new bot platforms. To cover new bot platforms, the following two most important platform-specific modules of the layer must be implemented.
 Note the implementations of these functions are highly platform-dependent. They require the developers to have access to bot platform, design and API documents to understand how bots are designed and how user inputs are elicited by the bots. There is also need to constantly revisit the implementations to incorporate new features that might be missed in the current implementations.
 We have provided some recipes in the <a class="reference external" href="https://opensource.salesforce.com/botsim/latest/advanced_usage.html#extending-botsim-to-new-bot-platforms">advanced usage</a> section.</p>
@@ -170,7 +259,7 @@ Similar to the <code class="docutils literal notranslate"><span class="pre">pars
 </ul>
 </section>
 <section id="application-layer">
-<h2>Application Layer<a class="headerlink" href="#application-layer" title="Permalink to this heading"></a></h2>
+<h2>Application Layer<a class="headerlink" href="#application-layer" title="Permalink to this heading">¶</a></h2>
 <p>The application layer is designed to significantly flatten the learning curves of BotSIM for both bot developers/practitioners and end-users.</p>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">botsim.cli</span></code> contains a set of command line tools for practitioners to learn more about the  major BotSIM components. The <code class="docutils literal notranslate"><span class="pre">generation-simulation-evaluation</span></code> pipeline has been split into multiple stages to expose the required inputs and expected outputs for each stage. They serve as basic building blocks for bot practitioners to build their customized pipelines or apply only certain tasks rather than the whole BotSIM pipeline.</p></li>
@@ -181,10 +270,10 @@ major BotSIM functionalities. The app is also equipped with a SQL database to st
 </section>
 </section>
 <section id="extending-botsim-to-new-bot-platforms">
-<h1>Extending BotSIM to New Bot Platforms<a class="headerlink" href="#extending-botsim-to-new-bot-platforms" title="Permalink to this heading"></a></h1>
+<h1>Extending BotSIM to New Bot Platforms<a class="headerlink" href="#extending-botsim-to-new-bot-platforms" title="Permalink to this heading">¶</a></h1>
 <p>Bot developers can extend BotSIM to new platforms by implementing their platform-dependent <code class="docutils literal notranslate"><span class="pre">adaptors</span></code> including parsers and API clients.</p>
 <section id="parser">
-<h2>Parser<a class="headerlink" href="#parser" title="Permalink to this heading"></a></h2>
+<h2>Parser<a class="headerlink" href="#parser" title="Permalink to this heading">¶</a></h2>
 <p>The parser interface is defined in <code class="docutils literal notranslate"><span class="pre">generator.parser</span></code> and has the following important functions.</p>
 <p>1. <code class="docutils literal notranslate"><span class="pre">extract_local_dialog_act_map</span></code> function generates a “local” dialog act map by ignoring incoming and output  transitions.
 In other words, the local map only considers the messages/actions explicitly defined within the dialog. These local dialog act maps are modelled as graph nodes during
@@ -234,7 +323,7 @@ The utility functions supporting various parser functions are under  <code class
 </ol>
 </section>
 <section id="bot-api-client">
-<h2>Bot API Client<a class="headerlink" href="#bot-api-client" title="Permalink to this heading"></a></h2>
+<h2>Bot API Client<a class="headerlink" href="#bot-api-client" title="Permalink to this heading">¶</a></h2>
 <p>The client interface is defined in <code class="docutils literal notranslate"><span class="pre">modules.simulator.simulation_client_base</span></code>. The  most important function is <code class="docutils literal notranslate"><span class="pre">perform_batch_simulation</span></code> for performing a batch of simulation
 episodes starting from <code class="docutils literal notranslate"><span class="pre">simulation_goals[start_episode]</span></code>.</p>
 <p>A code snippet of a dialog loop is given below. Note the functions <code class="docutils literal notranslate"><span class="pre">enqueue_bot_actions_from_bot_messages</span></code>, <code class="docutils literal notranslate"><span class="pre">policy</span></code>, <code class="docutils literal notranslate"><span class="pre">locate_simulation_errors</span></code>, <code class="docutils literal notranslate"><span class="pre">log_episode_simulation_results</span></code> of the
@@ -291,7 +380,7 @@ episodes starting from <code class="docutils literal notranslate"><span class="p
 </div>
 </section>
 <section id="adding-new-rules-to-botsim-policy">
-<h2>Adding New Rules to BotSIM Policy<a class="headerlink" href="#adding-new-rules-to-botsim-policy" title="Permalink to this heading"></a></h2>
+<h2>Adding New Rules to BotSIM Policy<a class="headerlink" href="#adding-new-rules-to-botsim-policy" title="Permalink to this heading">¶</a></h2>
 <p>BotSIM’s rule-based policy is defined in the <code class="docutils literal notranslate"><span class="pre">policy</span></code> functiion of <code class="docutils literal notranslate"><span class="pre">botsim.modules.simulator.user_simulator</span></code>.
 The policy takes as input a semantic frame <code class="docutils literal notranslate"><span class="pre">bot_action</span></code> representing the bot dialog actions with the following info:</p>
 <ul class="simple">
@@ -307,9 +396,9 @@ the dialog act maps, a corresponding function named   <code class="docutils lite
 </section>
 </section>
 <section id="incorporating-advanced-models">
-<h1>Incorporating Advanced Models<a class="headerlink" href="#incorporating-advanced-models" title="Permalink to this heading"></a></h1>
+<h1>Incorporating Advanced Models<a class="headerlink" href="#incorporating-advanced-models" title="Permalink to this heading">¶</a></h1>
 <section id="natural-language-inference-nli-model-as-botsim-nlu">
-<h2>Natural Language Inference (NLI) Model as BotSIM NLU<a class="headerlink" href="#natural-language-inference-nli-model-as-botsim-nlu" title="Permalink to this heading"></a></h2>
+<h2>Natural Language Inference (NLI) Model as BotSIM NLU<a class="headerlink" href="#natural-language-inference-nli-model-as-botsim-nlu" title="Permalink to this heading">¶</a></h2>
 <p>To handle bots that may be powered by a natural language generation model, the lexical-based fuzzy matching NLU is not reliable enough. The limitation can be circumvented by incorporating a semantic-based
 NLU. A good candidate is a Natural Language Inference (NLI) model to compute the semantic matching scores of the bot messages with the ones in the dialog act maps.
 The NLI model can be added as follows:</p>
@@ -321,7 +410,7 @@ The NLI model can be added as follows:</p>
 </ul>
 </section>
 <section id="neural-based-nlg-model">
-<h2>Neural-based NLG Model<a class="headerlink" href="#neural-based-nlg-model" title="Permalink to this heading"></a></h2>
+<h2>Neural-based NLG Model<a class="headerlink" href="#neural-based-nlg-model" title="Permalink to this heading">¶</a></h2>
 <p>To increase the naturalness and diversity of the template-based responses, a neural-based NLG model may be adopted to “paraphrase” the template messages. One important requirement is that
 the NLG model must keep the entity values unchanged in their outputs (i.e., template-guided model).
 The model can be incorporated by following the following steps:</p>
@@ -336,55 +425,55 @@ templates can be added directly to the NLG templates.</p>
 </section>
 </section>
 <section id="finetune-t5-paraphrasing-model">
-<h1>Finetune T5 Paraphrasing Model<a class="headerlink" href="#finetune-t5-paraphrasing-model" title="Permalink to this heading"></a></h1>
+<h1>Finetune T5 Paraphrasing Model<a class="headerlink" href="#finetune-t5-paraphrasing-model" title="Permalink to this heading">¶</a></h1>
 <p>To finetune the T5 paraphrasing model on users’ in-domain data, please follow the following steps.</p>
 <section id="prepare-paraphrase-pairs">
-<h2>Prepare Paraphrase Pairs<a class="headerlink" href="#prepare-paraphrase-pairs" title="Permalink to this heading"></a></h2>
+<h2>Prepare Paraphrase Pairs<a class="headerlink" href="#prepare-paraphrase-pairs" title="Permalink to this heading">¶</a></h2>
 <p>The training paraphrase pairs can be created by sampling real user queries with the same intents. The training data should be organized in the following JSON format:</p>
-<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="w"></span>
-<span class="w">      </span><span class="p">{</span><span class="w"></span>
-<span class="w">        </span><span class="nt">&quot;text&quot;</span><span class="p">:</span><span class="s2">&quot;&lt;sos_s&gt; &lt;original text 1&gt; &lt;eos_s&gt;&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w">        </span><span class="nt">&quot;paraphrase&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;&lt;sos_t&gt; &lt;paraphrased text 1&gt; &lt;eos_t&gt;&quot;</span><span class="w"></span>
-<span class="w">      </span><span class="p">},</span><span class="w"></span>
-<span class="w">      </span><span class="p">{</span><span class="w"></span>
-<span class="w">        </span><span class="nt">&quot;text&quot;</span><span class="p">:</span><span class="s2">&quot;&lt;sos_s&gt; &lt;original text 2&gt; &lt;eos_s&gt;&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w">        </span><span class="nt">&quot;paraphrase&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;&lt;sos_t&gt; &lt;paraphrased text 2&gt; &lt;eos_t&gt;&quot;</span><span class="w"></span>
-<span class="w">      </span><span class="p">}</span><span class="w"></span>
-<span class="p">]</span><span class="w"></span>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">[</span>
+<span class="w">      </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">&quot;text&quot;</span><span class="p">:</span><span class="s2">&quot;&lt;sos_s&gt; &lt;original text 1&gt; &lt;eos_s&gt;&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;paraphrase&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;&lt;sos_t&gt; &lt;paraphrased text 1&gt; &lt;eos_t&gt;&quot;</span>
+<span class="w">      </span><span class="p">},</span>
+<span class="w">      </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">&quot;text&quot;</span><span class="p">:</span><span class="s2">&quot;&lt;sos_s&gt; &lt;original text 2&gt; &lt;eos_s&gt;&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;paraphrase&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;&lt;sos_t&gt; &lt;paraphrased text 2&gt; &lt;eos_t&gt;&quot;</span>
+<span class="w">      </span><span class="p">}</span>
+<span class="p">]</span>
 </pre></div>
 </div>
 <p>To benchmark with the state-of-the-art <a class="reference external" href="https://github.com/tomhosking/hrq-vae">HRQ-VAE</a> model, the dev and test data (in jsonl format) can be directly downloaded from the repo.</p>
 </section>
 <section id="set-training-parameters">
-<h2>Set Training Parameters<a class="headerlink" href="#set-training-parameters" title="Permalink to this heading"></a></h2>
+<h2>Set Training Parameters<a class="headerlink" href="#set-training-parameters" title="Permalink to this heading">¶</a></h2>
 <p>The training parameters can be specified in the following <code class="docutils literal notranslate"><span class="pre">train.json</span></code> configuration file.</p>
-<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="nt">&quot;pretrained_path&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;pretrained-model-path&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w">    </span><span class="nt">&quot;dropout&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.1</span><span class="p">,</span><span class="w"></span>
-<span class="w">    </span><span class="nt">&quot;number_of_gpu&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">4</span><span class="p">,</span><span class="w"></span>
-<span class="w">    </span><span class="nt">&quot;num_train_epochs&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">100</span><span class="p">,</span><span class="w"></span>
-<span class="w">    </span><span class="nt">&quot;batch_size_per_gpu&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">32</span><span class="p">,</span><span class="w"></span>
-<span class="w">    </span><span class="nt">&quot;test_batch_size_per_gpu&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">32</span><span class="p">,</span><span class="w"></span>
-<span class="w">    </span><span class="nt">&quot;max_test_num_batches&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">256</span><span class="p">,</span><span class="w"></span>
-<span class="w">    </span><span class="nt">&quot;alpha&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.6</span><span class="p">,</span><span class="w"></span>
-<span class="w">    </span><span class="nt">&quot;test_path&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;dev.jsonl&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w">    </span><span class="nt">&quot;save_path&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;chpt-path&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w">    </span><span class="nt">&quot;train_path&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;train.json&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w">    </span><span class="nt">&quot;optimizer&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">        </span><span class="nt">&quot;optimizer_name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;adam&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w">        </span><span class="nt">&quot;adam_epsilon&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">1e-8</span><span class="p">,</span><span class="w"></span>
-<span class="w">        </span><span class="nt">&quot;learning_rate&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">1e-4</span><span class="p">,</span><span class="w"></span>
-<span class="w">        </span><span class="nt">&quot;weight_decay&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.0</span><span class="p">,</span><span class="w"></span>
-<span class="w">        </span><span class="nt">&quot;max_grad_norm&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">1.0</span><span class="p">,</span><span class="w"></span>
-<span class="w">        </span><span class="nt">&quot;warmup_steps&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"></span>
-<span class="w">        </span><span class="nt">&quot;gradient_accumulation_steps&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="w"></span>
-<span class="w">    </span><span class="p">}</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;pretrained_path&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;pretrained-model-path&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;dropout&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.1</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;number_of_gpu&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">4</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;num_train_epochs&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">100</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;batch_size_per_gpu&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">32</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;test_batch_size_per_gpu&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">32</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;max_test_num_batches&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">256</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;alpha&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.6</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;test_path&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;dev.jsonl&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;save_path&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;chpt-path&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;train_path&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;train.json&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;optimizer&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">&quot;optimizer_name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;adam&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;adam_epsilon&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">1e-8</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;learning_rate&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">1e-4</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;weight_decay&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.0</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;max_grad_norm&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">1.0</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;warmup_steps&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;gradient_accumulation_steps&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
 </pre></div>
 </div>
 </section>
 <section id="customize-model-and-trainer">
-<h2>Customize Model and Trainer<a class="headerlink" href="#customize-model-and-trainer" title="Permalink to this heading"></a></h2>
+<h2>Customize Model and Trainer<a class="headerlink" href="#customize-model-and-trainer" title="Permalink to this heading">¶</a></h2>
 <p>To make further changes to the T5 model and trainer, refer to the following files:</p>
 <ul class="simple">
 <li><p>Model definition: <code class="docutils literal notranslate"><span class="pre">botsim.generator.paraphraser.t5_model</span></code>.</p></li>
@@ -393,7 +482,7 @@ templates can be added directly to the NLG templates.</p>
 </section>
 </section>
 <section id="gcp-deployment">
-<h1>GCP Deployment<a class="headerlink" href="#gcp-deployment" title="Permalink to this heading"></a></h1>
+<h1>GCP Deployment<a class="headerlink" href="#gcp-deployment" title="Permalink to this heading">¶</a></h1>
 <p>BotSIM Streamlit App can be deployed to GCP for GPU access,  which will greatly accelerate the paraphrasing model inference process.
 The script for GCP deployment can be accessed at <code class="docutils literal notranslate"><span class="pre">botsim/deploy/gcp/deploy_gcp_botsim_streamlit.sh</span></code>. The parameters  are as follows:</p>
 <ul class="simple">
@@ -409,7 +498,7 @@ before use:</p>
 </ul>
 <p>The number of GPUs and CPUs of the container can be set in the <code class="docutils literal notranslate"><span class="pre">resources</span></code> and <code class="docutils literal notranslate"><span class="pre">tolerations</span></code> sections. After successful deployment, the
 IP address of the service can be obtained from the <code class="docutils literal notranslate"><span class="pre">external</span> <span class="pre">IP</span></code> field of the result after issuing the following command:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>kubectl -n <span class="nv">$user_name_space</span> get services
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>kubectl<span class="w"> </span>-n<span class="w"> </span><span class="nv">$user_name_space</span><span class="w"> </span>get<span class="w"> </span>services
 </pre></div>
 </div>
 <p>The Streamlit App can now be accessed at <code class="docutils literal notranslate"><span class="pre">https://&lt;external-ip&gt;:8501</span></code></p>
@@ -417,32 +506,49 @@ IP address of the service can be obtained from the <code class="docutils literal
 
 
            </div>
+           
           </div>
-          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+          <footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
         <a href="dashboard.html" class="btn btn-neutral float-left" title="Remediator Dashboard Navigation" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
     </div>
 
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2022, salesforce.com inc..</p>
-  </div>
+    <p>
+        &#169; Copyright 2022, salesforce.com inc..
 
-  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
     <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
-    provided by <a href="https://readthedocs.org">Read the Docs</a>.
-   
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
 
 </footer>
         </div>
       </div>
+
     </section>
+
   </div>
-  <script>
+  
+
+  <script type="text/javascript">
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(true);
       });
-  </script> 
+  </script>
+
+  
+  
+    
+   
 
 </body>
 </html>
