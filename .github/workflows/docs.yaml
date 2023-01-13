@@ -11,7 +11,7 @@ on:
 jobs:
   build:
 
-    runs-on: ubuntu-18.04
+    runs-on: ubuntu-20.04
 
     steps:
     - uses: actions/checkout@v2
@@ -25,8 +25,8 @@ jobs:
       run: |
         sudo apt-get update
         python -m pip install --upgrade pip setuptools wheel
-        sudo apt-get install openjdk-11-jdk
-        sudo apt-get install pandoc
+        sudo apt-get install --fix-missing openjdk-11-jdk
+        sudo apt-get install --fix-missing pandoc
     - name: Build Sphinx docs
       run: |
         docs/build_docs.sh
