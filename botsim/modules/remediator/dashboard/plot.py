@@ -94,6 +94,7 @@ def plot_tSNE(intents, database, test_id):
     fig = px.scatter( projections, x=0, y=1, color=labels, labels={"color": "intent"})
     fig.update_layout(yaxis_title=None)
     fig.update_layout(xaxis_title=None)
+    fig.update_layout(title_text="<i><b>tSNE cluster visualisation of intent training utterances</b></i>")
     return fig
 
 

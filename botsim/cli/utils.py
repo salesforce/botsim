@@ -10,9 +10,11 @@ def get_argparser():
                         default="Einstein_Bot", required=True)
     parser.add_argument("--test_name", help="name of the test", type=str, required=True)
     parser.add_argument("--metadata_botversions", help="bot design metadata from Salesforce workbench",
-                        type=str, required=True)
+                        type=str )
+                        #type=str, required=True)
     parser.add_argument("--metadata_intent_utterances", help="intent utterance metadata from Salesforce workbench",
-                        type=str, required=True)
+                        type=str)
+                        #type=str, required=True)
     parser.add_argument("--bot_version", help="bot version", type=str, default="1")
     parser.add_argument("--num_t5_paraphrases", help="number of t5 paraphrases per "
                                                      "intent utterance", type=int, default=16)
@@ -22,7 +24,8 @@ def get_argparser():
                         default=-1)
     parser.add_argument("--max_num_simulations", help="number of simulation episodes per intent", type=int, default=-1)
     parser.add_argument("--max_num_dialog_turns", help="number of dialog turns per episode", type=int, default=15)
-    parser.add_argument("--api_credential", help="bot API credential path", type=str, required=True)
+    #parser.add_argument("--api_credential", help="bot API credential path", type=str, required=True)
+    parser.add_argument("--api_credential", help="bot API credential path", type=str)
     return parser
 
 def set_default_simulation_intents(config, module="generator"):

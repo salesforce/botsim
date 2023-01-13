@@ -227,3 +227,5 @@ The information of the aggregated report is used to support the bot health dashb
 
     - Simulation chat logs and associated error information for each episode
     - Detailed intent and NER errors and remediation suggestions
+
+We have prepared a `notebook <https://github.com/salesforce/botsim/blob/main/Einstein_BotBuilder_template_bot.ipynb>`_ to demostrate how to run the BotSIM pipeline using the Template Bot from the Salesforce Einstein BotBuilder platform.

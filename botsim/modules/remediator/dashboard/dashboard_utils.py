@@ -30,9 +30,11 @@ def extract_sentence_transformer_embedding(sentence_transformer, utterances, int
     return embedding, labels
 
 
-def get_embedding(intents, database, test_id="169", paraphrase=False, para_setting="20_20"):
-    config = dict(database.get_one_bot_test_instance(test_id))
-    goals_dir = "data/bots/{}/{}/goals_dir".format(config["type"], test_id)
+def get_embedding(intents, database, test_id="169", paraphrase=False, para_setting="20_20", platform="Einstein_Bot"):
+    if database is not None:
+        config = dict(database.get_one_bot_test_instance(test_id))
+        platform = config["type"]
+    goals_dir = "data/bots/{}/{}/goals_dir".format(platform, test_id)
     dev_embedding, dev_labels = np.empty((0, 384)), {"label": []}
 
     if "STORAGE" in os.environ and os.environ["STORAGE"] == "S3":
@@ -155,9 +157,11 @@ def get_wrong_paraphrase_episode_id(chatlog, intent_query_index=1):
     return query_to_episode
 
 
-def parse_confusion_matrix(database, test_id, mode):
-    config = dict(database.get_one_bot_test_instance(test_id))
-    cm_report_path = "data/bots/{}/{}/remediation/cm_{}_report.json".format(config["type"], test_id, mode)
+def parse_confusion_matrix(database, test_id, mode, platform="Einstein_Bot"):
+    if database is not None:
+        config = dict(database.get_one_bot_test_instance(test_id))
+        platform = config["type"]
+    cm_report_path = "data/bots/{}/{}/remediation/cm_{}_report.json".format(platform, test_id, mode)
 
     if file_exists(S3_BUCKET_NAME, cm_report_path):
         report = read_s3_json(S3_BUCKET_NAME, cm_report_path)
