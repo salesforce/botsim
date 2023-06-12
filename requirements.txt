@@ -10,7 +10,7 @@ matplotlib==3.4.3
 rapidfuzz
 httpx==0.22.0
 asyncio==3.4.3
-transformers==4.16.2
+transformers==4.30.0
 numpy
 sentencepiece==0.1.96
 sentence-transformers==2.1.0
