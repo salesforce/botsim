@@ -19,7 +19,7 @@ google-cloud-dialogflow-cx==1.8.0
 psycopg2-binary
 scikit-learn==0.24.2
 pandas==1.1.5
-streamlit==1.8.1
+streamlit==1.11.1
 streamlit-chat
 plotly
 plotly_express
